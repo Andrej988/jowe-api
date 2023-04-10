@@ -1,0 +1,9 @@
+# https://editorconfig.org/
+root = true
+
+[*.tf]
+charset = utf-8
+insert_final_newline = true
+trim_trailling_whitespace = true
+indent_style = space
+indent_size = 2
