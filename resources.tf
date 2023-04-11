@@ -1,3 +1,9 @@
+module "auth" {
+  source = "./terraform/modules/auth"
+  ENV = var.ENV
+  app_name = var.app_name
+}
+
 module "dynamodb" {
   source = "./terraform/modules/dynamodb"
   ENV = var.ENV
