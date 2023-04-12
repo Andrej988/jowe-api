@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "MeasurementsInsertRequestData",
+  "type": "object",
+  "properties": {
+    "measurement": {
+      "type": "object",
+      "properties": {
+        "date": { "type": "string" },
+        "comment": { "type": "string" },
+        "measurements": {
+          "type": "object",
+          "properties": {
+            "weight": { "type": "number" },
+            "bodyFatPercentage": { "type": "number" },
+            "waterPercentage": { "type": "number" },
+            "muscleMassPercentage": { "type": "number" },
+            "bonePercentage": { "type": "number" },
+            "energyExpenditure": { "type": "number" }
+          },
+          "required": ["weight"]
+        }
+      },
+      "required": ["date", "comment", "measurements"]
+    }
+  }
+}

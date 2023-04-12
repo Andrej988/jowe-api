@@ -1,0 +1,16 @@
+#set($inputRoot = $input.path('$'))
+{
+  "measurement" : {
+    "userId": "$context.authorizer.claims.sub",
+    "date" : "$inputRoot.measurement.date",
+    "comment" : "$inputRoot.measurement.comment",
+    "measurements" : {
+      "weight" : $inputRoot.measurement.measurements.weight,
+      "bodyFatPercentage" : $inputRoot.measurement.measurements.bodyFatPercentage,
+      "waterPercentage" : $inputRoot.measurement.measurements.waterPercentage,
+      "muscleMassPercentage" : $inputRoot.measurement.measurements.muscleMassPercentage,
+      "bonePercentage" : $inputRoot.measurement.measurements.bonePercentage,
+      "energyExpenditure" : $inputRoot.measurement.measurements.energyExpenditure
+    }
+  }
+}

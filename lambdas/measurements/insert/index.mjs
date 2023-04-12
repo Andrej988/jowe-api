@@ -1,7 +1,7 @@
 import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { randomUUID } from "node:crypto";
 
-const REGION = "eu-south-1";
+const REGION = process.env.AWS_REGION;
 const ddbClient = new DynamoDBClient({ region: REGION });
 
 export const handler = async (event) => {
