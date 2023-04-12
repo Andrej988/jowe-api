@@ -1,9 +1,3 @@
-resource "aws_api_gateway_resource" "measurements_resource" {
-  rest_api_id = aws_api_gateway_rest_api.weight_tracker_api.id
-  parent_id   = aws_api_gateway_rest_api.weight_tracker_api.root_resource_id
-  path_part   = "measurements"
-}
-
 resource "aws_api_gateway_method" "get_measurements_method" {
   rest_api_id   = aws_api_gateway_rest_api.weight_tracker_api.id
   resource_id   = aws_api_gateway_resource.measurements_resource.id
@@ -23,4 +17,8 @@ resource "aws_api_gateway_integration" "get_measurements_integration" {
   integration_http_method = aws_api_gateway_method.get_measurements_method.http_method
   type                    = "AWS"
   uri                     = var.api_lambdas["retrieve_measurements"]
+
+  request_templates = {
+    "application/json" = file("./mapping/MeasurementsRetrieveAllMapping.json")
+  }
 }
