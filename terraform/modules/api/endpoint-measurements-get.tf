@@ -8,7 +8,7 @@ resource "aws_api_gateway_method" "get_measurements_method" {
   request_parameters = {
     "method.request.path.proxy" = true,
   }
-  
+
   depends_on = [
     aws_api_gateway_resource.measurements_resource
   ]

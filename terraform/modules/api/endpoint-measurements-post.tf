@@ -43,7 +43,7 @@ resource "aws_api_gateway_method_response" "post_measurements_method_201" {
 
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = true,
-    "method.response.header.location" = true
+    "method.response.header.location"                    = true
   }
 
   depends_on = [
@@ -59,7 +59,7 @@ resource "aws_api_gateway_integration_response" "post_measurements_integration_r
 
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'",
-    "method.response.header.location" = "integration.response.body.measurementId"
+    "method.response.header.location"                    = "integration.response.body.measurementId"
   }
 
   #response_templates = {
