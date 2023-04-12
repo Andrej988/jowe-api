@@ -8,7 +8,6 @@ module "db" {
   source = "./terraform/modules/db"
   ENV = var.ENV
   app_name = var.app_name
-  dynamodb_measurements_table_name = var.dynamodb_measurements_table_name
 }
 
 module "lambda" {
