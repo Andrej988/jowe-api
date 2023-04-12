@@ -1,6 +1,6 @@
 resource "aws_api_gateway_rest_api" "weight_tracker_api" {
   name        = var.ENV == "dev" ? "weight-tracker-api-dev" : "weight-tracker-api"
-  description =      "Weight Tracker API"
+  description = "Weight Tracker API"
   endpoint_configuration {
     types = ["REGIONAL"]
   }
