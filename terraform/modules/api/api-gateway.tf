@@ -7,7 +7,7 @@ resource "aws_api_gateway_rest_api" "weight_tracker_api" {
 }
 
 resource "aws_api_gateway_authorizer" "api_authorizer" {
-  name          = "weight-tracker-auth"
+  name          = var.ENV == "dev" ? "weight-tracker-auth-dev" : "weight-tracker-auth"
   type          = "COGNITO_USER_POOLS"
   rest_api_id   = aws_api_gateway_rest_api.weight_tracker_api.id
   provider_arns = [var.cognito_user_pool_arn]

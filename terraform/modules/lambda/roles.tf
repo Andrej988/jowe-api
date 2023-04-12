@@ -12,12 +12,12 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "weight_tracker_api_lambda_crud" {
-  name               = "weight-tracker-api-lambda-crud"
+  name               = var.ENV == "dev" ? "weight-tracker-api-lambda-crud-dev" : "weight-tracker-api-lambda-crud"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role" "weight_tracker_api_lambda_read_only" {
-  name               = "weight-tracker-api-lambda-read-only"
+  name               = var.ENV == "dev" ? "weight-tracker-api-lambda-read-only-dev" : "weight-tracker-api-lambda-read-only"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 

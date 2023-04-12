@@ -35,14 +35,14 @@ data "aws_iam_policy_document" "dynamo_db_read_only_policy_doc" {
 }
 
 resource "aws_iam_policy" "dynamo_db_crud_policy" {
-  name        = "dynamo_db_crud_policy"
+  name        = var.ENV == "dev" ? "weight-tracker-dynamo_db_crud_policy-measurements-dev" : "weight-tracker-dynamo_db_crud_policy-measurements"
   path        = "/"
   description = "IAM policy for logging crud dynamo db access"
   policy      = data.aws_iam_policy_document.dynamo_db_weight_tracker_measurements_crud_policy.json
 }
 
 resource "aws_iam_policy" "dynamo_db_read_only_policy" {
-  name        = "dynamo_db_read_only_policy"
+  name        = var.ENV == "dev" ? "weight-tracker-dynamo_db_read_only_policy-measurements-dev" : "weight-tracker-dynamo_db_read_only_policy-measurements"
   path        = "/"
   description = "IAM policy for logging read only dynamo db access"
   policy      = data.aws_iam_policy_document.dynamo_db_read_only_policy_doc.json

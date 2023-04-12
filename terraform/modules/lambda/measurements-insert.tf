@@ -6,7 +6,7 @@ data "archive_file" "insert_measurement_zip" {
 
 resource "aws_lambda_function" "insert_measurement_lambda" {
   filename      = data.archive_file.insert_measurement_zip.output_path
-  function_name = "weight-tracker-api-measurements-insert"
+  function_name = var.ENV == "dev" ? "weight-tracker-api-measurements-insert-dev" : "weight-tracker-api-measurements-insert"
   role          = aws_iam_role.weight_tracker_api_lambda_crud.arn
   handler       = "index.handler"
 

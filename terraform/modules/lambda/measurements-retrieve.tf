@@ -6,7 +6,7 @@ data "archive_file" "retrieve_measurements_zip" {
 
 resource "aws_lambda_function" "retrieve_measurements_lambda" {
   filename      = data.archive_file.retrieve_measurements_zip.output_path
-  function_name = "weight-tracker-api-measurements-retrieve"
+  function_name = var.ENV == "dev" ? "weight-tracker-api-measurements-retrieve-dev" : "weight-tracker-api-measurements-retrieve"
   role          = aws_iam_role.weight_tracker_api_lambda_read_only.arn
   handler       = "index.handler"
 

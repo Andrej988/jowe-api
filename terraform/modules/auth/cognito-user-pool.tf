@@ -1,6 +1,5 @@
 resource "aws_cognito_user_pool" "user_pool" {
-  name = "weight-tracker-auth"
-  #name = var.ENV == "dev" ? "weight-tracker-auth-dev" : "weight-tracker-auth"
+  name = var.ENV == "dev" ? "weight-tracker-auth-dev" : "weight-tracker-auth"
 
   #Self-Registration (set false to enable self registration)
   admin_create_user_config {
