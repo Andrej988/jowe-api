@@ -11,3 +11,15 @@ resource "aws_api_gateway_domain_name" "custom_domain_name" {
     "Environment" = var.ENV
   }
 }
+
+resource "aws_api_gateway_base_path_mapping" "custom_domain_name_stage_mapping" {
+  api_id      = aws_api_gateway_rest_api.weight_tracker_api.id
+  stage_name  = aws_api_gateway_stage.weight_tracker_stage.stage_name
+  domain_name = aws_api_gateway_domain_name.custom_domain_name.domain_name
+
+  depends_on = [
+    aws_api_gateway_rest_api.weight_tracker_api,
+    aws_api_gateway_stage.weight_tracker_stage,
+    aws_api_gateway_domain_name.custom_domain_name
+  ]
+}

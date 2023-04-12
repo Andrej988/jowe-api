@@ -8,6 +8,27 @@ resource "aws_api_gateway_method" "get_measurements_method" {
   request_parameters = {
     "method.request.path.proxy" = true,
   }
+  
+  depends_on = [
+    aws_api_gateway_resource.measurements_resource
+  ]
+}
+
+resource "aws_api_gateway_integration" "get_measurements_integration" {
+  rest_api_id             = aws_api_gateway_rest_api.weight_tracker_api.id
+  resource_id             = aws_api_gateway_resource.measurements_resource.id
+  http_method             = aws_api_gateway_method.get_measurements_method.http_method
+  integration_http_method = aws_api_gateway_method.get_measurements_method.http_method
+  type                    = "AWS"
+  uri                     = var.api_lambdas["retrieve_measurements"]
+
+  request_templates = {
+    "application/json" = file("./mapping/MeasurementsGetIntegrationRequestMapping.vtl")
+  }
+
+  depends_on = [
+    aws_api_gateway_method.get_measurements_method
+  ]
 }
 
 resource "aws_api_gateway_method_response" "get_measurements_method_200" {
@@ -25,25 +46,12 @@ resource "aws_api_gateway_method_response" "get_measurements_method_200" {
   }
 
   depends_on = [
-    aws_api_gateway_model.measurments_response_data,
-    aws_api_gateway_method.get_measurements_method
+    aws_api_gateway_integration.get_measurements_integration,
+    aws_api_gateway_model.measurments_response_data
   ]
 }
 
-resource "aws_api_gateway_integration" "get_measurements_integration" {
-  rest_api_id             = aws_api_gateway_rest_api.weight_tracker_api.id
-  resource_id             = aws_api_gateway_resource.measurements_resource.id
-  http_method             = aws_api_gateway_method.get_measurements_method.http_method
-  integration_http_method = aws_api_gateway_method.get_measurements_method.http_method
-  type                    = "AWS"
-  uri                     = var.api_lambdas["retrieve_measurements"]
-
-  request_templates = {
-    "application/json" = file("./mapping/MeasurementsRetrieveAll.json")
-  }
-}
-
-resource "aws_api_gateway_integration_response" "get_measurements_integration_res" {
+resource "aws_api_gateway_integration_response" "get_measurements_integration_res_200" {
   rest_api_id = aws_api_gateway_rest_api.weight_tracker_api.id
   resource_id = aws_api_gateway_resource.measurements_resource.id
   http_method = aws_api_gateway_method.get_measurements_method.http_method
@@ -54,15 +62,12 @@ resource "aws_api_gateway_integration_response" "get_measurements_integration_re
   }
 
   response_templates = {
-    "application/json" = <<EOF
-{
-  "measurements": $input.json('$.measurements')
-}
-EOF
+    "application/json" = file("./mapping/MeasurementsGetIntegrationResponseMapping.vtl")
   }
 
   depends_on = [
-    aws_api_gateway_integration.get_measurements_integration,
-    aws_api_gateway_method.get_measurements_method
+    aws_api_gateway_method_response.get_measurements_method_200
   ]
 }
+
+
