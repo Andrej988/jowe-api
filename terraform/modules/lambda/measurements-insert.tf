@@ -1,6 +1,6 @@
 data "archive_file" "insert_measurement_zip" {
   type        = "zip"
-  source_file = "./lambda/measurements/insert/index.mjs"
+  source_file = "./lambdas/measurements/insert/index.mjs"
   output_path = "./temp/insert_measurement.zip"
 }
 

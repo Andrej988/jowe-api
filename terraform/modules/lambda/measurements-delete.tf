@@ -1,6 +1,6 @@
 data "archive_file" "delete_measurement_zip" {
   type        = "zip"
-  source_file = "./lambda/measurements/delete/index.mjs"
+  source_file = "./lambdas/measurements/delete/index.mjs"
   output_path = "./temp/delete_measurement.zip"
 }
 
