@@ -6,18 +6,18 @@ resource "aws_cognito_user_pool" "user_pool" {
     allow_admin_create_user_only = true
   }
 
-  alias_attributes = [ "email", "preferred_username" ]
+  alias_attributes = ["email", "preferred_username"]
   username_configuration {
     case_sensitive = false
   }
   auto_verified_attributes = ["email"]
 
   password_policy {
-    minimum_length = 8
-    require_lowercase = true
-    require_numbers = true
-    require_symbols = true
-    require_uppercase = true
+    minimum_length                   = 8
+    require_lowercase                = true
+    require_numbers                  = true
+    require_symbols                  = true
+    require_uppercase                = true
     temporary_password_validity_days = 7
   }
 
@@ -35,8 +35,8 @@ resource "aws_cognito_user_pool" "user_pool" {
 
   verification_message_template {
     default_email_option = "CONFIRM_WITH_CODE"
-    email_subject = "Account Confirmation"
-    email_message = "Your confirmation code is {####}"
+    email_subject        = "Account Confirmation"
+    email_message        = "Your confirmation code is {####}"
   }
 
   schema {

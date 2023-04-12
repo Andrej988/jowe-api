@@ -1,16 +1,16 @@
 resource "aws_cognito_user_pool_client" "client" {
   name = var.ENV == "dev" ? "weight-tracker-web-dev" : "weight-tracker-web"
 
-  user_pool_id = aws_cognito_user_pool.user_pool.id
-  generate_secret = false
+  user_pool_id                  = aws_cognito_user_pool.user_pool.id
+  generate_secret               = false
   prevent_user_existence_errors = "ENABLED"
 
-  access_token_validity = 60
-  id_token_validity = 60
+  access_token_validity  = 60
+  id_token_validity      = 60
   refresh_token_validity = 30
   token_validity_units {
-    access_token = "minutes"
-    id_token = "minutes"
+    access_token  = "minutes"
+    id_token      = "minutes"
     refresh_token = "days"
   }
 

@@ -1,7 +1,7 @@
 resource "aws_api_gateway_method" "get_measurements_method" {
   rest_api_id   = aws_api_gateway_rest_api.weight_tracker_api.id
   resource_id   = aws_api_gateway_resource.measurements_resource.id
-  http_method   = "GET" 
+  http_method   = "GET"
   authorization = "COGNITO_USER_POOLS"
   authorizer_id = aws_api_gateway_authorizer.api_authorizer.id
 
