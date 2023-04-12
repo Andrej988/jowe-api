@@ -23,6 +23,6 @@ resource "aws_lambda_function" "retrieve_measurements_lambda" {
   depends_on = [
     aws_iam_role.weight_tracker_api_lambda_read_only,
     aws_iam_role_policy_attachment.weight_tracker_api_lambda_read_only_AWSLambdaBasicExecutionRole_attachment,
-    aws_iam_role_policy_attachment.weight_tracker_api_lambda_read_only_dynamodb_role_attachment,
+    aws_iam_role_policy_attachment.weight_tracker_api_lambda_dynamodb_read_only_role_attachment_measurements,
   ]
 }

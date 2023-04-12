@@ -1,4 +1,4 @@
-data "aws_iam_policy_document" "dynamo_db_weight_tracker_measurements_crud_policy" {
+data "aws_iam_policy_document" "dynamodb_weight_tracker_measurements_crud_policy" {
   statement {
     effect = "Allow"
 
@@ -18,7 +18,7 @@ data "aws_iam_policy_document" "dynamo_db_weight_tracker_measurements_crud_polic
   }
 }
 
-data "aws_iam_policy_document" "dynamo_db_read_only_policy_doc" {
+data "aws_iam_policy_document" "dynamodb_read_only_policy_doc" {
   statement {
     effect = "Allow"
 
@@ -34,16 +34,16 @@ data "aws_iam_policy_document" "dynamo_db_read_only_policy_doc" {
   }
 }
 
-resource "aws_iam_policy" "dynamo_db_crud_policy" {
-  name        = var.ENV == "dev" ? "weight-tracker-dynamo_db_crud_policy-measurements-dev" : "weight-tracker-dynamo_db_crud_policy-measurements"
+resource "aws_iam_policy" "dynamodb_measurements_crud_policy" {
+  name        = var.ENV == "dev" ? "weight-tracker-dynamodb-measurements-crud-policy-dev" : "weight-tracker-dynamodb-measurements-crud-policy"
   path        = "/"
   description = "IAM policy for logging crud dynamo db access"
-  policy      = data.aws_iam_policy_document.dynamo_db_weight_tracker_measurements_crud_policy.json
+  policy      = data.aws_iam_policy_document.dynamodb_weight_tracker_measurements_crud_policy.json
 }
 
-resource "aws_iam_policy" "dynamo_db_read_only_policy" {
-  name        = var.ENV == "dev" ? "weight-tracker-dynamo_db_read_only_policy-measurements-dev" : "weight-tracker-dynamo_db_read_only_policy-measurements"
+resource "aws_iam_policy" "dynamodb_measurements_read_only_policy" {
+  name        = var.ENV == "dev" ? "weight-tracker-dynamodb-measurements-read-only-policy-dev" : "weight-tracker-dynamodb-measurements-read-only-policy"
   path        = "/"
   description = "IAM policy for logging read only dynamo db access"
-  policy      = data.aws_iam_policy_document.dynamo_db_read_only_policy_doc.json
+  policy      = data.aws_iam_policy_document.dynamodb_read_only_policy_doc.json
 }

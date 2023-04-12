@@ -23,6 +23,6 @@ resource "aws_lambda_function" "insert_measurement_lambda" {
   depends_on = [
     aws_iam_role.weight_tracker_api_lambda_crud,
     aws_iam_role_policy_attachment.weight_tracker_api_lambda_crud_AWSLambdaBasicExecutionRole_attachment,
-    aws_iam_role_policy_attachment.weight_tracker_api_lambda_crud_dynamodb_role_attachment,
+    aws_iam_role_policy_attachment.weight_tracker_api_lambda_dynamodb_crud_role_attachment_measurements,
   ]
 }

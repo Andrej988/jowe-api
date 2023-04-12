@@ -12,8 +12,7 @@ module "db" {
 
 module "lambda" {
   source = "./terraform/modules/lambda"
-  dynamodb_read_only_policy_arn = module.db.dynamo_db_weight_tracker_read_only_policy
-  dynamodb_crud_policy_arn = module.db.dynamo_db_weight_tracker_crud_policy
+  dynamodb_policies = module.db.dynamodb_policies
   ENV = var.ENV
   app_name = var.app_name
 }
