@@ -13,7 +13,7 @@ resource "aws_lambda_function" "insert_measurement_lambda" {
   source_code_hash = data.archive_file.insert_measurement_zip.output_base64sha256
 
   runtime = "nodejs18.x"
-
+  
   tags = {
     Name        = "weight-tracker-api-measurements-insert"
     Environment = var.ENV

@@ -12,9 +12,9 @@ module "db" {
 
 module "lambda" {
   source = "./terraform/modules/lambda"
-  dynamodb_policies = module.db.dynamodb_policies
   ENV = var.ENV
   app_name = var.app_name
+  dynamodb_policies = module.db.dynamodb_policies
 }
 
 module "api" {

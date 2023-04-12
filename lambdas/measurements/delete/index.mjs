@@ -1,6 +1,6 @@
 import { DynamoDBClient, DeleteItemCommand } from "@aws-sdk/client-dynamodb";
 
-const REGION = "eu-south-1";
+const REGION = process.env.AWS_REGION;
 const ddbClient = new DynamoDBClient({ region: REGION });
 
 export const handler = async (event) => {
