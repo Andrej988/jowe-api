@@ -1,10 +1,10 @@
 variable "AWS_ACCESS_KEY_ID" {
-  type = string
+  type      = string
   sensitive = true
 }
 
 variable "AWS_SECRET_ACCESS_KEY" {
-  type = string
+  type      = string
   sensitive = true
 }
 
@@ -25,11 +25,11 @@ variable "ENV" {
 }
 
 variable "app_name" {
-  type = string
+  type    = string
   default = "weight-tracker"
 }
 
 variable "TF_LOG" {
-  type = string
+  type    = string
   default = "DEBUG"
 }
