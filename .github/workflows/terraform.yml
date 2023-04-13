@@ -8,6 +8,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 jobs:
   terraform:
@@ -57,8 +58,6 @@ jobs:
           AWS_REGION: ${{ vars.AWS_REGION }}
           DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
           ENV: ${{ vars.ENV }}
-          TERRAFORM_CLOUD_ORGANIZATION: ${{ vars.TERRAFORM_CLOUD_ORGANIZATION }}
-          TERRAFORM_CLOUD_WORKSPACE: ${{ vars.TERRAFORM_CLOUD_WORKSPACE }}
         run: terraform plan -no-color -input=false
         continue-on-error: true
 
@@ -114,6 +113,4 @@ jobs:
           AWS_REGION: ${{ vars.AWS_REGION }}
           DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
           ENV: ${{ vars.ENV }}
-          TERRAFORM_CLOUD_ORGANIZATION: ${{ vars.TERRAFORM_CLOUD_ORGANIZATION }}
-          TERRAFORM_CLOUD_WORKSPACE: ${{ vars.TERRAFORM_CLOUD_WORKSPACE }}
         run: terraform apply -auto-approve -input=false

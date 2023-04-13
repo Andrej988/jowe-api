@@ -1,9 +1,9 @@
 terraform {
   cloud {
-    organization = var.TERRAFORM_CLOUD_ORGANIZATION
+    organization = "initialised-si"
 
     workspaces {
-      name = var.TERRAFORM_CLOUD_WORKSPACE
+      name = "Weight-Tracker-API"
     }
   }
   required_providers {
