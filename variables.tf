@@ -1,7 +1,9 @@
-variable "ENV" {}
 variable "AWS_REGION" {}
+variable "AWS_CERTIFICATE_ARN" {}
 variable "DOMAIN_NAME" {}
-variable "CERTIFICATE_ARN" {}
+variable "ENV" {}
+variable "TERRAFORM_CLOUD_ORGANIZATION" {}
+variable "TERRAFORM_CLOUD_WORKSPACE" {}
 
 variable "app_name" {
   default = "weight-tracker"

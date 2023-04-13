@@ -21,7 +21,7 @@ module "api" {
   source                = "./terraform/modules/api"
   ENV                   = var.ENV
   DOMAIN_NAME           = var.DOMAIN_NAME
-  CERTIFICATE_ARN       = var.CERTIFICATE_ARN
+  AWS_CERTIFICATE_ARN   = var.AWS_CERTIFICATE_ARN
   app_name              = var.app_name
   cognito_user_pool_arn = module.auth.cognito_user_pool_arn
   api_lambdas           = module.lambda.api_lambdas
