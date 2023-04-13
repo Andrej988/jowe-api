@@ -38,21 +38,26 @@ jobs:
       - name: Terraform Format
         id: fmt
         run: terraform fmt -check -recursive
+        continue-on-error: true
 
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         id: init
+        if: steps.fmt.outcome != 'failure'
         run: terraform init
+        continue-on-error: true
 
       # Validates terraform configuration
       - name: Terraform Validate
         id: validate
+        if: steps.init.outcome != 'failure'
         run: terraform validate -no-color
+        continue-on-error: true
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
         id: plan
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' && steps.validate.outcome != 'failure'
         env:
           TF_VAR_AWS_CERTIFICATE_ARN: ${{ vars.AWS_CERTIFICATE_ARN }}
           TF_VAR_AWS_REGION: ${{ vars.AWS_REGION }}
@@ -94,7 +99,7 @@ jobs:
 
       # Stops the workflow if terraform plan failed (stop after updating pull request)
       - name: Terraform Plan Status
-        if: steps.plan.outcome == 'failure'
+        if: steps.fmt.outcome == 'failure' || steps.init.outcome == 'failure' || steps.validate.outcome == 'failure' || steps.plan.outcome == 'failure'
         run: exit 1
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
