@@ -2,19 +2,19 @@ name: "Terraform"
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   pull_request:
+    branches: ["main"]
 
-#permissions:
-#contents: read
+permissions:
+  contents: read
 
 jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
+    #permissions:
+    #  pull-requests: write
     environment: production
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
