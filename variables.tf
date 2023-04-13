@@ -1,3 +1,5 @@
+variable "TERRAFORM_CLOUD_ORGANIZATION" {}
+variable "TERRAFORM_CLOUD_WORKSPACE" {}
 variable "ENV" {}
 variable "AWS_REGION" {}
 variable "DOMAIN_NAME" {}
