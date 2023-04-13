@@ -42,7 +42,7 @@ resource "aws_api_gateway_method_response" "get_measurements_id_method_200" {
   }
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin"      = true
+    "method.response.header.Access-Control-Allow-Origin" = true
   }
 
   depends_on = [
