@@ -1,2 +1,2 @@
 # weight-tracker-api
-API for Weight Tracker application
+API for Weight Tracker application.
