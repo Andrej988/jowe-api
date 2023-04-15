@@ -35,7 +35,7 @@ resource "aws_cognito_user_pool" "user_pool" {
 
   verification_message_template {
     default_email_option = "CONFIRM_WITH_CODE"
-    email_subject        = "Account Confirmation"
+    email_subject        = "Weight-Tracker Account Confirmation"
     email_message        = "Your confirmation code is {####}"
   }
 
