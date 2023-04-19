@@ -16,7 +16,7 @@ resource "aws_lambda_function" "retrieve_measurements_lambda" {
 
   environment {
     variables = {
-      TABLE_NAME = dynamodb_tables["measurements"]
+      TABLE_NAME = var.dynamodb_tables["measurements"]
     }
   }
 
