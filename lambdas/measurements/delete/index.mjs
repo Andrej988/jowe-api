@@ -5,7 +5,7 @@ const ddbClient = new DynamoDBClient({ region: REGION });
 
 export const handler = async (event) => {
   const params = {
-    TableName: "weight-tracker",
+    TableName: process.env.TABLE_NAME,
     Key: {
       UserId: { S: event.userId },
       MeasurementId: { S: "" + event.measurementId },

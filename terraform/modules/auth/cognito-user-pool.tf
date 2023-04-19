@@ -1,5 +1,5 @@
 resource "aws_cognito_user_pool" "user_pool" {
-  name = var.ENV == "dev" ? "weight-tracker-auth-dev" : "weight-tracker-auth"
+  name = var.ENV == "dev" ? "health-tracker-auth-dev" : "health-tracker-auth"
 
   #Self-Registration (set false to enable self registration)
   admin_create_user_config {
@@ -35,7 +35,7 @@ resource "aws_cognito_user_pool" "user_pool" {
 
   verification_message_template {
     default_email_option = "CONFIRM_WITH_CODE"
-    email_subject        = "Weight-Tracker Account Confirmation"
+    email_subject        = "Health-Tracker Account Confirmation"
     email_message        = "Your confirmation code is {####}"
   }
 
@@ -90,7 +90,7 @@ resource "aws_cognito_user_pool" "user_pool" {
   }
 
   tags = {
-    Name        = "weight_tracker_user_pool"
+    Name        = "health_tracker_user_pool"
     Environment = var.ENV
     App         = var.app_name
   }
