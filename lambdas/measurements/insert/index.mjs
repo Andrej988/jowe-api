@@ -8,7 +8,7 @@ export const handler = async (event) => {
   const measurementId = randomUUID();
 
   const measurement = {
-    TableName: "weight-tracker",
+    TableName: process.env.TABLE_NAME,
     Item: {
       UserId: {
         S: event.measurement.userId,

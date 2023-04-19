@@ -15,6 +15,7 @@ module "lambda" {
   ENV               = var.ENV
   app_name          = var.app_name
   dynamodb_policies = module.db.dynamodb_policies
+  dynamodb_tables   = module.db.dynamodb_tables
 }
 
 module "api" {

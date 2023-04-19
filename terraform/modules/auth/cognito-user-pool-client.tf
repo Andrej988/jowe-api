@@ -1,5 +1,5 @@
 resource "aws_cognito_user_pool_client" "client" {
-  name = var.ENV == "dev" ? "weight-tracker-web-dev" : "weight-tracker-web"
+  name = var.ENV == "dev" ? "health-tracker-web-dev" : "health-tracker-web"
 
   user_pool_id                  = aws_cognito_user_pool.user_pool.id
   generate_secret               = false

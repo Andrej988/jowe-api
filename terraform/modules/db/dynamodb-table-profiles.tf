@@ -1,5 +1,5 @@
-resource "aws_dynamodb_table" "weight_tracker_profiles" {
-  name         = var.ENV == "dev" ? "weight-tracker-profiles-dev" : "weight-tracker-profiles"
+resource "aws_dynamodb_table" "health_tracker_profiles" {
+  name         = var.ENV == "dev" ? "health-tracker-profiles-dev" : "health-tracker-profiles"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "UserId"
 
@@ -26,7 +26,7 @@ resource "aws_dynamodb_table" "weight_tracker_profiles" {
   #}
 
   tags = {
-    Name        = "dynamodb-table-weight-tracker-profiles"
+    Name        = "dynamodb-table-health-tracker-profiles"
     Environment = var.ENV
     App         = var.app_name
   }

@@ -7,3 +7,11 @@ output "dynamodb_policies" {
     profiles_read_only     = aws_iam_policy.dynamodb_profiles_read_only_policy.arn
   }
 }
+
+output "dynamodb_tables" {
+  description = "Dynamodb tables"
+  value = {
+    measurements = aws_dynamodb_table.health_tracker_measurements.name
+    profiles     = aws_dynamodb_table.health_tracker_profiles.name
+  }
+}

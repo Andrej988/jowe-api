@@ -26,7 +26,7 @@ variable "ENV" {
 
 variable "app_name" {
   type    = string
-  default = "weight-tracker"
+  default = "health-tracker"
 }
 
 variable "TF_LOG" {
