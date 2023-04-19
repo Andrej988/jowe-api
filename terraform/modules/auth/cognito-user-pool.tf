@@ -1,5 +1,5 @@
 resource "aws_cognito_user_pool" "user_pool" {
-  name = var.ENV == "dev" ? "health-tracker-auth-dev" : "health-tracker-auth"
+  name = var.ENV == "dev" ? "health-tracker-dev" : "health-tracker"
 
   #Self-Registration (set false to enable self registration)
   admin_create_user_config {
