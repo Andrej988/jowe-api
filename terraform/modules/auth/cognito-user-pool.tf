@@ -1,5 +1,5 @@
 resource "aws_cognito_user_pool" "user_pool" {
-  name = var.ENV == "dev" ? "health-tracker-dev" : "health-tracker"
+  name = var.ENV == "dev" ? "${var.app_name}-dev" : var.app_name
 
   #Self-Registration (set false to enable self registration)
   admin_create_user_config {
@@ -35,8 +35,8 @@ resource "aws_cognito_user_pool" "user_pool" {
 
   verification_message_template {
     default_email_option = "CONFIRM_WITH_CODE"
-    email_subject        = "Health-Tracker Account Confirmation"
-    email_message        = "Your confirmation code is {####}"
+    email_subject        = "JoWe Account Confirmation"
+    email_message        = "Your JoWe (Journal for Wellness) account confirmation code is {####}"
   }
 
   schema {
@@ -90,7 +90,7 @@ resource "aws_cognito_user_pool" "user_pool" {
   }
 
   tags = {
-    Name        = "health_tracker_user_pool"
+    Name        = "${var.app_name}_user_pool"
     Environment = var.ENV
     App         = var.app_name
   }

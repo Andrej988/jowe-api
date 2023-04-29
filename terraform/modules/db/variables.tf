@@ -1,2 +1,3 @@
-variable "app_name" {}
 variable "ENV" {}
+variable "app_name" {}
+variable "project_name" {}

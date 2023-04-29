@@ -3,7 +3,7 @@ terraform {
     organization = "initialised-si"
 
     workspaces {
-      name = "Health-Tracker-API"
+      name = "JoWe-API"
     }
   }
   required_providers {

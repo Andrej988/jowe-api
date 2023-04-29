@@ -1,8 +1,8 @@
-resource "aws_api_gateway_deployment" "health_tracker_api_deployment" {
-  rest_api_id = aws_api_gateway_rest_api.health_tracker_api.id
+resource "aws_api_gateway_deployment" "jowe_api_deployment" {
+  rest_api_id = aws_api_gateway_rest_api.jowe_api.id
 
   triggers = {
-    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.health_tracker_api.body))
+    redeployment = sha1(jsonencode(aws_api_gateway_rest_api.jowe_api.body))
   }
 
   lifecycle {
@@ -10,7 +10,7 @@ resource "aws_api_gateway_deployment" "health_tracker_api_deployment" {
   }
 
   depends_on = [
-    aws_api_gateway_rest_api.health_tracker_api,
+    aws_api_gateway_rest_api.jowe_api,
 
     # Measurements Endpoint
     aws_api_gateway_resource.measurements_resource,
@@ -33,19 +33,19 @@ resource "aws_api_gateway_deployment" "health_tracker_api_deployment" {
   ]
 }
 
-resource "aws_api_gateway_stage" "health_tracker_stage" {
-  deployment_id = aws_api_gateway_deployment.health_tracker_api_deployment.id
-  rest_api_id   = aws_api_gateway_rest_api.health_tracker_api.id
+resource "aws_api_gateway_stage" "jowe_stage" {
+  deployment_id = aws_api_gateway_deployment.jowe_api_deployment.id
+  rest_api_id   = aws_api_gateway_rest_api.jowe_api.id
   stage_name    = var.ENV
 
   depends_on = [
-    aws_api_gateway_deployment.health_tracker_api_deployment
+    aws_api_gateway_deployment.jowe_api_deployment
   ]
 }
 
-#resource "aws_api_gateway_method_settings" "health_tracker_stage_settings" {
-#  rest_api_id = aws_api_gateway_rest_api.health_tracker_api.id
-#  stage_name  = aws_api_gateway_stage.health_tracker_stage.stage_name
+#resource "aws_api_gateway_method_settings" "jowe_stage_settings" {
+#  rest_api_id = aws_api_gateway_rest_api.jowe_api.id
+#  stage_name  = aws_api_gateway_stage.jowe_stage.stage_name
 #  method_path = "*/*"
 #
 #  settings {
@@ -54,6 +54,6 @@ resource "aws_api_gateway_stage" "health_tracker_stage" {
 #  }
 #
 #  depends_on = [
-#    aws_api_gateway_stage.health_tracker_stage
+#    aws_api_gateway_stage.jowe_stage
 #  ]
 #}
