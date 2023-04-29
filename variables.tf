@@ -26,7 +26,12 @@ variable "ENV" {
 
 variable "app_name" {
   type    = string
-  default = "health-tracker"
+  default = "JoWe"
+}
+
+variable "project_name" {
+  type    = string
+  default = "JoWe-api"
 }
 
 variable "TF_LOG" {

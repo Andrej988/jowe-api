@@ -1,5 +1,5 @@
-[![Terraform](https://github.com/Andrej988/health-tracker-api/actions/workflows/terraform.yml/badge.svg)](https://github.com/Andrej988/health-tracker-api/actions/workflows/terraform.yml)
+[![Terraform](https://github.com/Andrej988/jowe-api/actions/workflows/terraform.yml/badge.svg)](https://github.com/Andrej988/jowe-api/actions/workflows/terraform.yml)
 
-# Health Tracker API
+# JoWe (Journal for Wellness) API
 
-API for Health Tracker application.
+Backend (API) for JoWe (Journal for Wellness) application.

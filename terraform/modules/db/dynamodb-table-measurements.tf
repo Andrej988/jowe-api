@@ -1,5 +1,5 @@
-resource "aws_dynamodb_table" "health_tracker_measurements" {
-  name         = var.ENV == "dev" ? "health-tracker-measurements-dev" : "health-tracker-measurements"
+resource "aws_dynamodb_table" "jowe_measurements" {
+  name         = var.ENV == "dev" ? "${var.app_name}-measurements-dev" : "${var.app_name}-measurements"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "UserId"
   range_key    = "MeasurementId"
@@ -66,7 +66,7 @@ resource "aws_dynamodb_table" "health_tracker_measurements" {
   #}
 
   tags = {
-    Name        = "dynamodb-table-health-tracker-measurements"
+    Name        = "dynamodb-table-${var.app_name}-measurements"
     Environment = var.ENV
     App         = var.app_name
   }
