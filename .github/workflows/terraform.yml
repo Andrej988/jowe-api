@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     #permissions:
     #  pull-requests: write
-    environment: production
+    #environment: production
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
