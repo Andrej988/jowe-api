@@ -24,7 +24,7 @@ resource "aws_api_gateway_integration" "post_measurements_integration" {
   http_method             = aws_api_gateway_method.post_measurements_method.http_method
   integration_http_method = aws_api_gateway_method.post_measurements_method.http_method
   type                    = "AWS"
-  uri                     = var.api_lambdas["insert_measurement"]
+  uri                     = var.api_lambdas_arns["insert_measurement"]
 
   request_templates = {
     "application/json" = file("./mapping/MeasurementsPostIntegrationRequestMapping.vtl")

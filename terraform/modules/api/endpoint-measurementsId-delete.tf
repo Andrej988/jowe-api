@@ -16,7 +16,7 @@ resource "aws_api_gateway_integration" "delete_measurements_id_integration" {
   http_method             = aws_api_gateway_method.delete_measurements_id_method.http_method
   integration_http_method = aws_api_gateway_method.delete_measurements_id_method.http_method
   type                    = "AWS"
-  uri                     = var.api_lambdas["delete_measurement"]
+  uri                     = var.api_lambdas_arns["delete_measurement"]
 
   request_templates = {
     "application/json" = file("./mapping/MeasurementIdDeleteIntegrationRequestMapping.vtl")

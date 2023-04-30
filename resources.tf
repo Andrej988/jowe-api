@@ -29,5 +29,6 @@ module "api" {
   app_name              = var.app_name
   project_name          = var.project_name
   cognito_user_pool_arn = module.auth.cognito_user_pool_arn
-  api_lambdas           = module.lambda.api_lambdas
+  api_lambdas_arns      = module.lambda.api_lambdas_arns
+  api_lambdas_names     = module.lambda.api_lambdas_names
 }
