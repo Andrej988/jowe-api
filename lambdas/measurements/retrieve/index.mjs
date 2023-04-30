@@ -8,7 +8,7 @@ const REGION = process.env.AWS_REGION;
 const ddbClient = new DynamoDBClient({ region: REGION });
 
 export const handler = async (event) => {
-  const tableName = process.env.TABLE_NAME,
+  const tableName = process.env.TABLE_NAME;
   console.log("UserId:", event.UserId);
   console.log("MeasurementId:", event.MeasurementId);
 
