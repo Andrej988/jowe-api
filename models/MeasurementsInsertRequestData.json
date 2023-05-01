@@ -7,7 +7,7 @@
       "type": "object",
       "properties": {
         "date": { "type": "string" },
-        "comment": { "type": "string" },
+        "note": { "type": "string" },
         "measurements": {
           "type": "object",
           "properties": {
