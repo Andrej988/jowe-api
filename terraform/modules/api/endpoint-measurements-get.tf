@@ -21,22 +21,22 @@ resource "aws_lambda_permission" "gateway_lambda_permission_retrieve_all_measure
 
   source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/GET/measurements"
 
-  depends_on = [ 
+  depends_on = [
     aws_api_gateway_rest_api.jowe_api,
-    aws_api_gateway_method.get_measurements_method 
+    aws_api_gateway_method.get_measurements_method
   ]
 }
 
 resource "aws_api_gateway_integration" "get_measurements_integration" {
-  rest_api_id             = aws_api_gateway_rest_api.jowe_api.id
-  resource_id             = aws_api_gateway_resource.measurements_resource.id
-  http_method             = aws_api_gateway_method.get_measurements_method.http_method
-  
+  rest_api_id = aws_api_gateway_rest_api.jowe_api.id
+  resource_id = aws_api_gateway_resource.measurements_resource.id
+  http_method = aws_api_gateway_method.get_measurements_method.http_method
+
   # This has to be POST per Lambda integration limitations: Does not support GET integration method
   integration_http_method = "POST"
 
-  type                    = "AWS"
-  uri                     = var.api_lambdas_arns["retrieve_measurements"]
+  type = "AWS"
+  uri  = var.api_lambdas_arns["retrieve_measurements"]
 
   request_templates = {
     "application/json" = file("./mapping/MeasurementsGetIntegrationRequestMapping.vtl")
