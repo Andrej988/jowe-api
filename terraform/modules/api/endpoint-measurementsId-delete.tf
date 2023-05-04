@@ -18,6 +18,7 @@ resource "aws_api_gateway_integration" "delete_measurements_id_integration" {
   type                    = "AWS"
   uri                     = var.api_lambdas_arns["delete_measurement"]
 
+  passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
     "application/json" = file("./mapping/MeasurementIdDeleteIntegrationRequestMapping.vtl")
   }

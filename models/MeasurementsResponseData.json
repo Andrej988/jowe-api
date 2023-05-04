@@ -12,7 +12,7 @@
           "measurementId": { "type": "string" },
           "timestamp": { "type": "number" },
           "date": { "type": "string" },
-          "comment": { "type": "string" },
+          "note": { "type": "string" },
           "measurements": {
             "type": "object",
             "properties": {
@@ -31,7 +31,6 @@
           "measurementId",
           "timestamp",
           "date",
-          "comment",
           "measurements"
         ]
       }

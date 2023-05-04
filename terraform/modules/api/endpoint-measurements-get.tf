@@ -38,6 +38,7 @@ resource "aws_api_gateway_integration" "get_measurements_integration" {
   type = "AWS"
   uri  = var.api_lambdas_arns["retrieve_measurements"]
 
+  passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
     "application/json" = file("./mapping/MeasurementsGetIntegrationRequestMapping.vtl")
   }
