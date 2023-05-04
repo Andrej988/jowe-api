@@ -49,11 +49,11 @@ resource "aws_api_gateway_integration" "post_measurements_integration" {
   ]
 }
 
-resource "aws_api_gateway_method_response" "post_measurements_method_201" {
+resource "aws_api_gateway_method_response" "post_measurements_method_200" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
   resource_id = aws_api_gateway_resource.measurements_resource.id
   http_method = aws_api_gateway_method.post_measurements_method.http_method
-  status_code = 201
+  status_code = 200
 
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = true,
@@ -88,11 +88,11 @@ resource "aws_api_gateway_method_response" "post_measurements_method_400" {
   ]
 }
 
-resource "aws_api_gateway_integration_response" "post_measurements_integration_res_201" {
+resource "aws_api_gateway_integration_response" "post_measurements_integration_res_200" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
   resource_id = aws_api_gateway_resource.measurements_resource.id
   http_method = aws_api_gateway_method.post_measurements_method.http_method
-  status_code = aws_api_gateway_method_response.post_measurements_method_201.status_code
+  status_code = aws_api_gateway_method_response.post_measurements_method_200.status_code
 
   response_parameters = {
     "method.response.header.Access-Control-Allow-Origin" = "'*'",
@@ -106,7 +106,7 @@ resource "aws_api_gateway_integration_response" "post_measurements_integration_r
   #}
 
   depends_on = [
-    aws_api_gateway_method_response.post_measurements_method_201
+    aws_api_gateway_method_response.post_measurements_method_200
   ]
 }
 
