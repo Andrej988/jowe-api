@@ -9,6 +9,12 @@ resource "aws_api_gateway_deployment" "jowe_api_deployment" {
     create_before_destroy = true
   }
 
+  # Added to force terraform to recreate deployment on each run
+  # This is a work around and will always be marked as a change
+  variables = {
+    deployed_at = "${timestamp()}"
+  }
+
   depends_on = [
     aws_api_gateway_rest_api.jowe_api,
 
