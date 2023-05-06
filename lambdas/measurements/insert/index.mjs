@@ -20,9 +20,6 @@ const buildErrorResponse = (statusCode, errorText) => {
     statusCode: statusCode,
     headers: {
       "Content-Type": "application/json",
-      "Access-Control-Allow-Headers": "Content-Type",
-      "Access-Control-Allow-Origin": "'*'",
-      "Access-Control-Allow-Methods": "OPTIONS,POST,GET",
     },
     body: errorText,
   };
@@ -58,7 +55,7 @@ export const handler = async (event, context) => {
         N: "" + Date.now(),
       },
       Date: {
-        S: date,
+        N: "" + date,
       },
       Weight: {
         N: "" + weight,

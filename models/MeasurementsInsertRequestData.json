@@ -6,7 +6,7 @@
     "measurement": {
       "type": "object",
       "properties": {
-        "date": { "type": "string" },
+        "date": { "type": "number" },
         "note": { "type": "string" },
         "measurements": {
           "type": "object",

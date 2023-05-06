@@ -8,7 +8,7 @@
 {
   "measurement" : {
     "userId": "$context.authorizer.claims.sub",
-    "date": "$inputRoot.measurement.date",
+    "date": $inputRoot.measurement.date,
     #if($hasNote) "note": "$inputRoot.measurement.note", #end
     "measurements": {
       "weight" : $inputRoot.measurement.measurements.weight
