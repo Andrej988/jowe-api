@@ -1,3 +1,5 @@
+"use strict";
+
 import { DynamoDBClient, DeleteItemCommand } from "@aws-sdk/client-dynamodb";
 
 const REGION = process.env.AWS_REGION;

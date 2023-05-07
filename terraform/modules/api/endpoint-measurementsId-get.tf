@@ -16,7 +16,7 @@ resource "aws_api_gateway_method" "get_measurements_id_method" {
 
 resource "aws_lambda_permission" "gateway_lambda_permission_retrieve_single_measurements" {
   action        = "lambda:InvokeFunction"
-  function_name = var.api_lambdas_names["retrieve_measurements"]
+  function_name = var.api_lambdas_names["weight_measurements_retrieve"]
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/GET/measurements"
@@ -37,7 +37,7 @@ resource "aws_api_gateway_integration" "get_measurements_id_integration" {
   integration_http_method = "POST"
 
   type = "AWS"
-  uri  = var.api_lambdas_arns["retrieve_measurements"]
+  uri  = var.api_lambdas_arns["weight_measurements_retrieve"]
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {

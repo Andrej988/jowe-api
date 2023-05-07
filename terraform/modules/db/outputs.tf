@@ -11,7 +11,7 @@ output "dynamodb_policies" {
 output "dynamodb_tables" {
   description = "Dynamodb tables"
   value = {
-    measurements = aws_dynamodb_table.jowe_measurements.name
-    profiles     = aws_dynamodb_table.jowe_profiles.name
+    weight_measurements = aws_dynamodb_table.jowe_measurements.name
+    profiles            = aws_dynamodb_table.jowe_profiles.name
   }
 }
