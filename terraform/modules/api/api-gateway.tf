@@ -19,3 +19,31 @@ resource "aws_api_gateway_request_validator" "jowe_api_request_validator" {
   validate_request_body       = true
   validate_request_parameters = true
 }
+
+resource "aws_api_gateway_gateway_response" "jowe_api_gateway_response_default_4XX" {
+  rest_api_id         = aws_api_gateway_rest_api.jowe_api.id
+  response_type       = "DEFAULT_4XX"
+
+  response_parameters = {
+    "gatewayresponse.header.Access-Control-Allow-Origin"  = "'*'"
+    "gatewayresponse.header.Access-Control-Allow-Methods" = "'OPTIONS'"
+  }
+
+  depends_on = [ 
+    aws_api_gateway_rest_api.jowe_api,
+  ]
+}
+
+resource "aws_api_gateway_gateway_response" "jowe_api_gateway_response_default_5XX" {
+  rest_api_id         = aws_api_gateway_rest_api.jowe_api.id
+  response_type       = "DEFAULT_5XX"
+
+  response_parameters = {
+    "gatewayresponse.header.Access-Control-Allow-Origin"  = "'*'"
+    "gatewayresponse.header.Access-Control-Allow-Methods" = "'OPTIONS'"
+  }
+
+  depends_on = [ 
+    aws_api_gateway_rest_api.jowe_api,
+  ]
+}
