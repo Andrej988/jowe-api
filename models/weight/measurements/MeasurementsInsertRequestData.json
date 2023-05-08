@@ -6,8 +6,8 @@
     "measurement": {
       "type": "object",
       "properties": {
-        "date": { "type": "string" },
-        "comment": { "type": "string" },
+        "date": { "type": "number" },
+        "note": { "type": "string" },
         "measurements": {
           "type": "object",
           "properties": {
@@ -21,7 +21,7 @@
           "required": ["weight"]
         }
       },
-      "required": ["date", "comment", "measurements"]
+      "required": ["date", "measurements"]
     }
   }
 }

@@ -140,3 +140,7 @@ terraform.rc
 
 # Zipped files (used in terraform)
 *.zip
+
+# NodeJS / Javascript
+**/node_modules
+**/jspm_packages

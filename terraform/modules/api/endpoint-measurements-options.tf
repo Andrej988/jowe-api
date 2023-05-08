@@ -15,8 +15,9 @@ resource "aws_api_gateway_integration" "options_measurements_integration" {
   http_method = aws_api_gateway_method.options_measurements_method.http_method
   type        = "MOCK"
 
+  passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
-    "application/json" = file("./mapping/OptionsIntegrationRequestMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/OptionsIntegrationRequestMapping.vtl")
   }
 
   depends_on = [

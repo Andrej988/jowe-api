@@ -1,0 +1,4 @@
+#set($hasNoMeasurements =  $input.json('$.body.measurements').isEmpty())
+{
+  "measurements": #if($hasNoMeasurements) [] #else $input.json('$.body.measurements') #end
+}

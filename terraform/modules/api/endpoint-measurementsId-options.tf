@@ -15,8 +15,9 @@ resource "aws_api_gateway_integration" "options_measurements_id_integration" {
   http_method = aws_api_gateway_method.options_measurements_id_method.http_method
   type        = "MOCK"
 
+  passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
-    "application/json" = file("./mapping/OptionsIntegrationRequestMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/OptionsIntegrationRequestMapping.vtl")
   }
 
   depends_on = [
@@ -53,7 +54,7 @@ resource "aws_api_gateway_integration_response" "options_measurements_id_integra
 
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
-    "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
+    "method.response.header.Access-Control-Allow-Methods" = "'DELETE,GET,OPTIONS,POST'",
     "method.response.header.Access-Control-Allow-Origin"  = "'*'"
   }
 
