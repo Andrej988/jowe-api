@@ -4,7 +4,7 @@ resource "aws_api_gateway_model" "measurments_insert_request_data" {
   description  = "Measurement Insert Request Data"
   content_type = "application/json"
 
-  schema = file("./models/MeasurementsInsertRequestData.json")
+  schema = file("./models/weight/measurements/MeasurementsInsertRequestData.json")
 }
 
 resource "aws_api_gateway_model" "measurments_response_data" {
@@ -13,5 +13,5 @@ resource "aws_api_gateway_model" "measurments_response_data" {
   description  = "Measurement Response Data"
   content_type = "application/json"
 
-  schema = file("./models/MeasurementsResponseData.json")
+  schema = file("./models/weight/measurements/MeasurementsResponseData.json")
 }

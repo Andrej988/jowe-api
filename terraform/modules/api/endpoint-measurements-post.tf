@@ -41,7 +41,7 @@ resource "aws_api_gateway_integration" "post_measurements_integration" {
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
-    "application/json" = file("./mapping/MeasurementsPostIntegrationRequestMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/MeasurementsPostIntegrationRequestMapping.vtl")
   }
 
   depends_on = [

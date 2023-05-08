@@ -41,7 +41,7 @@ resource "aws_api_gateway_integration" "get_measurements_id_integration" {
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
-    "application/json" = file("./mapping/MeasurementIdGetIntegrationRequestMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/MeasurementIdGetIntegrationRequestMapping.vtl")
   }
 
   depends_on = [
@@ -81,7 +81,7 @@ resource "aws_api_gateway_integration_response" "get_measurements_id_integration
   }
 
   response_templates = {
-    "application/json" = file("./mapping/MeasurementsGetIntegrationResponseMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/MeasurementsGetIntegrationResponseMapping.vtl")
   }
 
   depends_on = [

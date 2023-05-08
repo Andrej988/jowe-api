@@ -20,7 +20,7 @@ resource "aws_api_gateway_integration" "delete_measurements_id_integration" {
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
-    "application/json" = file("./mapping/MeasurementIdDeleteIntegrationRequestMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/MeasurementIdDeleteIntegrationRequestMapping.vtl")
   }
 }
 
