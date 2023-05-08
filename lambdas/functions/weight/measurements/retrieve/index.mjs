@@ -1,21 +1,13 @@
 "use strict";
 
-import {
-  DynamoDBClient,
-  GetItemCommand,
-  QueryCommand,
-} from "@aws-sdk/client-dynamodb";
-
 // Retrieved from lambda layers
 import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import {
-  buildMeasurementFromDynamoDbRecord,
-  buildDynamoDbParamsRetrieveAllMeasurements,
-  buildDynamoDbParamsRetrieveSingleMeasurement,
+  retrieveSingleMeasurement,
+  retrieveAllMeasurements,
 } from "/opt/nodejs/measurementUtils.mjs";
 
 const REGION = process.env.AWS_REGION;
-const ddbClient = new DynamoDBClient({ region: REGION });
 
 export const handler = async (event) => {
   console.log("event", event);
@@ -29,47 +21,35 @@ export const handler = async (event) => {
   console.log("MeasurementId:", measurementId);
 
   let response;
-  let measurements = [];
 
-  if (type === "all") {
-    const params = buildDynamoDbParamsRetrieveAllMeasurements(
-      tableName,
-      userId
-    );
-    console.log("params:", params);
-
-    try {
-      const measurementsData = await ddbClient.send(new QueryCommand(params));
-      measurementsData.Items.forEach((row) => {
-        measurements.push(buildMeasurementFromDynamoDbRecord(row));
-      });
+  try {
+    if (type === "all") {
+      const measurements = await retrieveAllMeasurements(
+        REGION,
+        tableName,
+        userId
+      );
+      const responseBody = {
+        measurements: measurements,
+      };
+      response = buildResponse(200, responseBody);
+    } else if (type === "single") {
+      const measurements = await retrieveSingleMeasurement(
+        REGION,
+        tableName,
+        userId,
+        measurementId
+      );
 
       response = buildResponse(200, measurements);
-    } catch (err) {
-      console.error(err);
-      response = buildErrorResponse(500, err);
+    } else {
+      response = buildErrorResponse(400, "Wrong query type!");
     }
-  } else if (type === "single") {
-    const params = buildDynamoDbParamsRetrieveSingleMeasurement(
-      tableName,
-      userId,
-      measurementId
-    );
-    console.log("params:", params);
-
-    const measurementData = await ddbClient.send(new GetItemCommand(params));
-    console.log("Success", measurementData.Item);
-
-    if (measurementData.Item != null) {
-      measurements.push(
-        buildMeasurementFromDynamoDbRecord(measurementData.Item)
-      );
-    }
-
-    response = buildResponse(200, measurements);
-  } else {
-    response = buildErrorResponse(400, "Wrong query type!");
+  } catch (err) {
+    console.error(err);
+    response = buildErrorResponse(500, err);
   }
 
+  console.log("response: ", response);
   return response;
 };
