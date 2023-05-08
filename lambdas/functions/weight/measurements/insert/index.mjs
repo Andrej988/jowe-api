@@ -7,14 +7,14 @@ import { buildMeasurement } from "./measurements.mjs";
 
 // Retrieved from lambda layers
 import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
+import { retrieveSingleMeasurement } from "/opt/nodejs/measurementUtils.mjs";
 
 const REGION = process.env.AWS_REGION;
 const ddbClient = new DynamoDBClient({ region: REGION });
 
 export const handler = async (event, context) => {
-  console.log("measurement: ", event.measurement);
-  console.log("table name: ", process.env.TABLE_NAME);
-  console.log("userId: ", event.measurement.userId);
+  console.info("measurement: ", event.measurement);
+  console.info("userId: ", event.measurement.userId);
 
   const tableName = process.env.TABLE_NAME;
   const userId = event.measurement.userId;
@@ -49,10 +49,22 @@ export const handler = async (event, context) => {
     const measurementMetadata = await ddbClient.send(
       new PutItemCommand(measurement)
     );
-    console.log(measurementMetadata);
+    console.info(measurementMetadata);
 
-    response = buildResponse(201, measurementMetadata);
-    response.measurementId = measurementId;
+    const retrievedMeasurement = await retrieveSingleMeasurement(
+      REGION,
+      tableName,
+      userId,
+      measurementId
+    );
+
+    const responseBody = {
+      measurementId: measurementId,
+      measurement: retrievedMeasurement,
+    };
+    response = buildResponse(200, responseBody);
+
+    console.info("response", response);
     return response;
   } catch (err) {
     console.error(err);

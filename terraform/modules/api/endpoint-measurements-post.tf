@@ -101,9 +101,9 @@ resource "aws_api_gateway_integration_response" "post_measurements_integration_r
 
   selection_pattern = ""
 
-  #response_templates = {
-  #  "application/json" = "Empty"
-  #}
+  response_templates = {
+    "application/json" = file("./mapping/weight/measurements/MeasurementsPostIntegrationResponseMapping.vtl")
+  }
 
   depends_on = [
     aws_api_gateway_method_response.post_measurements_method_200

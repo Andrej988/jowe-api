@@ -96,11 +96,11 @@ export const retrieveSingleMeasurement = async (
 
   const ddbClient = new DynamoDBClient({ region: region });
   const retrievedData = await ddbClient.send(new GetItemCommand(params));
-  const measurements = [];
+  let measurement;
 
   if (retrievedData.Item != null) {
-    measurements.push(buildMeasurementFromDynamoDbRecord(retrievedData.Item));
+    measurement = buildMeasurementFromDynamoDbRecord(retrievedData.Item);
   }
 
-  return measurements;
+  return measurement;
 };
