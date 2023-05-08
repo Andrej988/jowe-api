@@ -1,5 +1,5 @@
 {
-  "name": "JoWe-lambda-layer-common",
+  "name": "jowe-lambda-layer-common",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
