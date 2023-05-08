@@ -14,6 +14,19 @@ resource "aws_api_gateway_method" "get_measurements_id_method" {
   ]
 }
 
+resource "aws_lambda_permission" "gateway_lambda_permission_get_id_measurement" {
+  action        = "lambda:InvokeFunction"
+  function_name = var.api_lambdas_names["weight_measurements_retrieve"]
+  principal     = "apigateway.amazonaws.com"
+
+  source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/GET/measurements/{measurementId}"
+
+  depends_on = [
+    aws_api_gateway_rest_api.jowe_api,
+    aws_api_gateway_method.get_measurements_id_method
+  ]
+}
+
 resource "aws_lambda_permission" "gateway_lambda_permission_retrieve_single_measurements" {
   action        = "lambda:InvokeFunction"
   function_name = var.api_lambdas_names["weight_measurements_retrieve"]
