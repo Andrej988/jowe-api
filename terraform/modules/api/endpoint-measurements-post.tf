@@ -3,7 +3,7 @@ resource "aws_api_gateway_method" "post_measurements_method" {
   resource_id   = aws_api_gateway_resource.measurements_resource.id
   http_method   = "POST"
   authorization = "COGNITO_USER_POOLS"
-  authorizer_id = aws_api_gateway_authorizer.api_authorizer.id
+  authorizer_id = aws_api_gateway_authorizer.jowe_api_authorizer.id
 
   request_models = {
     "application/json" = aws_api_gateway_model.measurments_insert_request_data.name

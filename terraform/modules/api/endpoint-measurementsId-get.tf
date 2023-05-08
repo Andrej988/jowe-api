@@ -3,7 +3,7 @@ resource "aws_api_gateway_method" "get_measurements_id_method" {
   resource_id   = aws_api_gateway_resource.measurements_id_resource.id
   http_method   = "GET"
   authorization = "COGNITO_USER_POOLS"
-  authorizer_id = aws_api_gateway_authorizer.api_authorizer.id
+  authorizer_id = aws_api_gateway_authorizer.jowe_api_authorizer.id
 
   request_parameters = {
     "method.request.path.proxy" = true,
