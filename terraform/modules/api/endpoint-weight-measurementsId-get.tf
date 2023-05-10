@@ -54,7 +54,7 @@ resource "aws_api_gateway_integration" "weight_measurements_id_integration_get" 
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
-    "application/json" = file("./mapping/weight/measurements/WeightMeasurementGetByIdIntegrationRequestMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/WeightMeasurementsGetByIdIntegrationRequestMapping.vtl")
   }
 
   depends_on = [
@@ -123,7 +123,7 @@ resource "aws_api_gateway_method_response" "weight_measurements_id_method_res_ge
   ]
 }
 
-resource "aws_api_gateway_integration_response" "weight_measureents_id_integration_res_get_200" {
+resource "aws_api_gateway_integration_response" "weight_measurements_id_integration_res_get_200" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
   resource_id = aws_api_gateway_resource.weight_measurements_id_resource.id
   http_method = aws_api_gateway_method.weight_measurements_id_method_get.http_method
@@ -136,7 +136,7 @@ resource "aws_api_gateway_integration_response" "weight_measureents_id_integrati
   selection_pattern = ""
 
   response_templates = {
-    "application/json" = file("./mapping/weight/measurements/WeightMeasurementGetByIdIntegrationResponseMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/WeightMeasurementsGetByIdIntegrationResponseMapping.vtl")
   }
 
   depends_on = [
@@ -144,7 +144,7 @@ resource "aws_api_gateway_integration_response" "weight_measureents_id_integrati
   ]
 }
 
-resource "aws_api_gateway_integration_response" "weight_measureents_id_integration_res_get_400" {
+resource "aws_api_gateway_integration_response" "weight_measurements_id_integration_res_get_400" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
   resource_id = aws_api_gateway_resource.weight_measurements_id_resource.id
   http_method = aws_api_gateway_method.weight_measurements_id_method_get.http_method
@@ -165,7 +165,7 @@ resource "aws_api_gateway_integration_response" "weight_measureents_id_integrati
   ]
 }
 
-resource "aws_api_gateway_integration_response" "weight_measureents_id_integration_res_get_500" {
+resource "aws_api_gateway_integration_response" "weight_measurements_id_integration_res_get_500" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
   resource_id = aws_api_gateway_resource.weight_measurements_id_resource.id
   http_method = aws_api_gateway_method.weight_measurements_id_method_get.http_method

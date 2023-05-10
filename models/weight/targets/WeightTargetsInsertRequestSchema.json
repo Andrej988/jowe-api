@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "WeightTargetsInsertRequestSchema",
+  "type": "object",
+  "properties": {
+    "targetWeight": { "type": "number" }
+  },
+  "required": ["targetWeight"]
+}

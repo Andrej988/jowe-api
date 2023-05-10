@@ -1,12 +1,15 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "WeightMeasurementsInsertRequestSchema",
+  "title": "MeasurementResponseData",
   "type": "object",
   "properties": {
     "measurement": {
       "type": "object",
       "properties": {
-        "date": { "type": "number" },
+        "userId": { "type": "string" },
+        "measurementId": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "date": { "type": "string" },
         "note": { "type": "string" },
         "measurements": {
           "type": "object",
@@ -21,7 +24,13 @@
           "required": ["weight"]
         }
       },
-      "required": ["date", "measurements"]
+      "required": [
+        "userId",
+        "measurementId",
+        "timestamp",
+        "date",
+        "measurements"
+      ]
     }
   },
   "required": ["measurement"]

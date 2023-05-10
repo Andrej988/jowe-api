@@ -36,7 +36,7 @@ resource "aws_api_gateway_integration" "weight_measurements_id_integration_delet
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
-    "application/json" = file("./mapping/weight/measurements/WeightMeasurementDeleteByIdIntegrationRequestMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/WeightMeasurementsDeleteByIdIntegrationRequestMapping.vtl")
   }
 
   depends_on = [

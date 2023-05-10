@@ -40,7 +40,7 @@ resource "aws_api_gateway_integration" "weight_measurements_integration_get" {
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
-    "application/json" = file("./mapping/weight/measurements/WeightMeasurementGetAllIntegrationRequestMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/WeightMeasurementsGetAllIntegrationRequestMapping.vtl")
   }
 
   depends_on = [
@@ -122,7 +122,7 @@ resource "aws_api_gateway_integration_response" "weight_measurements_integration
   selection_pattern = ""
 
   response_templates = {
-    "application/json" = file("./mapping/weight/measurements/WeightMeasurementGetAllIntegrationResponseMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/WeightMeasurementsGetAllIntegrationResponseMapping.vtl")
   }
 
   depends_on = [

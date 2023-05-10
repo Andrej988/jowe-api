@@ -1,0 +1,4 @@
+#set($hasNoTargets =  $input.json('$.body.targets').isEmpty())
+{
+  "targets": #if($hasNoTargets) [] #else $input.json('$.body.targets') #end
+}
