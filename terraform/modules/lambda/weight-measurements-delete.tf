@@ -44,7 +44,7 @@ resource "aws_lambda_function" "weight_measurements_delete_lambda" {
   depends_on = [
     aws_iam_role.jowe_api_lambda_crud,
     aws_iam_role_policy_attachment.jowe_api_lambda_crud_AWSLambdaBasicExecutionRole_attachment,
-    aws_iam_role_policy_attachment.jowe_api_lambda_dynamodb_crud_role_attachment_measurements,
+    aws_iam_role_policy_attachment.jowe_api_lambda_dynamodb_crud_role_attachment_weight_measurements,
     aws_lambda_layer_version.weight_shared_layer,
     aws_cloudwatch_log_group.weight_measurements_delete_lambda_log_group,
   ]

@@ -13,7 +13,7 @@ export const handler = async (event) => {
     TableName: process.env.TABLE_NAME,
     Key: {
       UserId: { S: event.userId },
-      MeasurementId: { S: event.measurementId },
+      RecordId: { S: event.recordId },
     },
   };
 

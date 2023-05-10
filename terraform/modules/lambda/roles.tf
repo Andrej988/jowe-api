@@ -35,12 +35,12 @@ resource "aws_iam_role_policy_attachment" "jowe_api_lambda_read_only_AWSLambdaBa
   policy_arn = data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn
 }
 
-resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_crud_role_attachment_measurements" {
+resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_crud_role_attachment_weight_measurements" {
   role       = aws_iam_role.jowe_api_lambda_crud.name
   policy_arn = var.dynamodb_policies["weight_measurements_crud"]
 }
 
-resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_read_only_role_attachment_measurements" {
+resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_read_only_role_attachment_weight_measurements" {
   role       = aws_iam_role.jowe_api_lambda_read_only.name
   policy_arn = var.dynamodb_policies["weight_measurements_read_only"]
 }

@@ -59,7 +59,7 @@ export const buildDynamoDbParamsRetrieveSingleMeasurement = (
     TableName: tableName,
     Key: {
       UserId: { S: userId },
-      MeasurementId: { S: "" + measurementId },
+      MeasurementId: { S: measurementId },
     },
   };
 };

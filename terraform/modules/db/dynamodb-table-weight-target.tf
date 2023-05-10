@@ -19,4 +19,8 @@ resource "aws_dynamodb_table" "jowe_weight_targets" {
     Environment = var.ENV
     App         = var.app_name
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
