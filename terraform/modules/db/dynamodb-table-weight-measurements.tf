@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "jowe_measurements" {
-  name         = var.ENV == "dev" ? "${var.app_name}-measurements-dev" : "${var.app_name}-measurements"
+  name         = var.ENV == "dev" ? "${var.app_name}-weight-measurements-dev" : "${var.app_name}-weight-measurements"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "UserId"
   range_key    = "MeasurementId"
@@ -66,8 +66,12 @@ resource "aws_dynamodb_table" "jowe_measurements" {
   #}
 
   tags = {
-    Name        = "dynamodb-table-${var.app_name}-measurements"
+    Name        = "dynamodb-table-${var.app_name}-weight-measurements"
     Environment = var.ENV
     App         = var.app_name
+  }
+
+  lifecycle {
+    prevent_destroy = true
   }
 }

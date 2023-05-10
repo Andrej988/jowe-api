@@ -32,7 +32,7 @@ resource "aws_lambda_function" "weight_measurements_insert_lambda" {
 
   layers = [
     aws_lambda_layer_version.common_layer.arn,
-    aws_lambda_layer_version.weight_measurements_shared_layer.arn,
+    aws_lambda_layer_version.weight_shared_layer.arn,
   ]
 
   tags = {
@@ -46,7 +46,7 @@ resource "aws_lambda_function" "weight_measurements_insert_lambda" {
     aws_iam_role_policy_attachment.jowe_api_lambda_crud_AWSLambdaBasicExecutionRole_attachment,
     aws_iam_role_policy_attachment.jowe_api_lambda_dynamodb_crud_role_attachment_measurements,
     aws_lambda_layer_version.common_layer,
-    aws_lambda_layer_version.weight_measurements_shared_layer,
+    aws_lambda_layer_version.weight_shared_layer,
     aws_cloudwatch_log_group.weight_measurements_insert_lambda_log_group,
   ]
 }
