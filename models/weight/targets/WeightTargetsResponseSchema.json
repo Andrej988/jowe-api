@@ -3,7 +3,7 @@
   "title": "WeightTargetsResponseSchema",
   "type": "object",
   "properties": {
-    "targets": {
+    "targetWeights": {
       "type": "array",
       "items": {
         "type": "object",
@@ -17,5 +17,5 @@
       }
     }
   },
-  "required": ["targets"]
+  "required": ["targetWeights"]
 }

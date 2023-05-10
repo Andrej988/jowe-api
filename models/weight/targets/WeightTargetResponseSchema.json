@@ -1,37 +1,18 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "title": "MeasurementResponseData",
+  "title": "WeightTargetResponseSchema",
   "type": "object",
   "properties": {
-    "measurement": {
+    "targetWeight": {
       "type": "object",
       "properties": {
         "userId": { "type": "string" },
-        "measurementId": { "type": "string" },
+        "recordId": { "type": "string" },
         "timestamp": { "type": "number" },
-        "date": { "type": "string" },
-        "note": { "type": "string" },
-        "measurements": {
-          "type": "object",
-          "properties": {
-            "weight": { "type": "number" },
-            "bodyFatPercentage": { "type": "number" },
-            "waterPercentage": { "type": "number" },
-            "muscleMassPercentage": { "type": "number" },
-            "bonePercentage": { "type": "number" },
-            "energyExpenditure": { "type": "number" }
-          },
-          "required": ["weight"]
-        }
+        "targetWeight": { "type": "number" }
       },
-      "required": [
-        "userId",
-        "measurementId",
-        "timestamp",
-        "date",
-        "measurements"
-      ]
+      "required": ["userId", "recordId", "timestamp", "targetWeight"]
     }
   },
-  "required": ["measurement"]
+  "required": ["targetWeight"]
 }
