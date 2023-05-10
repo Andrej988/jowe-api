@@ -1,34 +1,34 @@
-resource "aws_api_gateway_method" "options_measurements_method" {
+resource "aws_api_gateway_method" "weight_measurements_method_options" {
   rest_api_id   = aws_api_gateway_rest_api.jowe_api.id
-  resource_id   = aws_api_gateway_resource.measurements_resource.id
+  resource_id   = aws_api_gateway_resource.weight_measurements_resource.id
   http_method   = "OPTIONS"
   authorization = "NONE"
 
   depends_on = [
-    aws_api_gateway_resource.measurements_resource
+    aws_api_gateway_resource.weight_measurements_resource
   ]
 }
 
-resource "aws_api_gateway_integration" "options_measurements_integration" {
+resource "aws_api_gateway_integration" "weight_measurements_integration_options" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_resource.id
-  http_method = aws_api_gateway_method.options_measurements_method.http_method
+  resource_id = aws_api_gateway_resource.weight_measurements_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_method_options.http_method
   type        = "MOCK"
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
-    "application/json" = file("./mapping/weight/measurements/OptionsIntegrationRequestMapping.vtl")
+    "application/json" = file("./mapping/common/OptionsIntegrationRequestMapping.vtl")
   }
 
   depends_on = [
-    aws_api_gateway_method.options_measurements_method
+    aws_api_gateway_method.weight_measurements_method_options
   ]
 }
 
-resource "aws_api_gateway_method_response" "options_measurements_method_200" {
+resource "aws_api_gateway_method_response" "weight_measurements_method_options_200" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_resource.id
-  http_method = aws_api_gateway_method.options_measurements_method.http_method
+  resource_id = aws_api_gateway_resource.weight_measurements_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_method_options.http_method
   status_code = 200
 
   response_models = {
@@ -42,23 +42,23 @@ resource "aws_api_gateway_method_response" "options_measurements_method_200" {
   }
 
   depends_on = [
-    aws_api_gateway_integration.options_measurements_integration
+    aws_api_gateway_integration.weight_measurements_integration_options
   ]
 }
 
-resource "aws_api_gateway_integration_response" "options_measurements_integration_res_200" {
+resource "aws_api_gateway_integration_response" "weight_measurements_integration_res_options_200" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_resource.id
-  http_method = aws_api_gateway_method.options_measurements_method.http_method
-  status_code = aws_api_gateway_method_response.options_measurements_method_200.status_code
+  resource_id = aws_api_gateway_resource.weight_measurements_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_method_options.http_method
+  status_code = aws_api_gateway_method_response.weight_measurements_method_options_200.status_code
 
   response_parameters = {
     "method.response.header.Access-Control-Allow-Headers" = "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'",
     "method.response.header.Access-Control-Allow-Methods" = "'GET,OPTIONS,POST,PUT'",
-    "method.response.header.Access-Control-Allow-Origin"  = "'*'"
+    "method.response.header.Access-Control-Allow-Origin"  = local.cors_access_control_allow_origin_value
   }
 
   depends_on = [
-    aws_api_gateway_method_response.options_measurements_method_200
+    aws_api_gateway_method_response.weight_measurements_method_options_200
   ]
 }

@@ -35,14 +35,14 @@ export const handler = async (event) => {
       console.info("response", response);
       return response;
     } else if (type === "single") {
-      const measurements = await retrieveSingleMeasurement(
+      const measurement = await retrieveSingleMeasurement(
         REGION,
         tableName,
         userId,
         measurementId
       );
 
-      response = buildResponse(200, measurements);
+      response = buildResponse(200, measurement);
       console.info("response", response);
       return response;
     } else {

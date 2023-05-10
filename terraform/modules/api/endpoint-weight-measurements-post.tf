@@ -1,12 +1,12 @@
-resource "aws_api_gateway_method" "post_measurements_method" {
+resource "aws_api_gateway_method" "weight_measurements_method_post" {
   rest_api_id   = aws_api_gateway_rest_api.jowe_api.id
-  resource_id   = aws_api_gateway_resource.measurements_resource.id
+  resource_id   = aws_api_gateway_resource.weight_measurements_resource.id
   http_method   = "POST"
   authorization = "COGNITO_USER_POOLS"
   authorizer_id = aws_api_gateway_authorizer.jowe_api_authorizer.id
 
   request_models = {
-    "application/json" = aws_api_gateway_model.measurments_insert_request_data.name
+    "application/json" = aws_api_gateway_model.weight_measurments_insert_request.name
   }
 
   request_parameters = {
@@ -14,45 +14,46 @@ resource "aws_api_gateway_method" "post_measurements_method" {
   }
 
   depends_on = [
-    aws_api_gateway_resource.measurements_resource
+    aws_api_gateway_resource.weight_measurements_resource
   ]
 }
 
-resource "aws_lambda_permission" "gateway_lambda_permission_post_measurements" {
+resource "aws_lambda_permission" "gateway_lambda_permission_post_weight_measurements" {
   action        = "lambda:InvokeFunction"
   function_name = var.api_lambdas_names["weight_measurements_insert"]
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/POST/measurements"
+  source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/POST/weight/measurements"
 
   depends_on = [
     aws_api_gateway_rest_api.jowe_api,
-    aws_api_gateway_method.post_measurements_method
+    aws_api_gateway_method.weight_measurements_method_post
   ]
 }
 
-resource "aws_api_gateway_integration" "post_measurements_integration" {
+resource "aws_api_gateway_integration" "weight_measurements_integration_post" {
   rest_api_id             = aws_api_gateway_rest_api.jowe_api.id
-  resource_id             = aws_api_gateway_resource.measurements_resource.id
-  http_method             = aws_api_gateway_method.post_measurements_method.http_method
-  integration_http_method = aws_api_gateway_method.post_measurements_method.http_method
+  resource_id             = aws_api_gateway_resource.weight_measurements_resource.id
+  http_method             = aws_api_gateway_method.weight_measurements_method_post.http_method
+  integration_http_method = aws_api_gateway_method.weight_measurements_method_post.http_method
   type                    = "AWS"
   uri                     = var.api_lambdas_arns["weight_measurements_insert"]
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
-    "application/json" = file("./mapping/weight/measurements/MeasurementsPostIntegrationRequestMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/WeightMeasurementInsertIntegrationRequestMapping.vtl")
   }
 
   depends_on = [
-    aws_api_gateway_method.post_measurements_method
+    aws_api_gateway_method.weight_measurements_method_post,
+    aws_lambda_permission.gateway_lambda_permission_post_weight_measurements
   ]
 }
 
-resource "aws_api_gateway_method_response" "post_measurements_method_200" {
+resource "aws_api_gateway_method_response" "weight_measurements_method_post_200" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_resource.id
-  http_method = aws_api_gateway_method.post_measurements_method.http_method
+  resource_id = aws_api_gateway_resource.weight_measurements_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_method_post.http_method
   status_code = 200
 
   response_parameters = {
@@ -65,14 +66,14 @@ resource "aws_api_gateway_method_response" "post_measurements_method_200" {
   }
 
   depends_on = [
-    aws_api_gateway_integration.post_measurements_integration
+    aws_api_gateway_integration.weight_measurements_integration_post
   ]
 }
 
-resource "aws_api_gateway_method_response" "post_measurements_method_400" {
+resource "aws_api_gateway_method_response" "weight_measurements_method_post_400" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_resource.id
-  http_method = aws_api_gateway_method.post_measurements_method.http_method
+  resource_id = aws_api_gateway_resource.weight_measurements_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_method_post.http_method
   status_code = 400
 
   response_parameters = {
@@ -84,15 +85,15 @@ resource "aws_api_gateway_method_response" "post_measurements_method_400" {
   }
 
   depends_on = [
-    aws_api_gateway_integration.post_measurements_integration,
+    aws_api_gateway_integration.weight_measurements_integration_post,
     aws_api_gateway_model.common_error_response
   ]
 }
 
-resource "aws_api_gateway_method_response" "post_measurements_method_500" {
+resource "aws_api_gateway_method_response" "weight_measurements_method_post_500" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_resource.id
-  http_method = aws_api_gateway_method.post_measurements_method.http_method
+  resource_id = aws_api_gateway_resource.weight_measurements_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_method_post.http_method
   status_code = 500
 
   response_parameters = {
@@ -104,41 +105,41 @@ resource "aws_api_gateway_method_response" "post_measurements_method_500" {
   }
 
   depends_on = [
-    aws_api_gateway_integration.post_measurements_integration,
+    aws_api_gateway_integration.weight_measurements_integration_post,
     aws_api_gateway_model.common_error_response
   ]
 }
 
-resource "aws_api_gateway_integration_response" "post_measurements_integration_res_200" {
+resource "aws_api_gateway_integration_response" "weight_measurements_integration_res_post_200" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_resource.id
-  http_method = aws_api_gateway_method.post_measurements_method.http_method
-  status_code = aws_api_gateway_method_response.post_measurements_method_200.status_code
+  resource_id = aws_api_gateway_resource.weight_measurements_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_method_post.http_method
+  status_code = aws_api_gateway_method_response.weight_measurements_method_post_200.status_code
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'",
+    "method.response.header.Access-Control-Allow-Origin" = local.cors_access_control_allow_origin_value,
     "method.response.header.location"                    = "integration.response.body.measurementId"
   }
 
   selection_pattern = ""
 
   response_templates = {
-    "application/json" = file("./mapping/weight/measurements/MeasurementsPostIntegrationResponseMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/WeightMeasurementInsertIntegrationResponseMapping.vtl")
   }
 
   depends_on = [
-    aws_api_gateway_method_response.post_measurements_method_200
+    aws_api_gateway_method_response.weight_measurements_method_post_200
   ]
 }
 
-resource "aws_api_gateway_integration_response" "post_measurements_integration_res_400" {
+resource "aws_api_gateway_integration_response" "weight_measurements_integration_res_post_400" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_resource.id
-  http_method = aws_api_gateway_method.post_measurements_method.http_method
-  status_code = aws_api_gateway_method_response.post_measurements_method_400.status_code
+  resource_id = aws_api_gateway_resource.weight_measurements_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_method_post.http_method
+  status_code = aws_api_gateway_method_response.weight_measurements_method_post_400.status_code
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Access-Control-Allow-Origin" = local.cors_access_control_allow_origin_value
   }
 
   selection_pattern = ".*\"statusCode\":400.*"
@@ -149,18 +150,18 @@ resource "aws_api_gateway_integration_response" "post_measurements_integration_r
 
 
   depends_on = [
-    aws_api_gateway_method_response.post_measurements_method_400
+    aws_api_gateway_method_response.weight_measurements_method_post_400
   ]
 }
 
-resource "aws_api_gateway_integration_response" "post_measurements_integration_res_500" {
+resource "aws_api_gateway_integration_response" "weight_measurements_integration_res_post_500" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_resource.id
-  http_method = aws_api_gateway_method.post_measurements_method.http_method
-  status_code = aws_api_gateway_method_response.post_measurements_method_500.status_code
+  resource_id = aws_api_gateway_resource.weight_measurements_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_method_post.http_method
+  status_code = aws_api_gateway_method_response.weight_measurements_method_post_500.status_code
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Access-Control-Allow-Origin" = local.cors_access_control_allow_origin_value
   }
 
   selection_pattern = ".*\"statusCode\":500.*"
@@ -170,7 +171,7 @@ resource "aws_api_gateway_integration_response" "post_measurements_integration_r
   }
 
   depends_on = [
-    aws_api_gateway_method_response.post_measurements_method_500
+    aws_api_gateway_method_response.weight_measurements_method_post_500
   ]
 }
 

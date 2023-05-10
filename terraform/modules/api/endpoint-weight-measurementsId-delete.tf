@@ -1,6 +1,6 @@
-resource "aws_api_gateway_method" "delete_measurements_id_method" {
+resource "aws_api_gateway_method" "weight_measurements_id_method_delete" {
   rest_api_id   = aws_api_gateway_rest_api.jowe_api.id
-  resource_id   = aws_api_gateway_resource.measurements_id_resource.id
+  resource_id   = aws_api_gateway_resource.weight_measurements_id_resource.id
   http_method   = "DELETE"
   authorization = "COGNITO_USER_POOLS"
   authorizer_id = aws_api_gateway_authorizer.jowe_api_authorizer.id
@@ -10,23 +10,23 @@ resource "aws_api_gateway_method" "delete_measurements_id_method" {
   }
 }
 
-resource "aws_lambda_permission" "gateway_lambda_permission_delete_measurements" {
+resource "aws_lambda_permission" "gateway_lambda_permission_delete_weight_measurement" {
   action        = "lambda:InvokeFunction"
   function_name = var.api_lambdas_names["weight_measurements_delete"]
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/DELETE/measurements/{measurementId}"
+  source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/DELETE/weight/measurements/{measurementId}"
 
   depends_on = [
     aws_api_gateway_rest_api.jowe_api,
-    aws_api_gateway_method.delete_measurements_id_method
+    aws_api_gateway_method.weight_measurements_id_method_delete
   ]
 }
 
-resource "aws_api_gateway_integration" "delete_measurements_id_integration" {
+resource "aws_api_gateway_integration" "weight_measurements_id_integration_delete" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_id_resource.id
-  http_method = aws_api_gateway_method.delete_measurements_id_method.http_method
+  resource_id = aws_api_gateway_resource.weight_measurements_id_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_id_method_delete.http_method
 
   # This has to be POST per Lambda integration limitations: Does not support DELETE integration method
   integration_http_method = "POST"
@@ -36,14 +36,19 @@ resource "aws_api_gateway_integration" "delete_measurements_id_integration" {
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
-    "application/json" = file("./mapping/weight/measurements/MeasurementIdDeleteIntegrationRequestMapping.vtl")
+    "application/json" = file("./mapping/weight/measurements/WeightMeasurementDeleteByIdIntegrationRequestMapping.vtl")
   }
+
+  depends_on = [
+    aws_api_gateway_method.weight_measurements_id_method_delete,
+    aws_lambda_permission.gateway_lambda_permission_delete_weight_measurement
+  ]
 }
 
-resource "aws_api_gateway_method_response" "delete_measurements_id_method_200" {
+resource "aws_api_gateway_method_response" "weight_measurements_id_method_delete_200" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_id_resource.id
-  http_method = aws_api_gateway_method.delete_measurements_id_method.http_method
+  resource_id = aws_api_gateway_resource.weight_measurements_id_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_id_method_delete.http_method
   status_code = 200
 
   response_models = {
@@ -55,14 +60,14 @@ resource "aws_api_gateway_method_response" "delete_measurements_id_method_200" {
   }
 
   depends_on = [
-    aws_api_gateway_integration.delete_measurements_id_integration
+    aws_api_gateway_integration.weight_measurements_id_integration_delete
   ]
 }
 
-resource "aws_api_gateway_method_response" "delete_measurements_id_method_500" {
+resource "aws_api_gateway_method_response" "weight_measurements_id_method_delete_500" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_id_resource.id
-  http_method = aws_api_gateway_method.delete_measurements_id_method.http_method
+  resource_id = aws_api_gateway_resource.weight_measurements_id_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_id_method_delete.http_method
   status_code = 500
 
   response_models = {
@@ -74,19 +79,19 @@ resource "aws_api_gateway_method_response" "delete_measurements_id_method_500" {
   }
 
   depends_on = [
-    aws_api_gateway_integration.delete_measurements_id_integration,
+    aws_api_gateway_integration.weight_measurements_id_integration_delete,
     aws_api_gateway_model.common_error_response
   ]
 }
 
-resource "aws_api_gateway_integration_response" "delete_measurements_id_integration_res_200" {
+resource "aws_api_gateway_integration_response" "weight_measurements_id_integration_res_delete_200" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_id_resource.id
-  http_method = aws_api_gateway_method.delete_measurements_id_method.http_method
-  status_code = aws_api_gateway_method_response.delete_measurements_id_method_200.status_code
+  resource_id = aws_api_gateway_resource.weight_measurements_id_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_id_method_delete.http_method
+  status_code = aws_api_gateway_method_response.weight_measurements_id_method_delete_200.status_code
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Access-Control-Allow-Origin" = local.cors_access_control_allow_origin_value
   }
 
   selection_pattern = ""
@@ -96,18 +101,18 @@ resource "aws_api_gateway_integration_response" "delete_measurements_id_integrat
   }
 
   depends_on = [
-    aws_api_gateway_method_response.delete_measurements_id_method_200
+    aws_api_gateway_method_response.weight_measurements_id_method_delete_200
   ]
 }
 
-resource "aws_api_gateway_integration_response" "delete_measurements_id_integration_res_500" {
+resource "aws_api_gateway_integration_response" "weight_measurements_id_integration_res_delete_500" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
-  resource_id = aws_api_gateway_resource.measurements_id_resource.id
-  http_method = aws_api_gateway_method.delete_measurements_id_method.http_method
-  status_code = aws_api_gateway_method_response.delete_measurements_id_method_500.status_code
+  resource_id = aws_api_gateway_resource.weight_measurements_id_resource.id
+  http_method = aws_api_gateway_method.weight_measurements_id_method_delete.http_method
+  status_code = aws_api_gateway_method_response.weight_measurements_id_method_delete_500.status_code
 
   response_parameters = {
-    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+    "method.response.header.Access-Control-Allow-Origin" = local.cors_access_control_allow_origin_value
   }
 
   selection_pattern = ".*\"statusCode\":500.*"
@@ -117,6 +122,6 @@ resource "aws_api_gateway_integration_response" "delete_measurements_id_integrat
   }
 
   depends_on = [
-    aws_api_gateway_method_response.delete_measurements_id_method_200
+    aws_api_gateway_method_response.weight_measurements_id_method_delete_500
   ]
 }
