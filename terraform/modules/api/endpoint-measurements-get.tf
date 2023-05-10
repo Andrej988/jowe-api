@@ -69,6 +69,46 @@ resource "aws_api_gateway_method_response" "get_measurements_method_200" {
   ]
 }
 
+resource "aws_api_gateway_method_response" "get_measurements_method_400" {
+  rest_api_id = aws_api_gateway_rest_api.jowe_api.id
+  resource_id = aws_api_gateway_resource.measurements_resource.id
+  http_method = aws_api_gateway_method.get_measurements_method.http_method
+  status_code = 400
+
+  response_models = {
+    "application/json" = aws_api_gateway_model.common_error_response.name
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+  }
+
+  depends_on = [
+    aws_api_gateway_integration.get_measurements_integration,
+    aws_api_gateway_model.common_error_response
+  ]
+}
+
+resource "aws_api_gateway_method_response" "get_measurements_method_500" {
+  rest_api_id = aws_api_gateway_rest_api.jowe_api.id
+  resource_id = aws_api_gateway_resource.measurements_resource.id
+  http_method = aws_api_gateway_method.get_measurements_method.http_method
+  status_code = 500
+
+  response_models = {
+    "application/json" = aws_api_gateway_model.common_error_response.name
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+  }
+
+  depends_on = [
+    aws_api_gateway_integration.get_measurements_integration,
+    aws_api_gateway_model.common_error_response
+  ]
+}
+
 resource "aws_api_gateway_integration_response" "get_measurements_integration_res_200" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
   resource_id = aws_api_gateway_resource.measurements_resource.id
@@ -79,11 +119,55 @@ resource "aws_api_gateway_integration_response" "get_measurements_integration_re
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
 
+  selection_pattern = ""
+
   response_templates = {
     "application/json" = file("./mapping/weight/measurements/MeasurementsGetIntegrationResponseMapping.vtl")
   }
 
   depends_on = [
     aws_api_gateway_method_response.get_measurements_method_200
+  ]
+}
+
+resource "aws_api_gateway_integration_response" "get_measurements_integration_res_400" {
+  rest_api_id = aws_api_gateway_rest_api.jowe_api.id
+  resource_id = aws_api_gateway_resource.measurements_resource.id
+  http_method = aws_api_gateway_method.get_measurements_method.http_method
+  status_code = aws_api_gateway_method_response.get_measurements_method_400.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
+
+  selection_pattern = ".*\"statusCode\":400.*"
+
+  response_templates = {
+    "application/json" = file("./mapping/common/ErrorResponseMapping.vtl")
+  }
+
+  depends_on = [
+    aws_api_gateway_method_response.get_measurements_method_400
+  ]
+}
+
+resource "aws_api_gateway_integration_response" "get_measurements_integration_res_500" {
+  rest_api_id = aws_api_gateway_rest_api.jowe_api.id
+  resource_id = aws_api_gateway_resource.measurements_resource.id
+  http_method = aws_api_gateway_method.get_measurements_method.http_method
+  status_code = aws_api_gateway_method_response.get_measurements_method_500.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
+
+  selection_pattern = ".*\"statusCode\":500.*"
+
+  response_templates = {
+    "application/json" = file("./mapping/common/ErrorResponseMapping.vtl")
+  }
+
+  depends_on = [
+    aws_api_gateway_method_response.get_measurements_method_500
   ]
 }

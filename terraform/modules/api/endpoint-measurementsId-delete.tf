@@ -59,6 +59,26 @@ resource "aws_api_gateway_method_response" "delete_measurements_id_method_200" {
   ]
 }
 
+resource "aws_api_gateway_method_response" "delete_measurements_id_method_500" {
+  rest_api_id = aws_api_gateway_rest_api.jowe_api.id
+  resource_id = aws_api_gateway_resource.measurements_id_resource.id
+  http_method = aws_api_gateway_method.delete_measurements_id_method.http_method
+  status_code = 500
+
+  response_models = {
+    "application/json" = aws_api_gateway_model.common_error_response.name
+  }
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+  }
+
+  depends_on = [
+    aws_api_gateway_integration.delete_measurements_id_integration,
+    aws_api_gateway_model.common_error_response
+  ]
+}
+
 resource "aws_api_gateway_integration_response" "delete_measurements_id_integration_res_200" {
   rest_api_id = aws_api_gateway_rest_api.jowe_api.id
   resource_id = aws_api_gateway_resource.measurements_id_resource.id
@@ -69,6 +89,8 @@ resource "aws_api_gateway_integration_response" "delete_measurements_id_integrat
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
 
+  selection_pattern = ""
+
   response_templates = {
     "application/json" = "{}"
   }
@@ -78,3 +100,23 @@ resource "aws_api_gateway_integration_response" "delete_measurements_id_integrat
   ]
 }
 
+resource "aws_api_gateway_integration_response" "delete_measurements_id_integration_res_500" {
+  rest_api_id = aws_api_gateway_rest_api.jowe_api.id
+  resource_id = aws_api_gateway_resource.measurements_id_resource.id
+  http_method = aws_api_gateway_method.delete_measurements_id_method.http_method
+  status_code = aws_api_gateway_method_response.delete_measurements_id_method_500.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
+
+  selection_pattern = ".*\"statusCode\":500.*"
+
+  response_templates = {
+    "application/json" = file("./mapping/common/ErrorResponseMapping.vtl")
+  }
+
+  depends_on = [
+    aws_api_gateway_method_response.delete_measurements_id_method_200
+  ]
+}

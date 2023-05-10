@@ -21,12 +21,13 @@ export const handler = async (event) => {
 
   try {
     const data = await ddbClient.send(new DeleteItemCommand(params));
-    console.log("Success, item deleted", data);
+    console.info("Success, item deleted", data);
     response = buildResponse(200, {});
+    console.info("response", response);
     return response;
   } catch (err) {
     console.error(err);
-    response = buildErrorResponse(500, err);
+    response = buildErrorResponse(500, err.message);
     context.fail(JSON.stringify(response));
   }
 };
