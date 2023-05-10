@@ -80,11 +80,32 @@ resource "aws_api_gateway_method_response" "post_measurements_method_400" {
   }
 
   response_models = {
-    "application/json" = "Empty"
+    "application/json" = aws_api_gateway_model.common_error_response.name
   }
 
   depends_on = [
-    aws_api_gateway_integration.post_measurements_integration
+    aws_api_gateway_integration.post_measurements_integration,
+    aws_api_gateway_model.common_error_response
+  ]
+}
+
+resource "aws_api_gateway_method_response" "post_measurements_method_500" {
+  rest_api_id = aws_api_gateway_rest_api.jowe_api.id
+  resource_id = aws_api_gateway_resource.measurements_resource.id
+  http_method = aws_api_gateway_method.post_measurements_method.http_method
+  status_code = 500
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = true
+  }
+
+  response_models = {
+    "application/json" = aws_api_gateway_model.common_error_response.name
+  }
+
+  depends_on = [
+    aws_api_gateway_integration.post_measurements_integration,
+    aws_api_gateway_model.common_error_response
   ]
 }
 
@@ -120,13 +141,36 @@ resource "aws_api_gateway_integration_response" "post_measurements_integration_r
     "method.response.header.Access-Control-Allow-Origin" = "'*'"
   }
 
-  selection_pattern = ".*\"statusCode\":500.*"
+  selection_pattern = ".*\"statusCode\":400.*"
 
-  #response_templates = {
-  #  "application/json" = "Empty"
-  #}
+  response_templates = {
+    "application/json" = file("./mapping/common/ErrorResponseMapping.vtl")
+  }
+
 
   depends_on = [
     aws_api_gateway_method_response.post_measurements_method_400
   ]
 }
+
+resource "aws_api_gateway_integration_response" "post_measurements_integration_res_500" {
+  rest_api_id = aws_api_gateway_rest_api.jowe_api.id
+  resource_id = aws_api_gateway_resource.measurements_resource.id
+  http_method = aws_api_gateway_method.post_measurements_method.http_method
+  status_code = aws_api_gateway_method_response.post_measurements_method_500.status_code
+
+  response_parameters = {
+    "method.response.header.Access-Control-Allow-Origin" = "'*'"
+  }
+
+  selection_pattern = ".*\"statusCode\":500.*"
+
+  response_templates = {
+    "application/json" = file("./mapping/common/ErrorResponseMapping.vtl")
+  }
+
+  depends_on = [
+    aws_api_gateway_method_response.post_measurements_method_500
+  ]
+}
+

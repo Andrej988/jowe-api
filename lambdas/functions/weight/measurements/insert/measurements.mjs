@@ -1,95 +1,65 @@
 "use strict";
 
-export const buildMeasurement = (
-  tableName,
-  userId,
-  measurementId,
-  date,
-  weight,
-  note,
-  bodyFatPercentage,
-  waterPercentage,
-  muscleMassPercentage,
-  bonePercentage,
-  energyExpenditure
-) => {
-  const measurement = {
+export const buildMeasurement = (tableName, measurement) => {
+  const measurementDynamoDb = {
     TableName: tableName,
     Item: {
       UserId: {
-        S: userId,
+        S: measurement.userId,
       },
       MeasurementId: {
-        S: measurementId,
+        S: measurement.measurementId,
       },
       Timestamp: {
         N: "" + Date.now(),
       },
       Date: {
-        N: "" + date,
+        N: "" + measurement.date,
       },
       Weight: {
-        N: "" + weight,
+        N: "" + measurement.weight,
       },
     },
   };
 
-  addOptionalFieldsToMeasurement(
-    measurement,
-    note,
-    bodyFatPercentage,
-    waterPercentage,
-    muscleMassPercentage,
-    bonePercentage,
-    energyExpenditure
-  );
-  return measurement;
+  addOptionalFieldsToMeasurement(measurementDynamoDb, measurement);
+  return measurementDynamoDb;
 };
 
-const addOptionalFieldsToMeasurement = (
-  measurement,
-  note,
-  bodyFatPercentage,
-  waterPercentage,
-  muscleMassPercentage,
-  bonePercentage,
-  energyExpenditure
-) => {
-  if (note) {
-    measurement.Item.Note = {
-      S: note,
+const addOptionalFieldsToMeasurement = (measurementDynamoDb, measurement) => {
+  if (measurement.note) {
+    measurementDynamoDb.Item.Note = {
+      S: measurement.note,
     };
   }
 
-  if (bodyFatPercentage) {
-    measurement.Item.BodyFatPercentage = {
-      N: "" + bodyFatPercentage,
+  if (measurement.bodyFatPercentage) {
+    measurementDynamoDb.Item.BodyFatPercentage = {
+      N: "" + measurement.bodyFatPercentage,
     };
   }
 
-  if (waterPercentage) {
-    measurement.Item.WaterPercentage = {
-      N: "" + waterPercentage,
+  if (measurement.waterPercentage) {
+    measurementDynamoDb.Item.WaterPercentage = {
+      N: "" + measurement.waterPercentage,
     };
   }
 
-  if (muscleMassPercentage) {
-    measurement.Item.MuscleMassPercentage = {
-      N: "" + muscleMassPercentage,
+  if (measurement.muscleMassPercentage) {
+    measurementDynamoDb.Item.MuscleMassPercentage = {
+      N: "" + measurement.muscleMassPercentage,
     };
   }
 
-  if (bonePercentage) {
-    measurement.Item.BonePercentage = {
-      N: "" + bonePercentage,
+  if (measurement.bonePercentage) {
+    measurementDynamoDb.Item.BonePercentage = {
+      N: "" + measurement.bonePercentage,
     };
   }
 
-  if (energyExpenditure) {
-    measurement.Item.EnergyExpenditure = {
-      N: "" + energyExpenditure,
+  if (measurement.energyExpenditure) {
+    measurementDynamoDb.Item.EnergyExpenditure = {
+      N: "" + measurement.energyExpenditure,
     };
   }
 };
-
-const test = "test";

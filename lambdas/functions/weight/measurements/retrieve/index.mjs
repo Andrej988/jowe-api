@@ -11,12 +11,11 @@ const REGION = process.env.AWS_REGION;
 
 export const handler = async (event) => {
   console.info("event", event);
-
   const type = event.type;
   const tableName = process.env.TABLE_NAME;
+
   const userId = event.userId;
   const measurementId = event.measurementId;
-
   console.info("UserId:", userId);
   console.info("MeasurementId:", measurementId);
 
@@ -52,7 +51,7 @@ export const handler = async (event) => {
     }
   } catch (err) {
     console.error(err);
-    response = buildErrorResponse(500, err);
+    response = buildErrorResponse(500, err.message);
     context.fail(JSON.stringify(response));
   }
 };

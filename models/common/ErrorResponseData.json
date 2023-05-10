@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ErrorResponseData",
+  "type": "object",
+  "properties": {
+    "errorMsg": { "type": "string" }
+  },
+  "required": ["errorMsg"]
+}
