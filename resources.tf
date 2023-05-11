@@ -12,6 +12,13 @@ module "db" {
   project_name = var.project_name
 }
 
+module "sns_and_sqs" {
+  source       = "./terraform/modules/sns_and_sqs"
+  ENV          = var.ENV
+  app_name     = var.app_name
+  project_name = var.project_name
+}
+
 module "lambda" {
   source            = "./terraform/modules/lambda"
   ENV               = var.ENV
