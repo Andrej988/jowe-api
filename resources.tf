@@ -20,12 +20,14 @@ module "sns_and_sqs" {
 }
 
 module "lambda" {
-  source            = "./terraform/modules/lambda"
-  ENV               = var.ENV
-  app_name          = var.app_name
-  project_name      = var.project_name
-  dynamodb_policies = module.db.dynamodb_policies
-  dynamodb_tables   = module.db.dynamodb_tables
+  source               = "./terraform/modules/lambda"
+  ENV                  = var.ENV
+  app_name             = var.app_name
+  project_name         = var.project_name
+  dynamodb_policies    = module.db.dynamodb_policies
+  dynamodb_tables      = module.db.dynamodb_tables
+  sns_and_sqs_arns     = module.sns_and_sqs.sns_and_sqs_arns
+  sns_and_sqs_policies = module.sns_and_sqs.sns_and_sqs_policies
 }
 
 module "api" {

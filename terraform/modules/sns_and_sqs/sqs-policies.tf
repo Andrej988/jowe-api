@@ -1,0 +1,57 @@
+data "aws_iam_policy_document" "sqs_weight_measurements_delete_user_data_queue_process_policy" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes"
+    ]
+
+    resources = [aws_sqs_queue.weight_measurements_delete_user_data_queue.arn]
+  }
+
+  depends_on = [
+    aws_sqs_queue.weight_measurements_delete_user_data_queue
+  ]
+}
+
+data "aws_iam_policy_document" "sqs_weight_targets_delete_user_data_queue_process_policy" {
+  statement {
+    effect = "Allow"
+
+    actions = [
+      "sqs:ReceiveMessage",
+      "sqs:DeleteMessage",
+      "sqs:GetQueueAttributes"
+    ]
+
+    resources = [aws_sqs_queue.weight_targets_delete_user_data_queue.arn]
+  }
+
+  depends_on = [
+    aws_sqs_queue.weight_targets_delete_user_data_queue
+  ]
+}
+
+resource "aws_iam_policy" "sqs_weight_measurements_delete_user_data_queue_process_policy" {
+  name        = var.ENV == "dev" ? "${var.app_name}-sqs-weight-measurements-delete-user-data-queue-policy-dev" : "${var.app_name}-sqs-weight-measurements-delete-user-data-queue-policy"
+  path        = "/"
+  description = "IAM policy for crud SQS queue weight measurements delete user data processing"
+  policy      = data.aws_iam_policy_document.sqs_weight_measurements_delete_user_data_queue_process_policy.json
+
+  depends_on = [
+    data.aws_iam_policy_document.sqs_weight_measurements_delete_user_data_queue_process_policy
+  ]
+}
+
+resource "aws_iam_policy" "sqs_weight_targets_delete_user_data_queue_process_policy" {
+  name        = var.ENV == "dev" ? "${var.app_name}-sqs-weight-targets-delete-user-data-queue-policy-dev" : "${var.app_name}-sqs-weight-targets-delete-user-data-queue-policy"
+  path        = "/"
+  description = "IAM policy for crud SQS queue weight targets delete user data processing"
+  policy      = data.aws_iam_policy_document.sqs_weight_targets_delete_user_data_queue_process_policy.json
+
+  depends_on = [
+    data.aws_iam_policy_document.sqs_weight_targets_delete_user_data_queue_process_policy
+  ]
+}
