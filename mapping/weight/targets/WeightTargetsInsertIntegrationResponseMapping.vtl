@@ -1,4 +1,4 @@
-#set($hasTarget =  $input.json('$.body.target')  != "")
+#set($hasTarget =  $input.json('$.body.targetWeight')  != "")
 {
-  "target": #if($hasTarget) $input.json('$.body.target') #else {} #end
+  "target": #if($hasTarget) $input.json('$.body.targetWeight') #else {} #end
 }
