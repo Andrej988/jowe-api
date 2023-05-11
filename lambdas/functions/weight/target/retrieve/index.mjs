@@ -3,46 +3,46 @@
 // Retrieved from lambda layers
 import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import {
-  retrieveSingleMeasurement,
-  retrieveAllMeasurements,
-} from "/opt/nodejs/measurementUtils.mjs";
+  retrieveSingleTargetWeight,
+  retrieveAllTargetWeights,
+} from "/opt/nodejs/targetWeightUtils.mjs";
 
 const REGION = process.env.AWS_REGION;
 
 export const handler = async (event) => {
   console.info("event", event);
+
   const type = event.type;
   const tableName = process.env.TABLE_NAME;
-
   const userId = event.userId;
-  const measurementId = event.measurementId;
-  console.info("UserId:", userId);
-  console.info("MeasurementId:", measurementId);
+  const recordId = event.recordId;
+  console.info("data", {
+    type: type,
+    tableName: tableName,
+    userId: userId,
+    recordId: recordId,
+  });
 
   let response;
 
   try {
     if (type === "all") {
-      const measurements = await retrieveAllMeasurements(
-        REGION,
-        tableName,
-        userId
-      );
+      const targets = await retrieveAllTargetWeights(REGION, tableName, userId);
       const responseBody = {
-        measurements: measurements,
+        targetWeights: targets,
       };
       response = buildResponse(200, responseBody);
       console.info("response", response);
       return response;
     } else if (type === "single") {
-      const measurement = await retrieveSingleMeasurement(
+      const target = await retrieveSingleTargetWeight(
         REGION,
         tableName,
         userId,
-        measurementId
+        recordId
       );
 
-      response = buildResponse(200, measurement);
+      response = buildResponse(200, target);
       console.info("response", response);
       return response;
     } else {

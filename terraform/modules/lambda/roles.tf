@@ -35,22 +35,22 @@ resource "aws_iam_role_policy_attachment" "jowe_api_lambda_read_only_AWSLambdaBa
   policy_arn = data.aws_iam_policy.AWSLambdaBasicExecutionRole.arn
 }
 
-resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_crud_role_attachment_measurements" {
+resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_crud_role_attachment_weight_measurements" {
   role       = aws_iam_role.jowe_api_lambda_crud.name
-  policy_arn = var.dynamodb_policies["measurements_crud"]
+  policy_arn = var.dynamodb_policies["weight_measurements_crud"]
 }
 
-resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_read_only_role_attachment_measurements" {
+resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_read_only_role_attachment_weight_measurements" {
   role       = aws_iam_role.jowe_api_lambda_read_only.name
-  policy_arn = var.dynamodb_policies["measurements_read_only"]
+  policy_arn = var.dynamodb_policies["weight_measurements_read_only"]
 }
 
-resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_crud_role_attachment_profiles" {
+resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_crud_role_attachment_weight_targets" {
   role       = aws_iam_role.jowe_api_lambda_crud.name
-  policy_arn = var.dynamodb_policies["profiles_crud"]
+  policy_arn = var.dynamodb_policies["weight_targets_crud"]
 }
 
-resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_read_only_role_attachment_profiles" {
+resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_read_only_role_attachment_weight_targets" {
   role       = aws_iam_role.jowe_api_lambda_read_only.name
-  policy_arn = var.dynamodb_policies["profiles_read_only"]
+  policy_arn = var.dynamodb_policies["weight_targets_read_only"]
 }

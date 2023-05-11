@@ -32,7 +32,7 @@ resource "aws_lambda_function" "weight_measurements_retrieve_lambda" {
 
   layers = [
     aws_lambda_layer_version.common_layer.arn,
-    aws_lambda_layer_version.weight_measurements_shared_layer.arn,
+    aws_lambda_layer_version.weight_shared_layer.arn,
   ]
 
   tags = {
@@ -44,8 +44,8 @@ resource "aws_lambda_function" "weight_measurements_retrieve_lambda" {
   depends_on = [
     aws_iam_role.jowe_api_lambda_read_only,
     aws_iam_role_policy_attachment.jowe_api_lambda_read_only_AWSLambdaBasicExecutionRole_attachment,
-    aws_iam_role_policy_attachment.jowe_api_lambda_dynamodb_read_only_role_attachment_measurements,
-    aws_lambda_layer_version.weight_measurements_shared_layer,
+    aws_iam_role_policy_attachment.jowe_api_lambda_dynamodb_read_only_role_attachment_weight_measurements,
+    aws_lambda_layer_version.weight_shared_layer,
     aws_cloudwatch_log_group.weight_measurements_retrieve_lambda_log_group,
   ]
 }

@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "WeightTargetResponseSchema",
+  "type": "object",
+  "properties": {
+    "targetWeight": {
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "recordId": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "targetWeight": { "type": "number" }
+      },
+      "required": ["userId", "recordId", "timestamp", "targetWeight"]
+    }
+  },
+  "required": ["targetWeight"]
+}

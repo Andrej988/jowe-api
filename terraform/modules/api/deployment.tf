@@ -18,23 +18,26 @@ resource "aws_api_gateway_deployment" "jowe_api_deployment" {
   depends_on = [
     aws_api_gateway_rest_api.jowe_api,
 
+    # Weight Resource
+    aws_api_gateway_resource.weight_resource,
+
     # Measurements Endpoint
-    aws_api_gateway_resource.measurements_resource,
-    aws_api_gateway_method.options_measurements_method,
-    aws_api_gateway_integration.options_measurements_integration,
-    aws_api_gateway_method.get_measurements_method,
-    aws_api_gateway_integration.get_measurements_integration,
-    aws_api_gateway_method.post_measurements_method,
-    aws_api_gateway_integration.post_measurements_integration,
+    aws_api_gateway_resource.weight_measurements_resource,
+    aws_api_gateway_method.weight_measurements_method_options,
+    aws_api_gateway_integration.weight_measurements_integration_options,
+    aws_api_gateway_method.weight_measurements_method_get,
+    aws_api_gateway_integration.weight_measurements_integration_get,
+    aws_api_gateway_method.weight_measurements_method_post,
+    aws_api_gateway_integration.weight_measurements_integration_post,
 
     # Measurements/Id Endpoint
-    aws_api_gateway_resource.measurements_id_resource,
-    aws_api_gateway_method.options_measurements_id_method,
-    aws_api_gateway_integration.options_measurements_id_integration,
-    aws_api_gateway_method.get_measurements_id_method,
-    aws_api_gateway_integration.get_measurements_id_integration,
-    aws_api_gateway_method.delete_measurements_id_method,
-    aws_api_gateway_integration.delete_measurements_id_integration,
+    aws_api_gateway_resource.weight_measurements_id_resource,
+    aws_api_gateway_method.weight_measurements_id_method_options,
+    aws_api_gateway_integration.weight_measurements_id_integration_options,
+    aws_api_gateway_method.weight_measurements_id_method_get,
+    aws_api_gateway_integration.weight_measurements_id_integration_get,
+    aws_api_gateway_method.weight_measurements_id_method_delete,
+    aws_api_gateway_integration.weight_measurements_id_integration_delete,
 
   ]
 }
