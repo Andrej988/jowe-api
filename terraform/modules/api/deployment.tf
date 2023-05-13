@@ -18,6 +18,16 @@ resource "aws_api_gateway_deployment" "jowe_api_deployment" {
   depends_on = [
     aws_api_gateway_rest_api.jowe_api,
 
+    # Admin resource
+    aws_api_gateway_resource.admin_resource,
+
+    # Delete User Data Endpoint
+    aws_api_gateway_resource.delete_user_data,
+    aws_api_gateway_method.delete_user_data_method_options,
+    aws_api_gateway_integration.delete_user_data_integration_options,
+    aws_api_gateway_method.delete_user_data_method_post,
+    aws_api_gateway_integration.delete_user_data_integration_post,
+
     # Weight Resource
     aws_api_gateway_resource.weight_resource,
 
