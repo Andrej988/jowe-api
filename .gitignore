@@ -144,6 +144,3 @@ terraform.rc
 # NodeJS / Javascript
 **/node_modules
 **/jspm_packages
-
-# Golang
-**/build

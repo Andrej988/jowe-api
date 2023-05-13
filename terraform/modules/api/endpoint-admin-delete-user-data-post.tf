@@ -14,35 +14,26 @@ resource "aws_api_gateway_method" "delete_user_data_method_post" {
   ]
 }
 
-resource "aws_lambda_permission" "gateway_lambda_permission_post_delete_user_data" {
-  action        = "lambda:InvokeFunction"
-  function_name = var.api_lambdas_names["common_delete_user_data"]
-  principal     = "apigateway.amazonaws.com"
-
-  source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/POST/admin/delete-user-data"
-
-  depends_on = [
-    aws_api_gateway_rest_api.jowe_api,
-    aws_api_gateway_method.delete_user_data_method_post
-  ]
-}
-
 resource "aws_api_gateway_integration" "delete_user_data_integration_post" {
   rest_api_id             = aws_api_gateway_rest_api.jowe_api.id
   resource_id             = aws_api_gateway_resource.delete_user_data.id
   http_method             = aws_api_gateway_method.delete_user_data_method_post.http_method
   integration_http_method = aws_api_gateway_method.delete_user_data_method_post.http_method
   type                    = "AWS"
-  uri                     = var.api_lambdas_arns["common_delete_user_data"]
+  uri                     = "arn:aws:apigateway:${var.AWS_REGION}:sns:action/Publish"
+  credentials             = aws_iam_role.jowe_api_gateway_sns.arn
 
-  passthrough_behavior = "WHEN_NO_TEMPLATES"
-  request_templates = {
-    "application/json" = file("./mapping/admin/DeleteUserDataIntegrationRequestMapping.vtl")
+  request_parameters = {
+    "integration.request.querystring.TopicArn" = "'${var.sns_and_sqs_arns["sns_delete_user_data_topic"]}'"
+    "integration.request.querystring.Message" = "context.authorizer.claims.sub"
   }
 
+  cache_key_parameters = [
+    "integration.request.querystring.TopicArn"
+  ]
+
   depends_on = [
-    aws_api_gateway_method.delete_user_data_method_post,
-    aws_lambda_permission.gateway_lambda_permission_post_delete_user_data
+    aws_api_gateway_method.delete_user_data_method_post
   ]
 }
 

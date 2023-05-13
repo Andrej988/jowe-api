@@ -32,6 +32,7 @@ module "lambda" {
 
 module "api" {
   source                = "./terraform/modules/api"
+  AWS_REGION            = var.AWS_REGION
   ENV                   = var.ENV
   DOMAIN_NAME           = var.DOMAIN_NAME
   AWS_CERTIFICATE_ARN   = var.AWS_CERTIFICATE_ARN
@@ -40,4 +41,6 @@ module "api" {
   cognito_user_pool_arn = module.auth.cognito_user_pool_arn
   api_lambdas_arns      = module.lambda.api_lambdas_arns
   api_lambdas_names     = module.lambda.api_lambdas_names
+  sns_and_sqs_arns      = module.sns_and_sqs.sns_and_sqs_arns
+  sns_and_sqs_policies  = module.sns_and_sqs.sns_and_sqs_policies
 }

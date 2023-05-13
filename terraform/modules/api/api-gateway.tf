@@ -29,6 +29,10 @@ resource "aws_api_gateway_gateway_response" "jowe_api_gateway_response_default_4
     "gatewayresponse.header.Access-Control-Allow-Methods" = "'OPTIONS'"
   }
 
+  response_templates = {
+    "application/json" = "{\"message\":$context.error.messageString}"
+  }
+
   depends_on = [
     aws_api_gateway_rest_api.jowe_api,
   ]
@@ -41,6 +45,10 @@ resource "aws_api_gateway_gateway_response" "jowe_api_gateway_response_default_5
   response_parameters = {
     "gatewayresponse.header.Access-Control-Allow-Origin"  = local.cors_access_control_allow_origin_value
     "gatewayresponse.header.Access-Control-Allow-Methods" = "'OPTIONS'"
+  }
+
+  response_templates = {
+    "application/json" = "{\"message\":$context.error.messageString}"
   }
 
   depends_on = [

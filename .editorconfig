@@ -20,9 +20,6 @@ end_of_line = crlf
 # File Extension Settings
 ##########################################
 
-[*.go]
-indent_size = 4;
-
 [*.json]
 insert_final_newline = false
 indent_size = 2
