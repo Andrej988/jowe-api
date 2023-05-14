@@ -1,20 +1,12 @@
 "use strict";
 
+import { GetItemCommand, QueryCommand } from "@aws-sdk/client-dynamodb";
+
+import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
 import {
-  DynamoDBClient,
-  GetItemCommand,
-  QueryCommand,
-} from "@aws-sdk/client-dynamodb";
-
-const getOptionalValueString = (value) => {
-  return value !== undefined && value.S !== "" ? value.S : undefined;
-};
-
-const getOptionalValueNumeric = (value) => {
-  return value !== undefined && value.N !== undefined
-    ? Number(value.N)
-    : undefined;
-};
+  getOptionalValueString,
+  getOptionalValueNumeric,
+} from "/opt/nodejs/utils.mjs";
 
 export const buildMeasurementFromDynamoDbRecord = (element) => {
   console.log("element:", element);
@@ -64,11 +56,10 @@ export const buildDynamoDbParamsRetrieveSingleMeasurement = (
   };
 };
 
-export const retrieveAllMeasurements = async (region, tableName, userId) => {
+export const retrieveAllMeasurements = async (tableName, userId) => {
   const params = buildDynamoDbParamsRetrieveAllMeasurements(tableName, userId);
   console.log("params:", params);
 
-  const ddbClient = new DynamoDBClient({ region: region });
   const retrievedData = await ddbClient.send(new QueryCommand(params));
   const measurements = [];
 
@@ -82,7 +73,6 @@ export const retrieveAllMeasurements = async (region, tableName, userId) => {
 };
 
 export const retrieveSingleMeasurement = async (
-  region,
   tableName,
   userId,
   measurementId
@@ -94,7 +84,6 @@ export const retrieveSingleMeasurement = async (
   );
   console.log("params:", params);
 
-  const ddbClient = new DynamoDBClient({ region: region });
   const retrievedData = await ddbClient.send(new GetItemCommand(params));
   let measurement;
 

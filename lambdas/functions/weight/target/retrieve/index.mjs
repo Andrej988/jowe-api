@@ -5,7 +5,7 @@ import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import {
   retrieveSingleTargetWeight,
   retrieveAllTargetWeights,
-} from "/opt/nodejs/targetWeightUtils.mjs";
+} from "/opt/nodejs/targets/utils.mjs";
 
 const REGION = process.env.AWS_REGION;
 
@@ -27,7 +27,7 @@ export const handler = async (event) => {
 
   try {
     if (type === "all") {
-      const targets = await retrieveAllTargetWeights(REGION, tableName, userId);
+      const targets = await retrieveAllTargetWeights(tableName, userId);
       const responseBody = {
         targetWeights: targets,
       };
@@ -36,7 +36,6 @@ export const handler = async (event) => {
       return response;
     } else if (type === "single") {
       const target = await retrieveSingleTargetWeight(
-        REGION,
         tableName,
         userId,
         recordId

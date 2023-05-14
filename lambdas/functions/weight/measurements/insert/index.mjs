@@ -1,6 +1,6 @@
 "use strict";
 
-import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { randomUUID } from "node:crypto";
 
 import { buildMeasurement } from "./measurements.mjs";
@@ -8,10 +8,8 @@ import { validateMeasurement } from "./validation.mjs";
 
 // Retrieved from lambda layers
 import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
-import { retrieveSingleMeasurement } from "/opt/nodejs/measurementUtils.mjs";
-
-const REGION = process.env.AWS_REGION;
-const ddbClient = new DynamoDBClient({ region: REGION });
+import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
+import { retrieveSingleMeasurement } from "/opt/nodejs/measurements/utils.mjs";
 
 export const handler = async (event, context) => {
   console.info("measurement: ", event.measurement);
@@ -51,7 +49,6 @@ export const handler = async (event, context) => {
     console.info(measurementMetadata);
 
     const retrievedMeasurement = await retrieveSingleMeasurement(
-      REGION,
       tableName,
       measurement.userId,
       measurement.measurementId
