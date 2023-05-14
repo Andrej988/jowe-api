@@ -5,9 +5,7 @@ import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import {
   retrieveSingleMeasurement,
   retrieveAllMeasurements,
-} from "/opt/nodejs/measurementUtils.mjs";
-
-const REGION = process.env.AWS_REGION;
+} from "/opt/nodejs/measurements/utils.mjs";
 
 export const handler = async (event) => {
   console.info("event", event);
@@ -23,11 +21,7 @@ export const handler = async (event) => {
 
   try {
     if (type === "all") {
-      const measurements = await retrieveAllMeasurements(
-        REGION,
-        tableName,
-        userId
-      );
+      const measurements = await retrieveAllMeasurements(tableName, userId);
       const responseBody = {
         measurements: measurements,
       };
@@ -36,7 +30,6 @@ export const handler = async (event) => {
       return response;
     } else if (type === "single") {
       const measurement = await retrieveSingleMeasurement(
-        REGION,
         tableName,
         userId,
         measurementId

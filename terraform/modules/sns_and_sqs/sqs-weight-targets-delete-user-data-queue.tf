@@ -8,7 +8,7 @@ resource "aws_sqs_queue" "weight_targets_delete_user_data_queue" {
 
   redrive_policy = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.weight_targets_delete_user_data_dead_letter_queue.arn
-    maxReceiveCount     = 4
+    maxReceiveCount     = local.sqs_max_receive_count
   })
 
   tags = {

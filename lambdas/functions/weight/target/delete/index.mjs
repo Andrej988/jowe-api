@@ -1,12 +1,10 @@
 "use strict";
 
-import { DynamoDBClient, DeleteItemCommand } from "@aws-sdk/client-dynamodb";
+import { DeleteItemCommand } from "@aws-sdk/client-dynamodb";
 
 // Retrieved from lambda layers
 import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
-
-const REGION = process.env.AWS_REGION;
-const ddbClient = new DynamoDBClient({ region: REGION });
+import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
 
 export const handler = async (event) => {
   const params = {

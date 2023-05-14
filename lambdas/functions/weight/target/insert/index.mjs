@@ -1,14 +1,12 @@
 "use strict";
 
-import { DynamoDBClient, PutItemCommand } from "@aws-sdk/client-dynamodb";
+import { PutItemCommand } from "@aws-sdk/client-dynamodb";
 import { randomUUID } from "node:crypto";
 
 // Retrieved from lambda layers
 import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
-import { retrieveSingleTargetWeight } from "/opt/nodejs/targetWeightUtils.mjs";
-
-const REGION = process.env.AWS_REGION;
-const ddbClient = new DynamoDBClient({ region: REGION });
+import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
+import { retrieveSingleTargetWeight } from "/opt/nodejs/targets/utils.mjs";
 
 const buildRecord = (tableName, userId, recordId, targetWeight) => {
   return {
@@ -77,7 +75,6 @@ export const handler = async (event, context) => {
     console.info(dynamoDbMetadata);
 
     const retrievedTargetWeight = await retrieveSingleTargetWeight(
-      REGION,
       tableName,
       userId,
       recordId

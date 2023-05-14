@@ -1,10 +1,8 @@
 "use strict";
 
-import {
-  DynamoDBClient,
-  GetItemCommand,
-  QueryCommand,
-} from "@aws-sdk/client-dynamodb";
+import { GetItemCommand, QueryCommand } from "@aws-sdk/client-dynamodb";
+
+import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
 
 export const buildTargetWeightFromDynamoDbRecord = (element) => {
   console.log("element:", element);
@@ -43,11 +41,10 @@ export const buildDynamoDbParamsRetrieveSingleTargetWeight = (
   };
 };
 
-export const retrieveAllTargetWeights = async (region, tableName, userId) => {
+export const retrieveAllTargetWeights = async (tableName, userId) => {
   const params = buildDynamoDbParamsRetrieveAllTargetWeights(tableName, userId);
   console.log("params:", params);
 
-  const ddbClient = new DynamoDBClient({ region: region });
   const retrievedData = await ddbClient.send(new QueryCommand(params));
   const targets = [];
 
@@ -61,7 +58,6 @@ export const retrieveAllTargetWeights = async (region, tableName, userId) => {
 };
 
 export const retrieveSingleTargetWeight = async (
-  region,
   tableName,
   userId,
   recordId
@@ -73,7 +69,6 @@ export const retrieveSingleTargetWeight = async (
   );
   console.log("params:", params);
 
-  const ddbClient = new DynamoDBClient({ region: region });
   const retrievedData = await ddbClient.send(new GetItemCommand(params));
   let targetWeight;
 
