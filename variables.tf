@@ -38,3 +38,7 @@ variable "TF_LOG" {
   type    = string
   default = "DEBUG"
 }
+
+variable "WEBSITE_DOMAIN" {
+  type = string
+}
