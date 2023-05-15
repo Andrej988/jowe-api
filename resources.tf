@@ -43,4 +43,5 @@ module "api" {
   api_lambdas_names     = module.lambda.api_lambdas_names
   sns_and_sqs_arns      = module.sns_and_sqs.sns_and_sqs_arns
   sns_and_sqs_policies  = module.sns_and_sqs.sns_and_sqs_policies
+  WEBSITE_DOMAIN        = var.WEBSITE_DOMAIN
 }

@@ -9,3 +9,4 @@ variable "api_lambdas_arns" {}
 variable "api_lambdas_names" {}
 variable "sns_and_sqs_arns" {}
 variable "sns_and_sqs_policies" {}
+variable "WEBSITE_DOMAIN" {}

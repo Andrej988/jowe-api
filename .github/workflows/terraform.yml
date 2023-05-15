@@ -62,6 +62,7 @@ jobs:
           TF_VAR_AWS_CERTIFICATE_ARN: ${{ vars.AWS_CERTIFICATE_ARN }}
           TF_VAR_AWS_REGION: ${{ vars.AWS_REGION }}
           TF_VAR_DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
+          TF_VAR_WEBSITE_DOMAIN: ${{ vars.WEBSITE_DOMAIN }}
           TF_VAR_ENV: ${{ vars.ENV }}
         run: terraform plan -no-color -input=false
         continue-on-error: true
