@@ -2,7 +2,7 @@
 
 # JoWe (Journal for Wellness) API
 
-Backend (API) for JoWe (Journal for Wellness) application.
+Backend (API) for JoWe (Journal for Wellness) application. <br />
 For frontend see: https://github.com/Andrej988/jowe-web
 
 ## About
