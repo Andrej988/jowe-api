@@ -1,4 +1,5 @@
 [![Terraform](https://github.com/Andrej988/jowe-api/actions/workflows/terraform.yml/badge.svg)](https://github.com/Andrej988/jowe-api/actions/workflows/terraform.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # JoWe (Journal for Wellness) API
 
