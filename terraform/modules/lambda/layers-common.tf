@@ -9,7 +9,6 @@ resource "aws_lambda_layer_version" "common_layer" {
   layer_name = "JoWe-common-layer"
 
   compatible_runtimes      = [local.lambda_runtimes["nodejs_common_runtime"]]
-  compatible_architectures = []
 
   source_code_hash = data.archive_file.common_layer_zip.output_base64sha256
 
