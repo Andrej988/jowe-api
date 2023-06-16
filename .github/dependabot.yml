@@ -4,6 +4,6 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
-      day: "sunday"
+      day: "saturday"
       time: "09:00"
       timezone: "Europe/Ljubljana"
