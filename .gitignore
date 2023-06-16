@@ -144,3 +144,6 @@ terraform.rc
 # NodeJS / Javascript
 **/node_modules
 **/jspm_packages
+
+# VScode
+**/.vscode/**
