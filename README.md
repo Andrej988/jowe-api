@@ -1,4 +1,6 @@
-[![Terraform](https://github.com/Andrej988/jowe-api/actions/workflows/terraform.yml/badge.svg)](https://github.com/Andrej988/jowe-api/actions/workflows/terraform.yml)
+[![CI Main](https://github.com/Andrej988/jowe-api/actions/workflows/ci_main.yml/badge.svg)](https://github.com/Andrej988/jowe-api/actions/workflows/ci_main.yml)
+[![Release on Github](https://github.com/Andrej988/jowe-api/actions/workflows/release_github.yml/badge.svg)](https://github.com/Andrej988/jowe-api/actions/workflows/release_github.yml)
+[![Deploy via Terraform](https://github.com/Andrej988/jowe-api/actions/workflows/deploy_terraform.yml/badge.svg)](https://github.com/Andrej988/jowe-api/actions/workflows/deploy_terraform.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 # JoWe (Journal for Wellness) API
