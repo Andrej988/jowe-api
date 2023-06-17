@@ -1,0 +1,65 @@
+name: Release on Github
+
+on:
+  workflow_run:
+    workflows: ["CI main"]
+    branches: [main]
+    types:
+      - completed
+
+permissions:
+  contents: write
+
+jobs:
+  github_release:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    outputs:
+      release_version: ${{ steps.release_version_to_outputs.outputs.release_version }}
+      commit_message: ${{ steps.retrieve_commit_msg.outputs.commit_message }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure git
+        run: |
+          git config --global committer.email "noreply@github.com"
+          git config --global committer.name "GitHub-Actions"
+          git config --global author.email "noreply@github.com"
+          git config --global author.name "GitHub-Actions"
+
+      # Retrieve current release version of the project
+      - name: Retrieve current version
+        run: echo version=$(jq -r .version package.json) >> $GITHUB_OUTPUT
+        id: retrieve_release_version
+
+      # Output current release version
+      - name: Output current release version
+        id: release_version_to_outputs
+        run: echo release_version=${{ steps.retrieve_release_version.outputs.version }}
+
+      # Retrieve commit message
+      - name: Retrieve head commit message to be used as release description
+        id: retrieve_commit_msg
+        uses: actions/github-script@v5
+        with:
+          script: |
+            core.setOutput("commit_message", `${{ github.event.workflow_run.head_commit.message }}`);
+
+      # Create a Github Release
+      - name: Create Github Release
+        id: create_release
+        uses: actions/create-release@v1.1.4
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: "v${{ steps.retrieve_release_version.outputs.version }}"
+          release_name: Release "v${{ steps.retrieve_release_version.outputs.version }}"
+          #body: "Automatically created by GitHub Actions"
+          body: "${{ steps.retrieve_commit_msg.outputs.commit_message }}"
+          draft: false
+          prerelease: false
