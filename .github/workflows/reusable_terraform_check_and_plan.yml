@@ -27,7 +27,7 @@ jobs:
       - name: Terraform Init
         id: init
         if: steps.fmt.outcome != 'failure'
-        run: terraform init
+        run: terraform init -upgrade
         continue-on-error: true
 
       # Validates terraform configuration
