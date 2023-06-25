@@ -147,3 +147,6 @@ terraform.rc
 
 # VScode
 **/.vscode/**
+
+# Specific command files
+**/terraform-init.cmd
