@@ -1,4 +1,4 @@
-name: Terraform Deploy on Development Environment
+name: Deploy on Development Environment
 
 on:
   workflow_run:

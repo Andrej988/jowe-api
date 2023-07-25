@@ -1,4 +1,4 @@
-name: Terraform Deploy on Production Environment
+name: Deploy on Production Environment
 
 on: workflow_dispatch
 
