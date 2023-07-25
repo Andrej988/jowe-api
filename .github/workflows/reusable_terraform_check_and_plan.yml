@@ -50,7 +50,7 @@ jobs:
         env:
           TF_VAR_AWS_CERTIFICATE_ARN: ${{ vars.AWS_CERTIFICATE_ARN }}
           TF_VAR_AWS_REGION: ${{ vars.AWS_REGION }}
-          DOMAIN_API: ${{ vars.DOMAIN_API }}
+          TF_VAR_DOMAIN_API: ${{ vars.DOMAIN_API }}
           TF_VAR_DOMAIN_WEBSITE: ${{ vars.DOMAIN_WEBSITE }}
           TF_VAR_ENV: ${{ vars.ENV }}
         run: terraform plan -no-color -input=false
