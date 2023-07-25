@@ -1,6 +1,6 @@
-name: Reusable Terraform Deploy
+name: Terraform Deploy on Production Environment
 
-on: workflow_call
+on: workflow_dispatch
 
 env:
   TF_CLOUD_ORGANIZATION: "${{ secrets.TF_CLOUD_ORGANIZATION }}"
@@ -14,8 +14,7 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    #environment: production
+    environment: production
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
