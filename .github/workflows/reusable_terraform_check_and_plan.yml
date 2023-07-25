@@ -10,6 +10,7 @@ env:
 jobs:
   reusable_terraform_check:
     runs-on: ubuntu-latest
+    environment: development
 
     steps:
       # Checkout the repository to the GitHub Actions runner
