@@ -86,6 +86,7 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
+        continue-on-error: true
 
       # Stops the workflow if terraform plan failed (stop after updating pull request)
       - name: Terraform Plan Status
