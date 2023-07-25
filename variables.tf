@@ -16,7 +16,7 @@ variable "AWS_CERTIFICATE_ARN" {
   type = string
 }
 
-variable "DOMAIN_NAME" {
+variable "DOMAIN_API" {
   type = string
 }
 
@@ -39,6 +39,6 @@ variable "TF_LOG" {
   default = "DEBUG"
 }
 
-variable "WEBSITE_DOMAIN" {
+variable "DOMAIN_WEBSITE" {
   type = string
 }

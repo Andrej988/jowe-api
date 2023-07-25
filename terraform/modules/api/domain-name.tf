@@ -1,5 +1,5 @@
 resource "aws_api_gateway_domain_name" "custom_domain_name" {
-  domain_name              = var.DOMAIN_NAME
+  domain_name              = var.DOMAIN_API
   regional_certificate_arn = var.AWS_CERTIFICATE_ARN
 
   endpoint_configuration {

@@ -10,6 +10,7 @@ env:
 jobs:
   reusable_terraform_check:
     runs-on: ubuntu-latest
+    environment: development
 
     steps:
       # Checkout the repository to the GitHub Actions runner
@@ -49,8 +50,8 @@ jobs:
         env:
           TF_VAR_AWS_CERTIFICATE_ARN: ${{ vars.AWS_CERTIFICATE_ARN }}
           TF_VAR_AWS_REGION: ${{ vars.AWS_REGION }}
-          TF_VAR_DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
-          TF_VAR_WEBSITE_DOMAIN: ${{ vars.WEBSITE_DOMAIN }}
+          TF_VAR_DOMAIN_API: ${{ vars.DOMAIN_API }}
+          TF_VAR_DOMAIN_WEBSITE: ${{ vars.DOMAIN_WEBSITE }}
           TF_VAR_ENV: ${{ vars.ENV }}
         run: terraform plan -no-color -input=false
         continue-on-error: true
@@ -85,6 +86,7 @@ jobs:
               repo: context.repo.repo,
               body: output
             })
+        continue-on-error: true
 
       # Stops the workflow if terraform plan failed (stop after updating pull request)
       - name: Terraform Plan Status

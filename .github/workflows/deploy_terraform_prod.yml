@@ -1,11 +1,6 @@
-name: "Deploy via Terraform"
+name: Terraform Deploy on Production Environment
 
-on:
-  workflow_run:
-    workflows: ["Release on Github"]
-    branches: [main]
-    types:
-      - completed
+on: workflow_dispatch
 
 env:
   TF_CLOUD_ORGANIZATION: "${{ secrets.TF_CLOUD_ORGANIZATION }}"
@@ -19,8 +14,7 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
-    #environment: production
+    environment: production
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -48,7 +42,7 @@ jobs:
         env:
           TF_VAR_AWS_CERTIFICATE_ARN: ${{ vars.AWS_CERTIFICATE_ARN }}
           TF_VAR_AWS_REGION: ${{ vars.AWS_REGION }}
-          TF_VAR_DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
-          TF_VAR_WEBSITE_DOMAIN: ${{ vars.WEBSITE_DOMAIN }}
+          TF_VAR_DOMAIN_API: ${{ vars.DOMAIN_API }}
+          TF_VAR_DOMAIN_WEBSITE: ${{ vars.DOMAIN_WEBSITE }}
           TF_VAR_ENV: ${{ vars.ENV }}
         run: terraform apply -auto-approve -input=false
