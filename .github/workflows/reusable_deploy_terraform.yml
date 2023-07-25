@@ -1,11 +1,6 @@
-name: "Deploy via Terraform"
+name: Reusable Terraform Deploy
 
-on:
-  workflow_run:
-    workflows: ["Release on Github"]
-    branches: [main]
-    types:
-      - completed
+on: workflow_call
 
 env:
   TF_CLOUD_ORGANIZATION: "${{ secrets.TF_CLOUD_ORGANIZATION }}"
@@ -48,7 +43,7 @@ jobs:
         env:
           TF_VAR_AWS_CERTIFICATE_ARN: ${{ vars.AWS_CERTIFICATE_ARN }}
           TF_VAR_AWS_REGION: ${{ vars.AWS_REGION }}
-          TF_VAR_DOMAIN_NAME: ${{ vars.DOMAIN_NAME }}
-          TF_VAR_WEBSITE_DOMAIN: ${{ vars.WEBSITE_DOMAIN }}
+          TF_VAR_DOMAIN_API: ${{ vars.DOMAIN_API }}
+          TF_VAR_DOMAIN_WEBSITE: ${{ vars.DOMAIN_WEBSITE }}
           TF_VAR_ENV: ${{ vars.ENV }}
         run: terraform apply -auto-approve -input=false
