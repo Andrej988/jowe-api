@@ -9,4 +9,4 @@ variable "api_lambdas_arns" {}
 variable "api_lambdas_names" {}
 variable "sns_and_sqs_arns" {}
 variable "sns_and_sqs_policies" {}
-variable "DOMAIN_WEBSITE" {}
+variable "CORS_ALLOWED_ORIGIN" {}
