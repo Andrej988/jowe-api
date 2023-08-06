@@ -39,6 +39,6 @@ variable "TF_LOG" {
   default = "DEBUG"
 }
 
-variable "DOMAIN_WEBSITE" {
+variable "CORS_ALLOWED_ORIGIN" {
   type = string
 }
