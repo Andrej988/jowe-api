@@ -9,7 +9,7 @@ import { validateMeasurement } from "./validation.mjs";
 // Retrieved from lambda layers
 import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
-import { retrieveSingleMeasurement } from "/opt/nodejs/measurements/utils.mjs";
+import { buildMeasurementFromDynamoDbRecord } from "/opt/nodejs/measurements/utils.mjs";
 
 export const handler = async (event, context) => {
   console.info("measurement: ", event.measurement);
@@ -43,16 +43,22 @@ export const handler = async (event, context) => {
 
   try {
     const measurementDataDynamoDb = buildMeasurement(tableName, measurement);
-    const measurementMetadata = await ddbClient.send(
+    const data = await ddbClient.send(
       new PutItemCommand(measurementDataDynamoDb)
     );
     console.info(measurementMetadata);
 
-    const retrievedMeasurement = await retrieveSingleMeasurement(
+    /*const retrievedMeasurement = await retrieveSingleMeasurement(
       tableName,
       measurement.userId,
       measurement.measurementId
+    );*/
+
+    const retrievedMeasurement = buildMeasurementFromDynamoDbRecord(
+      data.Attributes
     );
+
+    console.log(retrievedMeasurement);
 
     const responseBody = {
       measurementId: measurement.measurementId,
