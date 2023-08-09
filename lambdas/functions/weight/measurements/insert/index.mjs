@@ -46,7 +46,7 @@ export const handler = async (event, context) => {
     const data = await ddbClient.send(
       new PutItemCommand(measurementDataDynamoDb)
     );
-    console.info(measurementMetadata);
+    console.info(data);
 
     const retrievedMeasurement = buildMeasurementFromDynamoDbRecord(
       data.Attributes
