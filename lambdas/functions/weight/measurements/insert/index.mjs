@@ -9,7 +9,7 @@ import { validateMeasurement } from "./validation.mjs";
 // Retrieved from lambda layers
 import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
-import { buildMeasurementFromDynamoDbRecord } from "/opt/nodejs/measurements/utils.mjs";
+import { retrieveSingleMeasurement } from "/opt/nodejs/measurements/utils.mjs";
 
 export const handler = async (event, context) => {
   console.info("measurement: ", event.measurement);
@@ -48,8 +48,10 @@ export const handler = async (event, context) => {
     );
     console.info(data);
 
-    const retrievedMeasurement = buildMeasurementFromDynamoDbRecord(
-      data.Attributes
+    const retrievedMeasurement = await retrieveSingleMeasurement(
+      tableName,
+      measurement.userId,
+      measurement.measurementId
     );
 
     console.log(retrievedMeasurement);
