@@ -7,11 +7,29 @@ import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
 
 export const handler = async (event) => {
+  console.info("measurement: ", event.measurement);
+  console.info("userId: ", event.measurement.userId);
+
+  const tableName = process.env.TABLE_NAME;
+
+  const measurement = {
+    userId: event.measurement.userId,
+    measurementId: event.measurement.measurementId,
+    date: event.measurement.date,
+    note: event.measurement.note,
+    weight: event.measurement.measurements.weight,
+    bodyFatPercentage: event.measurement.measurements.bodyFatPercentage,
+    waterPercentage: event.measurement.measurements.waterPercentage,
+    muscleMassPercentage: event.measurement.measurements.muscleMassPercentage,
+    bonePercentage: event.measurement.measurements.bonePercentage,
+    energyExpenditure: event.measurement.measurements.energyExpenditure,
+  };
+
   const params = {
-    TableName: process.env.TABLE_NAME,
+    TableName: tableName,
     Key: {
-      UserId: { S: event.userId },
-      MeasurementId: { S: event.measurementId },
+      UserId: { S: measurement.userId },
+      MeasurementId: { S: measurement.measurementId },
     },
     UpdateExpression:
       "set Date = :date, Weight = :weight, LastModified = :lastModified, Note = :note, BodyFatPercentage = :bodyFat",
