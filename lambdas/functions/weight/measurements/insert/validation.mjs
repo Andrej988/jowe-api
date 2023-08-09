@@ -3,7 +3,7 @@
 export const validateMeasurement = (measurement) => {
   console.log("validation of measurment", measurement);
 
-  validateDate(measurement.date);
+  validateDate(measurement.measurementDate);
   validateWeight(measurement.weight);
   validateBodyFatPercentage(measurement.bodyFatPercentage);
   validateWaterPercentage(measurement.waterPercentage);
