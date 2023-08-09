@@ -60,8 +60,10 @@ export const handler = async (event) => {
     const data = await ddbClient.send(new UpdateItemCommand(params));
     console.info("Success, item edited", data);
 
-    const retrievedMeasurmeent = buildMeasurementFromDynamoDbRecord(data.Attributes);
-    console.log(retrievedMeasurmeent);
+    const retrievedMeasurement = buildMeasurementFromDynamoDbRecord(
+      data.Attributes
+    );
+    console.log(retrievedMeasurement);
 
     const responseBody = {
       measurement: retrievedMeasurement,
