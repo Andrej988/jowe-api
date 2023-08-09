@@ -14,7 +14,7 @@ export const buildMeasurementFromDynamoDbRecord = (element) => {
     userId: element.UserId.S,
     measurementId: element.MeasurementId.S,
     timestamp: Number(element.Timestamp.N),
-    date: Number(element.Date.N),
+    date: Number(element.MeasurementDate.N),
     note: getOptionalValueString(element.Note),
     measurements: {
       weight: Number(element.Weight.N),

@@ -32,9 +32,9 @@ export const handler = async (event) => {
       MeasurementId: { S: measurement.measurementId },
     },
     UpdateExpression:
-      "set Date = :date, Weight = :weight, LastModified = :lastModified, Note = :note, BodyFatPercentage = :bodyFat",
+      "set MeasurementDate = :measurementDate, Weight = :weight, LastModified = :lastModified, Note = :note, BodyFatPercentage = :bodyFat",
     ExpressionAttributeValues: {
-      ":date": {
+      ":measurementDate": {
         N: "" + measurement.date,
       },
       ":weight": {
