@@ -23,7 +23,7 @@ export const buildMeasurement = (tableName, measurement) => {
         N: "" + Date.now(),
       },
     },
-    ReturnValues: "ALL_NEW",
+    ReturnValues: "ALL_OLD",
   };
 
   addOptionalFieldsToMeasurement(measurementDynamoDb, measurement);

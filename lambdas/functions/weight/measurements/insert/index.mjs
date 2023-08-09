@@ -48,12 +48,6 @@ export const handler = async (event, context) => {
     );
     console.info(measurementMetadata);
 
-    /*const retrievedMeasurement = await retrieveSingleMeasurement(
-      tableName,
-      measurement.userId,
-      measurement.measurementId
-    );*/
-
     const retrievedMeasurement = buildMeasurementFromDynamoDbRecord(
       data.Attributes
     );
