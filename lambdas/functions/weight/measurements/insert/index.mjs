@@ -20,7 +20,7 @@ export const handler = async (event, context) => {
   const measurement = {
     userId: event.measurement.userId,
     measurementId: randomUUID(),
-    date: event.measurement.date,
+    measurementDate: event.measurement.date,
     note: event.measurement.note,
     weight: event.measurement.measurements.weight,
     bodyFatPercentage: event.measurement.measurements.bodyFatPercentage,
