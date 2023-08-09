@@ -4,7 +4,6 @@ locals {
 
   lambda_runtimes = {
     nodejs_common_runtime = "nodejs18.x"
-    golang_common_runtime = "go1.x"
   }
 
   lambda_function_names = {
@@ -12,6 +11,7 @@ locals {
     weight_measurements_delete           = var.ENV == "dev" ? "${var.app_name}-api-weight-measurements-delete-dev" : "${var.app_name}-api-weight-measurements-delete"
     weight_measurements_delete_user_data = var.ENV == "dev" ? "${var.app_name}-api-weight-measurements-delete-user-data-dev" : "${var.app_name}-api-weight-measurements-delete-user-data"
     weight_measurements_insert           = var.ENV == "dev" ? "${var.app_name}-api-weight-measurements-insert-dev" : "${var.app_name}-api-weight-measurements-insert"
+    weight_measurements_edit             = var.ENV == "dev" ? "${var.app_name}-api-weight-measurements-edit-dev" : "${var.app_name}-api-weight-measurements-edit"
     weight_measurements_retrieve         = var.ENV == "dev" ? "${var.app_name}-api-weight-measurements-retrieve-dev" : "${var.app_name}-api-weight-measurements-retrieve"
     weight_targets_delete                = var.ENV == "dev" ? "${var.app_name}-api-weight-targets-delete-dev" : "${var.app_name}-api-weight-targets-delete"
     weight_targets_delete_user_data      = var.ENV == "dev" ? "${var.app_name}-api-weight-targets-delete-user-data-dev" : "${var.app_name}-api-weight-targets-delete-user-data"

@@ -19,6 +19,9 @@ export const buildMeasurement = (tableName, measurement) => {
       Weight: {
         N: "" + measurement.weight,
       },
+      LastModified: {
+        N: "" + Date.now(),
+      },
     },
   };
 
