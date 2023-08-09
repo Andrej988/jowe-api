@@ -48,6 +48,8 @@ resource "aws_api_gateway_deployment" "jowe_api_deployment" {
     aws_api_gateway_integration.weight_measurements_id_integration_get,
     aws_api_gateway_method.weight_measurements_id_method_delete,
     aws_api_gateway_integration.weight_measurements_id_integration_delete,
+    aws_api_gateway_method.weight_measurements_id_method_put,
+    aws_api_gateway_integration.weight_measurements_id_integration_put,
 
   ]
 }
