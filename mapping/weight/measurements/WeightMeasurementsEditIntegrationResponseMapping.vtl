@@ -1,0 +1,4 @@
+#set($hasMeasurement =  $input.json('$.body.measurements')  != "")
+{
+  "measurement": #if($hasMeasurement) $input.json('$.body.measurement') #else {} #end
+}

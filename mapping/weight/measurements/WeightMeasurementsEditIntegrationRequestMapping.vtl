@@ -1,0 +1,23 @@
+#set($inputRoot = $input.path('$'))
+#set($hasNote =  $input.path('$.measurement.note') != "")
+#set($hasBodyFatPercentage =  $input.path('$.measurement.measurements.bodyFatPercentage') != "")
+#set($hasWaterPercentage = $input.path('$.measurement.measurements.waterPercentage') != "")
+#set($hasMuscleMassPercentage = $input.path('$.measurement.measurements.muscleMassPercentage') != "")
+#set($hasBonePercentage = $input.path('$.measurement.measurements.bonePercentage') != "")
+#set($hasEnergyExpenditure = $input.path('$.measurement.measurements.energyExpenditure') != "")
+{
+  "measurement" : {
+    "measurementId": "$input.params('measurementId')",
+    "userId": "$context.authorizer.claims.sub",
+    "date": $inputRoot.measurement.date,
+    #if($hasNote) "note": "$inputRoot.measurement.note", #end
+    "measurements": {
+      "weight" : $inputRoot.measurement.measurements.weight
+      #if($hasBodyFatPercentage), "bodyFatPercentage": $inputRoot.measurement.measurements.bodyFatPercentage #end
+      #if($hasWaterPercentage), "waterPercentage": $inputRoot.measurement.measurements.waterPercentage #end
+      #if($hasMuscleMassPercentage), "muscleMassPercentage": $inputRoot.measurement.measurements.muscleMassPercentage #end
+      #if($hasBonePercentage), "bonePercentage": $inputRoot.measurement.measurements.bonePercentage #end
+      #if($hasEnergyExpenditure), "energyExpenditure": $inputRoot.measurement.measurements.energyExpenditure #end
+    }
+  }
+}
