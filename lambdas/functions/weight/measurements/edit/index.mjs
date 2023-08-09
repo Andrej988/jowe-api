@@ -5,6 +5,7 @@ import { UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 // Retrieved from lambda layers
 import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
+import { buildMeasurementFromDynamoDbRecord } from "/opt/nodejs/measurements/utils.mjs";
 
 export const handler = async (event) => {
   console.info("measurement: ", event.measurement);
@@ -58,7 +59,15 @@ export const handler = async (event) => {
   try {
     const data = await ddbClient.send(new UpdateItemCommand(params));
     console.info("Success, item edited", data);
-    response = buildResponse(200, {});
+
+    const retrievedMeasurmeent = buildMeasurementFromDynamoDbRecord(data.Attributes);
+    console.log(retrievedMeasurmeent);
+
+    const responseBody = {
+      measurement: retrievedMeasurement,
+    };
+    response = buildResponse(200, responseBody);
+
     console.info("response", response);
     return response;
   } catch (err) {

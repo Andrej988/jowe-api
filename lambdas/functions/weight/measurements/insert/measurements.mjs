@@ -13,8 +13,8 @@ export const buildMeasurement = (tableName, measurement) => {
       Timestamp: {
         N: "" + Date.now(),
       },
-      Date: {
-        N: "" + measurement.date,
+      MeasurementDate: {
+        N: "" + measurement.measurementDate,
       },
       Weight: {
         N: "" + measurement.weight,
@@ -23,6 +23,7 @@ export const buildMeasurement = (tableName, measurement) => {
         N: "" + Date.now(),
       },
     },
+    ReturnValues: "ALL_NEW",
   };
 
   addOptionalFieldsToMeasurement(measurementDynamoDb, measurement);
