@@ -4,6 +4,8 @@ import { GetItemCommand, QueryCommand } from "@aws-sdk/client-dynamodb";
 
 import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
 
+import { getOptionalValueNumeric } from "/opt/nodejs/utils.mjs";
+
 export const buildTargetWeightFromDynamoDbRecord = (element) => {
   console.log("element:", element);
   return {
@@ -11,7 +13,7 @@ export const buildTargetWeightFromDynamoDbRecord = (element) => {
     recordId: element.RecordId.S,
     timestamp: Number(element.Timestamp.N),
     targetWeight: Number(element.TargetWeight.N),
-    lastModified: Number(element.LastModified.N),
+    lastModified: getOptionalValueNumeric(element.LastModified),
   };
 };
 
