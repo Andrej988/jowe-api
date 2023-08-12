@@ -16,7 +16,7 @@ export const buildMeasurementFromDynamoDbRecord = (element) => {
     timestamp: Number(element.Timestamp.N),
     date: Number(element.MeasurementDate.N),
     note: getOptionalValueString(element.Note),
-    lastModified: Number(element.LastModified.N),
+    lastModified: getOptionalValueNumeric(element.LastModified),
     measurements: {
       weight: Number(element.Weight.N),
       bodyFatPercentage: getOptionalValueNumeric(element.BodyFatPercentage),
@@ -38,7 +38,7 @@ export const buildMeasurementFromReturnValues = (attributes) => {
     timestamp: Number(attributes.Timestamp.N),
     date: Number(attributes.MeasurementDate.N),
     note: getOptionalValueString(attributes.Note),
-    lastModified: Number(attributes.LastModified.N),
+    lastModified: getOptionalValueNumeric(attributes.LastModified),
     measurements: {
       weight: Number(attributes.Weight.N),
       bodyFatPercentage: getOptionalValueNumeric(attributes.BodyFatPercentage),
