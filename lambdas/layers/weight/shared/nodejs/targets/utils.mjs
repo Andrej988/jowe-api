@@ -11,6 +11,7 @@ export const buildTargetWeightFromDynamoDbRecord = (element) => {
     recordId: element.RecordId.S,
     timestamp: Number(element.Timestamp.N),
     targetWeight: Number(element.TargetWeight.N),
+    lastModified: Number(element.LastModified.N),
   };
 };
 
