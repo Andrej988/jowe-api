@@ -15,7 +15,7 @@ const addOptionalStringParam = (params, key, value) => {
   }
 };
 
-const addOptionalNumericParam = (key, value) => {
+const addOptionalNumericParam = (params, key, value) => {
   if (value) {
     params.ExpressionAttributeValues[key] = { N: "" + value };
   } else {
