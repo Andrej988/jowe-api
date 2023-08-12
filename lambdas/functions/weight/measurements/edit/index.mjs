@@ -7,6 +7,22 @@ import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
 import { buildMeasurementFromDynamoDbRecord } from "/opt/nodejs/measurements/utils.mjs";
 
+const addOptionalStringParam = (key, value) => {
+  if (value) {
+    params.ExpressionAttributeValues[key] = { S: value };
+  } else {
+    params.ExpressionAttributeValues[key] = { NULL: true };
+  }
+};
+
+const addOptionalNumericParam = (key, value) => {
+  if (value) {
+    params.ExpressionAttributeValues[key] = { N: "" + value };
+  } else {
+    params.ExpressionAttributeValues[key] = { NULL: true };
+  }
+};
+
 export const handler = async (event) => {
   console.info("measurement: ", event.measurement);
   console.info("userId: ", event.measurement.userId);
@@ -33,21 +49,13 @@ export const handler = async (event) => {
       MeasurementId: { S: measurement.measurementId },
     },
     UpdateExpression:
-      "set MeasurementDate = :measurementDate, Weight = :weight, LastModified = :lastModified, Note = :note, BodyFatPercentage = :bodyFat",
+      "set MeasurementDate = :measurementDate, Weight = :weight, LastModified = :lastModified, Note = :note, BodyFatPercentage = :bodyFat, WaterPercentage = :water, MuscleMassPercentage = :muscleMass, BonePercentage = :boneMass, EnergyExpenditure = :energyExpenditure",
     ExpressionAttributeValues: {
       ":measurementDate": {
         N: "" + measurement.date,
       },
       ":weight": {
         N: "" + measurement.weight,
-      },
-      /*":note": {
-        S: measurement.note ? measurement.note : null,
-      },*/
-      ":bodyFat": {
-        N: measurement.bodyFatPercentage
-          ? "" + measurement.bodyFatPercentage
-          : null,
       },
       ":lastModified": {
         N: "" + Date.now(),
@@ -56,12 +64,12 @@ export const handler = async (event) => {
     ReturnValues: "ALL_NEW",
   };
 
-  if (measurement.note) {
-    params.ExpressionAttributeValues[":note"] = { S: measurement.note };
-  } else {
-    params.ExpressionAttributeValues[":note"] = { NULL: true };
-  }
-
+  addOptionalStringParam(":note", measurement.note);
+  addOptionalNumericParam(":bodyFat", measurement.bodyFatPercentage);
+  addOptionalNumericParam(":water", measurement.waterPercentage);
+  addOptionalNumericParam(":muscleMass", measurement.muscleMassPercentage);
+  addOptionalNumericParam(":boneMass", measurement.bonePercentage);
+  addOptionalNumericParam(":energyExpenditure", measurement.energyExpenditure);
   console.log("params", params);
 
   let response;
