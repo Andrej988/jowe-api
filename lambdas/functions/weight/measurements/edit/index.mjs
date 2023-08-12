@@ -62,6 +62,8 @@ export const handler = async (event) => {
     params.ExpressionAttributeValues[":note"].NULL = true;
   }
 
+  console.log("params", params);
+
   let response;
 
   try {
