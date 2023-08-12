@@ -42,10 +42,13 @@ export const handler = async (event) => {
         N: "" + measurement.weight,
       },
       ":note": {
-        S: measurement.note,
+        S: measurement.note ? measurement.note : undefined,
       },
       ":bodyFat": {
-        N: "" + measurement.bodyFatPercentage,
+        N:
+          "" + measurement.bodyFatPercentage
+            ? measurement.bodyFatPercentage
+            : undefined,
       },
       ":lastModified": {
         N: "" + Date.now(),
