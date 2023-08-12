@@ -57,9 +57,9 @@ export const handler = async (event) => {
   };
 
   if (measurement.note) {
-    params.ExpressionAttributeValues[":note"].S = measurement.note;
+    params.ExpressionAttributeValues[":note"] = { S: measurement.note };
   } else {
-    params.ExpressionAttributeValues[":note"].NULL = true;
+    params.ExpressionAttributeValues[":note"] = { NULL: true };
   }
 
   console.log("params", params);
