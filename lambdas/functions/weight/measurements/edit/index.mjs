@@ -41,9 +41,9 @@ export const handler = async (event) => {
       ":weight": {
         N: "" + measurement.weight,
       },
-      ":note": {
+      /*":note": {
         S: measurement.note ? measurement.note : null,
-      },
+      },*/
       ":bodyFat": {
         N: measurement.bodyFatPercentage
           ? "" + measurement.bodyFatPercentage
@@ -55,6 +55,12 @@ export const handler = async (event) => {
     },
     ReturnValues: "ALL_NEW",
   };
+
+  if (measurement.note) {
+    params.ExpressionAttributeValues[":note"].S = measurement.note;
+  } else {
+    params.ExpressionAttributeValues[":note"].NULL = true;
+  }
 
   let response;
 
