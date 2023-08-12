@@ -24,7 +24,11 @@ const buildRecord = (tableName, userId, recordId, targetWeight) => {
       TargetWeight: {
         N: "" + targetWeight,
       },
+      LastModified: {
+        N: "" + Date.now(),
+      },
     },
+    ReturnValues: "ALL_OLD",
   };
 };
 
