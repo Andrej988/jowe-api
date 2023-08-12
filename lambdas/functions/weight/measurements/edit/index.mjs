@@ -7,7 +7,7 @@ import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
 import { buildMeasurementFromDynamoDbRecord } from "/opt/nodejs/measurements/utils.mjs";
 
-const addOptionalStringParam = (key, value) => {
+const addOptionalStringParam = (params, key, value) => {
   if (value) {
     params.ExpressionAttributeValues[key] = { S: value };
   } else {
@@ -64,12 +64,20 @@ export const handler = async (event) => {
     ReturnValues: "ALL_NEW",
   };
 
-  addOptionalStringParam(":note", measurement.note);
-  addOptionalNumericParam(":bodyFat", measurement.bodyFatPercentage);
-  addOptionalNumericParam(":water", measurement.waterPercentage);
-  addOptionalNumericParam(":muscleMass", measurement.muscleMassPercentage);
-  addOptionalNumericParam(":boneMass", measurement.bonePercentage);
-  addOptionalNumericParam(":energyExpenditure", measurement.energyExpenditure);
+  addOptionalStringParam(params, ":note", measurement.note);
+  addOptionalNumericParam(params, ":bodyFat", measurement.bodyFatPercentage);
+  addOptionalNumericParam(params, ":water", measurement.waterPercentage);
+  addOptionalNumericParam(
+    params,
+    ":muscleMass",
+    measurement.muscleMassPercentage
+  );
+  addOptionalNumericParam(params, ":boneMass", measurement.bonePercentage);
+  addOptionalNumericParam(
+    params,
+    ":energyExpenditure",
+    measurement.energyExpenditure
+  );
   console.log("params", params);
 
   let response;
