@@ -17,6 +17,7 @@ resource "aws_api_gateway_deployment" "jowe_api_deployment" {
 
   depends_on = [
     aws_api_gateway_rest_api.jowe_api,
+    aws_api_gateway_account.jowe_api_gateway_account,
 
     # Admin resource
     aws_api_gateway_resource.admin_resource,
