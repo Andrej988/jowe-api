@@ -21,7 +21,7 @@ resource "aws_api_gateway_integration" "delete_user_data_integration_post" {
   integration_http_method = aws_api_gateway_method.delete_user_data_method_post.http_method
   type                    = "AWS"
   uri                     = "arn:aws:apigateway:${var.AWS_REGION}:sns:action/Publish"
-  credentials             = aws_iam_role.jowe_api_gateway_sns.arn
+  credentials             = aws_iam_role.jowe_api_gateway_role.arn
 
   request_parameters = {
     "integration.request.querystring.TopicArn" = "'${var.sns_and_sqs_arns["sns_delete_user_data_topic"]}'"
