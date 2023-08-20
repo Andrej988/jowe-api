@@ -12,7 +12,7 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "jowe_api_gateway_role" {
-  name               = var.ENV == "dev" ? "${var.app_name}-api-gateway-sns-dev" : "${var.app_name}-api-gateway-sns"
+  name               = var.ENV == "dev" ? "${var.app_name}-api-gateway-role-dev" : "${var.app_name}-api-gateway-role"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 
   depends_on = [
