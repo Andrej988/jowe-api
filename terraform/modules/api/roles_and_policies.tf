@@ -58,7 +58,7 @@ resource "aws_iam_role_policy_attachment" "jowe_api_gateway_sns_delete_user_data
 }
 
 resource "aws_api_gateway_account" "jowe_api_gateway_account" {
-  cloudwatch_role_arn = aws_iam_role.iam_for_api_gateway.arn
+  cloudwatch_role_arn = aws_iam_role.jowe_api_gateway_role.arn
   depends_on = [
     aws_iam_role.jowe_api_gateway_role
   ]
