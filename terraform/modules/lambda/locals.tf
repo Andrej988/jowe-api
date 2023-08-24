@@ -30,4 +30,8 @@ locals {
     weight_measurements = var.dynamodb_tables["weight_measurements"]
     weight_targets      = var.dynamodb_tables["weight_targets"]
   }
+
+  lambda_sqs_event_store_batch_size      = 1
+  lambda_sqs_event_store_batching_window = 300
+  lambda_sqs_event_store_retry_attempts  = 3
 }
