@@ -52,8 +52,10 @@ resource "aws_lambda_function" "weight_measurements_delete_user_data_lambda" {
 }
 
 resource "aws_lambda_event_source_mapping" "sqs_lambda_event_source_mapping_weight_measurements_delete_user_data" {
-  event_source_arn = var.sns_and_sqs_arns["sqs_weight_measurements_delete_user_data_queue"]
-  enabled          = true
-  function_name    = aws_lambda_function.weight_measurements_delete_user_data_lambda.arn
-  batch_size       = 1
+  event_source_arn                   = var.sns_and_sqs_arns["sqs_weight_measurements_delete_user_data_queue"]
+  enabled                            = true
+  function_name                      = aws_lambda_function.weight_measurements_delete_user_data_lambda.arn
+  batch_size                         = local.lambda_sqs_event_store_batch_size
+  maximum_batching_window_in_seconds = local.lambda_sqs_event_store_batching_window
+  maximum_retry_attempts             = local.lambda_sqs_event_store_retry_attempts
 }
