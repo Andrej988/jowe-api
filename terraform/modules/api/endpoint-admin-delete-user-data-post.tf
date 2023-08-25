@@ -24,7 +24,7 @@ resource "aws_api_gateway_integration" "delete_user_data_integration_post" {
   credentials             = aws_iam_role.jowe_api_gateway_role.arn
 
   request_parameters = {
-    "integration.request.querystring.TopicArn" = "'${var.sns_and_sqs_arns["sns_delete_user_data_topic"]}'"
+    "integration.request.querystring.TopicArn" = "'${var.sns_and_sqs["sns_delete_user_data_topic"]["arn"]}'"
     "integration.request.querystring.Message"  = "context.authorizer.claims.sub"
   }
 

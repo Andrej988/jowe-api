@@ -24,12 +24,12 @@ variable "ENV" {
   type = string
 }
 
-variable "app_name" {
+variable "APP_NAME" {
   type    = string
   default = "JoWe"
 }
 
-variable "project_name" {
+variable "PROJECT_NAME" {
   type    = string
   default = "JoWe-api"
 }
@@ -40,5 +40,9 @@ variable "TF_LOG" {
 }
 
 variable "CORS_ALLOWED_ORIGIN" {
+  type = string
+}
+
+variable "USER_DATA_DELETION_CRON" {
   type = string
 }

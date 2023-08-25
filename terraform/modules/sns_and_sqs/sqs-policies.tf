@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "sqs_weight_targets_delete_user_data_queue_proces
 }
 
 resource "aws_iam_policy" "sqs_weight_measurements_delete_user_data_queue_process_policy" {
-  name        = var.ENV == "dev" ? "${var.app_name}-sqs-weight-measurements-delete-user-data-queue-policy-dev" : "${var.app_name}-sqs-weight-measurements-delete-user-data-queue-policy"
+  name        = var.ENV == "dev" ? "${var.APP_NAME}-sqs-weight-measurements-delete-user-data-queue-policy-dev" : "${var.APP_NAME}-sqs-weight-measurements-delete-user-data-queue-policy"
   path        = "/"
   description = "IAM policy for crud SQS queue weight measurements delete user data processing"
   policy      = data.aws_iam_policy_document.sqs_weight_measurements_delete_user_data_queue_process_policy.json
@@ -46,7 +46,7 @@ resource "aws_iam_policy" "sqs_weight_measurements_delete_user_data_queue_proces
 }
 
 resource "aws_iam_policy" "sqs_weight_targets_delete_user_data_queue_process_policy" {
-  name        = var.ENV == "dev" ? "${var.app_name}-sqs-weight-targets-delete-user-data-queue-policy-dev" : "${var.app_name}-sqs-weight-targets-delete-user-data-queue-policy"
+  name        = var.ENV == "dev" ? "${var.APP_NAME}-sqs-weight-targets-delete-user-data-queue-policy-dev" : "${var.APP_NAME}-sqs-weight-targets-delete-user-data-queue-policy"
   path        = "/"
   description = "IAM policy for crud SQS queue weight targets delete user data processing"
   policy      = data.aws_iam_policy_document.sqs_weight_targets_delete_user_data_queue_process_policy.json

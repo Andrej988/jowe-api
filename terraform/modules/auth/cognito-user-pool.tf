@@ -1,5 +1,5 @@
 resource "aws_cognito_user_pool" "user_pool" {
-  name = var.ENV == "dev" ? "${var.app_name}-dev" : var.app_name
+  name = var.ENV == "dev" ? "${var.APP_NAME}-dev" : var.APP_NAME
 
   #Self-Registration (set false to enable self registration)
   admin_create_user_config {
@@ -90,8 +90,8 @@ resource "aws_cognito_user_pool" "user_pool" {
   }
 
   tags = {
-    Name        = "${var.app_name}_user_pool"
+    Name        = "${var.APP_NAME}_user_pool"
     Environment = var.ENV
-    App         = var.app_name
+    App         = var.APP_NAME
   }
 }

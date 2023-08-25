@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "jowe_measurements" {
-  name         = var.ENV == "dev" ? "${var.app_name}-weight-measurements-dev" : "${var.app_name}-weight-measurements"
+  name         = var.ENV == "dev" ? "${var.APP_NAME}-weight-measurements-dev" : "${var.APP_NAME}-weight-measurements"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "UserId"
   range_key    = "MeasurementId"
@@ -39,7 +39,7 @@ resource "aws_dynamodb_table" "jowe_measurements" {
     name = "BoneMass"
     type = "N"
   }
-  
+
   attribute {
     name = "MuscleMass"
     type = "N"
@@ -66,9 +66,9 @@ resource "aws_dynamodb_table" "jowe_measurements" {
   #}
 
   tags = {
-    Name        = "dynamodb-table-${var.app_name}-weight-measurements"
+    Name        = "dynamodb-table-${var.APP_NAME}-weight-measurements"
     Environment = var.ENV
-    App         = var.app_name
+    App         = var.APP_NAME
   }
 
   lifecycle {

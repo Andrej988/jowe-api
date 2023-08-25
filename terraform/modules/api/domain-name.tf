@@ -7,7 +7,7 @@ resource "aws_api_gateway_domain_name" "custom_domain_name" {
   }
 
   tags = {
-    "App"         = var.app_name
+    "App"         = var.APP_NAME
     "Environment" = var.ENV
   }
 }

@@ -1,12 +1,11 @@
 variable "AWS_REGION" {}
 variable "ENV" {}
-variable "app_name" {}
-variable "project_name" {}
+variable "APP_NAME" {}
+variable "PROJECT_NAME" {}
 variable "DOMAIN_API" {}
 variable "AWS_CERTIFICATE_ARN" {}
 variable "cognito_user_pool_arn" {}
 variable "api_lambdas_arns" {}
 variable "api_lambdas_names" {}
-variable "sns_and_sqs_arns" {}
-variable "sns_and_sqs_policies" {}
+variable "sns_and_sqs" {}
 variable "CORS_ALLOWED_ORIGIN" {}

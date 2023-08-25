@@ -1,5 +1,5 @@
 resource "aws_cognito_user_pool_client" "client" {
-  name = var.ENV == "dev" ? "${var.app_name}-web-dev" : "${var.app_name}-web"
+  name = var.ENV == "dev" ? "${var.APP_NAME}-web-dev" : "${var.APP_NAME}-web"
 
   user_pool_id                  = aws_cognito_user_pool.user_pool.id
   generate_secret               = false

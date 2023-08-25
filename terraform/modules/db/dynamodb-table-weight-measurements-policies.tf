@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "dynamodb_read_only_policy_doc" {
 }
 
 resource "aws_iam_policy" "dynamodb_measurements_crud_policy" {
-  name        = var.ENV == "dev" ? "${var.app_name}-dynamodb-measurements-crud-policy-dev" : "${var.app_name}-dynamodb-measurements-crud-policy"
+  name        = var.ENV == "dev" ? "${var.APP_NAME}-dynamodb-measurements-crud-policy-dev" : "${var.APP_NAME}-dynamodb-measurements-crud-policy"
   path        = "/"
   description = "IAM policy for logging crud dynamo db access"
   policy      = data.aws_iam_policy_document.dynamodb_jowe_measurements_crud_policy.json
@@ -54,7 +54,7 @@ resource "aws_iam_policy" "dynamodb_measurements_crud_policy" {
 }
 
 resource "aws_iam_policy" "dynamodb_measurements_read_only_policy" {
-  name        = var.ENV == "dev" ? "${var.app_name}-dynamodb-measurements-read-only-policy-dev" : "${var.app_name}-dynamodb-measurements-read-only-policy"
+  name        = var.ENV == "dev" ? "${var.APP_NAME}-dynamodb-measurements-read-only-policy-dev" : "${var.APP_NAME}-dynamodb-measurements-read-only-policy"
   path        = "/"
   description = "IAM policy for logging read only dynamo db access"
   policy      = data.aws_iam_policy_document.dynamodb_read_only_policy_doc.json

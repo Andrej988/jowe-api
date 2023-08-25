@@ -36,9 +36,9 @@ resource "aws_lambda_function" "weight_measurements_insert_lambda" {
   ]
 
   tags = {
-    Name        = "${var.app_name}-api-weight-measurements-insert"
+    Name        = "${var.APP_NAME}-api-weight-measurements-insert"
     Environment = var.ENV
-    App         = var.app_name
+    App         = var.APP_NAME
   }
 
   depends_on = [

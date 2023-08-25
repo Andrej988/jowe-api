@@ -23,10 +23,12 @@ resource "aws_lambda_function" "weight_targets_delete_user_data_lambda" {
 
   source_code_hash = data.archive_file.weight_targets_delete_user_data_zip.output_base64sha256
   runtime          = local.lambda_runtimes["nodejs_common_runtime"]
+  timeout          = 45
 
   environment {
     variables = {
-      TABLE_NAME = local.lambda_table_names["weight_targets"]
+      TABLE_NAME    = local.lambda_table_names["weight_targets"]
+      SQS_QUEUE_URL = var.sns_and_sqs["sqs_weight_targets_delete_user_data_queue"]["url"]
     }
   }
 
@@ -36,9 +38,9 @@ resource "aws_lambda_function" "weight_targets_delete_user_data_lambda" {
   ]
 
   tags = {
-    Name        = "${var.app_name}-api-weight-targets-delete"
+    Name        = "${var.APP_NAME}-api-weight-targets-delete"
     Environment = var.ENV
-    App         = var.app_name
+    App         = var.APP_NAME
   }
 
   depends_on = [
@@ -51,12 +53,9 @@ resource "aws_lambda_function" "weight_targets_delete_user_data_lambda" {
   ]
 }
 
-resource "aws_lambda_event_source_mapping" "sqs_lambda_event_source_mapping_weight_targets_delete_user_data" {
-  event_source_arn                   = var.sns_and_sqs_arns["sqs_weight_targets_delete_user_data_queue"]
-  enabled                            = true
-  function_name                      = aws_lambda_function.weight_targets_delete_user_data_lambda.arn
-  batch_size                         = local.lambda_sqs_event_store_batch_size
-  maximum_batching_window_in_seconds = local.lambda_sqs_event_store_batching_window
-  maximum_retry_attempts             = local.lambda_sqs_event_store_retry_attempts
+resource "aws_lambda_permission" "weight_targets_delete_user_data_lambda_cloudwatch_permission" {
+  statement_id  = "AllowExecutionFromCloudWatch"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.weight_targets_delete_user_data_lambda.function_name
+  principal     = "events.amazonaws.com"
 }
-

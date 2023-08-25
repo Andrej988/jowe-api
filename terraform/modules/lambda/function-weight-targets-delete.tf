@@ -36,9 +36,9 @@ resource "aws_lambda_function" "weight_targets_delete_lambda" {
   ]
 
   tags = {
-    Name        = "${var.app_name}-api-weight-targets-delete"
+    Name        = "${var.APP_NAME}-api-weight-targets-delete"
     Environment = var.ENV
-    App         = var.app_name
+    App         = var.APP_NAME
   }
 
   depends_on = [
