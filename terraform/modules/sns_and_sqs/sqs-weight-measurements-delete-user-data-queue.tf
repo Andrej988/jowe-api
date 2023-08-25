@@ -1,5 +1,5 @@
 resource "aws_sqs_queue" "weight_measurements_delete_user_data_queue" {
-  name                      = var.ENV == "dev" ? "${var.app_name}-weight-measurements-delete-user-data-dev" : "${var.app_name}-weight-measurements-delete-user-data"
+  name                      = var.ENV == "dev" ? "${var.APP_NAME}-weight-measurements-delete-user-data-dev" : "${var.APP_NAME}-weight-measurements-delete-user-data"
   delay_seconds             = 5
   max_message_size          = 2048
   message_retention_seconds = 1209600
@@ -12,9 +12,9 @@ resource "aws_sqs_queue" "weight_measurements_delete_user_data_queue" {
   })
 
   tags = {
-    Name        = "sqs-queue-${var.app_name}-weight-measurements-delete-user-data"
+    Name        = "sqs-queue-${var.APP_NAME}-weight-measurements-delete-user-data"
     Environment = var.ENV
-    App         = var.app_name
+    App         = var.APP_NAME
   }
 
   lifecycle {
@@ -27,13 +27,13 @@ resource "aws_sqs_queue" "weight_measurements_delete_user_data_queue" {
 }
 
 resource "aws_sqs_queue" "weight_measurements_delete_user_data_dead_letter_queue" {
-  name                    = var.ENV == "dev" ? "${var.app_name}-weight-measurements-delete-user-data-dead-letter-dev" : "${var.app_name}-weight-measurements-delete-user-data-dead-letter"
+  name                    = var.ENV == "dev" ? "${var.APP_NAME}-weight-measurements-delete-user-data-dead-letter-dev" : "${var.APP_NAME}-weight-measurements-delete-user-data-dead-letter"
   sqs_managed_sse_enabled = true
 
   tags = {
-    Name        = "sqs-queue-${var.app_name}-weight-measurements-delete-user-data-dead-letter"
+    Name        = "sqs-queue-${var.APP_NAME}-weight-measurements-delete-user-data-dead-letter"
     Environment = var.ENV
-    App         = var.app_name
+    App         = var.APP_NAME
   }
 
   lifecycle {

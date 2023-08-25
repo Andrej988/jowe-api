@@ -1,5 +1,5 @@
 resource "aws_dynamodb_table" "jowe_weight_targets" {
-  name         = var.ENV == "dev" ? "${var.app_name}-weight-targets-dev" : "${var.app_name}-weight-targets"
+  name         = var.ENV == "dev" ? "${var.APP_NAME}-weight-targets-dev" : "${var.APP_NAME}-weight-targets"
   billing_mode = "PAY_PER_REQUEST"
   hash_key     = "UserId"
   range_key    = "RecordId"
@@ -15,9 +15,9 @@ resource "aws_dynamodb_table" "jowe_weight_targets" {
   }
 
   tags = {
-    Name        = "dynamodb-table-${var.app_name}-weight-targets"
+    Name        = "dynamodb-table-${var.APP_NAME}-weight-targets"
     Environment = var.ENV
-    App         = var.app_name
+    App         = var.APP_NAME
   }
 
   lifecycle {

@@ -36,9 +36,9 @@ resource "aws_lambda_function" "weight_targets_retrieve_lambda" {
   ]
 
   tags = {
-    Name        = "${var.app_name}-api-weight-targets-retrieve"
+    Name        = "${var.APP_NAME}-api-weight-targets-retrieve"
     Environment = var.ENV
-    App         = var.app_name
+    App         = var.APP_NAME
   }
 
   depends_on = [

@@ -43,7 +43,7 @@ data "aws_iam_policy_document" "dynamodb_jowe_weight_target_read_only_policy" {
 }
 
 resource "aws_iam_policy" "dynamodb_weight_target_crud_policy" {
-  name        = var.ENV == "dev" ? "${var.app_name}-dynamodb-weight-target-crud-policy-dev" : "${var.app_name}-dynamodb-weight-target-crud-policy"
+  name        = var.ENV == "dev" ? "${var.APP_NAME}-dynamodb-weight-target-crud-policy-dev" : "${var.APP_NAME}-dynamodb-weight-target-crud-policy"
   path        = "/"
   description = "IAM policy for crud dynamo db weight target table access"
   policy      = data.aws_iam_policy_document.dynamodb_jowe_weight_target_crud_policy.json
@@ -54,7 +54,7 @@ resource "aws_iam_policy" "dynamodb_weight_target_crud_policy" {
 }
 
 resource "aws_iam_policy" "dynamodb_weight_target_read_only_policy" {
-  name        = var.ENV == "dev" ? "${var.app_name}-dynamodb-weight-target-read-only-policy-dev" : "${var.app_name}-dynamodb-weight-target-read-only-policy"
+  name        = var.ENV == "dev" ? "${var.APP_NAME}-dynamodb-weight-target-read-only-policy-dev" : "${var.APP_NAME}-dynamodb-weight-target-read-only-policy"
   path        = "/"
   description = "IAM policy for read only dynamo db weight target table access"
   policy      = data.aws_iam_policy_document.dynamodb_jowe_weight_target_read_only_policy.json

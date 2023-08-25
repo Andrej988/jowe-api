@@ -12,12 +12,12 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 resource "aws_iam_role" "jowe_api_lambda_crud" {
-  name               = var.ENV == "dev" ? "${var.app_name}-api-lambda-crud-dev" : "${var.app_name}-api-lambda-crud"
+  name               = var.ENV == "dev" ? "${var.APP_NAME}-api-lambda-crud-dev" : "${var.APP_NAME}-api-lambda-crud"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
 resource "aws_iam_role" "jowe_api_lambda_read_only" {
-  name               = var.ENV == "dev" ? "${var.app_name}-api-lambda-read-only-dev" : "${var.app_name}-api-lambda-read-only"
+  name               = var.ENV == "dev" ? "${var.APP_NAME}-api-lambda-read-only-dev" : "${var.APP_NAME}-api-lambda-read-only"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
 }
 
@@ -57,10 +57,10 @@ resource "aws_iam_role_policy_attachment" "jowe_api_lambda_dynamodb_read_only_ro
 
 resource "aws_iam_role_policy_attachment" "jowe_api_lambda_sqs_processing_weight_measurements_delete_user_data_role_attachment" {
   role       = aws_iam_role.jowe_api_lambda_crud.name
-  policy_arn = var.sns_and_sqs_policies["sqs_weight_measurements_delete_user_data_queue"]
+  policy_arn = var.sns_and_sqs["sqs_weight_measurements_delete_user_data_queue"]["policy_arn"]
 }
 
 resource "aws_iam_role_policy_attachment" "jowe_api_lambda_sqs_processing_weight_targets_delete_user_data_role_attachment" {
   role       = aws_iam_role.jowe_api_lambda_crud.name
-  policy_arn = var.sns_and_sqs_policies["sqs_weight_targets_delete_user_data_queue"]
+  policy_arn = var.sns_and_sqs["sqs_weight_targets_delete_user_data_queue"]["policy_arn"]
 }

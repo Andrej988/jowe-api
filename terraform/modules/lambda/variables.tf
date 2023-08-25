@@ -1,7 +1,7 @@
 variable "ENV" {}
-variable "app_name" {}
-variable "project_name" {}
+variable "APP_NAME" {}
+variable "PROJECT_NAME" {}
+variable "USER_DATA_DELETION_CRON" {}
 variable "dynamodb_policies" {}
 variable "dynamodb_tables" {}
-variable "sns_and_sqs_arns" {}
-variable "sns_and_sqs_policies" {}
+variable "sns_and_sqs" {}
