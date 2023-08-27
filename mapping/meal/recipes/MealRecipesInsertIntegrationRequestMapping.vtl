@@ -2,9 +2,9 @@
 {
   "recipe" : {
     "userId": "$context.authorizer.claims.sub",
-    "name": $inputRoot.recipe.name,
-    "ingredients": $inputRoot.recipe.ingredients,
-    "preparation": $inputRoot.recipe.preparation,
-    "preparationTime": $inputRoot.recipe.preparationTime
+    "name": "$inputRoot.recipe.name",
+    "ingredients": "$inputRoot.recipe.ingredients",
+    "preparation": "$inputRoot.recipe.preparation",
+    "preparationTime": "$inputRoot.recipe.preparationTime"
   }
 }
