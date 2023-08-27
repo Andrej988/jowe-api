@@ -1,10 +1,10 @@
 #set($inputRoot = $input.path('$'))
 {
-  "measurement" : {
+  "recipe" : {
     "userId": "$context.authorizer.claims.sub",
-    "name": $inputRoot.measurement.name,
-    "ingredients": $inputRoot.measurement.ingredients,
-    "preparation": $inputRoot.measurement.preparation,
-    "preparationTime": $inputRoot.measurement.preparationTime
+    "name": $inputRoot.recipe.name,
+    "ingredients": $inputRoot.recipe.ingredients,
+    "preparation": $inputRoot.recipe.preparation,
+    "preparationTime": $inputRoot.recipe.preparationTime
   }
 }
