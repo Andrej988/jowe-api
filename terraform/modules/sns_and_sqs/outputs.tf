@@ -6,6 +6,13 @@ output "sns_and_sqs" {
       policy_arn = aws_iam_policy.sns_delete_user_data_topic_publish_policy.arn
     }
 
+    sqs_meal_recipes_delete_user_data_queue = {
+      arn             = aws_sqs_queue.meal_recipes_delete_user_data_queue.arn
+      url             = aws_sqs_queue.meal_recipes_delete_user_data_queue.url
+      policy_arn      = aws_iam_policy.sqs_meal_recipes_delete_user_data_queue_process_policy.arn
+      dead_letter_arn = aws_sqs_queue.meal_recipes_delete_user_data_dead_letter_queue.arn
+    }
+
     sqs_weight_measurements_delete_user_data_queue = {
       arn             = aws_sqs_queue.weight_measurements_delete_user_data_queue.arn
       url             = aws_sqs_queue.weight_measurements_delete_user_data_queue.url

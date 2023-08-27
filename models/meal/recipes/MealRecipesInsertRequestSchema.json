@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "MealRecipesInsertRequestSchema",
+  "type": "object",
+  "properties": {
+    "recipe": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "ingredients": { "type": "string" },
+        "preparation": { "type": "string" },
+        "preparationTime": { "type": "number" }
+      },
+      "required": ["name", "ingredients", "preparation", "preparationTime"]
+    }
+  },
+  "required": ["recipe"]
+}

@@ -1,4 +1,4 @@
-resource "aws_api_gateway_model" "weight_measurments_insert_request" {
+resource "aws_api_gateway_model" "weight_measurements_insert_request" {
   rest_api_id  = aws_api_gateway_rest_api.jowe_api.id
   name         = "WeightMeasurementsInsertRequestSchema"
   description  = "Weight measurement Insert Request Data"
@@ -7,7 +7,7 @@ resource "aws_api_gateway_model" "weight_measurments_insert_request" {
   schema = file("./models/weight/measurements/WeightMeasurementsInsertRequestSchema.json")
 }
 
-resource "aws_api_gateway_model" "weight_measurments_response" {
+resource "aws_api_gateway_model" "weight_measurements_response" {
   rest_api_id  = aws_api_gateway_rest_api.jowe_api.id
   name         = "WeightMeasurementsResponseSchema"
   description  = "Weight measurements Response Data"
@@ -16,7 +16,7 @@ resource "aws_api_gateway_model" "weight_measurments_response" {
   schema = file("./models/weight/measurements/WeightMeasurementsResponseSchema.json")
 }
 
-resource "aws_api_gateway_model" "weight_measurment_response" {
+resource "aws_api_gateway_model" "weight_measurement_response" {
   rest_api_id  = aws_api_gateway_rest_api.jowe_api.id
   name         = "WeightMeasurementResponseSchema"
   description  = "Weight measurement Response Data"

@@ -30,3 +30,13 @@ resource "aws_cloudwatch_event_target" "user_data_deletion_schedule_weight_targe
     aws_lambda_function.weight_targets_delete_user_data_lambda
   ]
 }
+
+resource "aws_cloudwatch_event_target" "user_data_deletion_schedule_meal_recipes" {
+  rule = aws_cloudwatch_event_rule.user_data_deletion_schedule.name
+  arn  = aws_lambda_function.meal_recipes_delete_user_data_lambda.arn
+
+  depends_on = [
+    aws_cloudwatch_event_rule.user_data_deletion_schedule,
+    aws_lambda_function.meal_recipes_delete_user_data_lambda
+  ]
+}

@@ -5,23 +5,11 @@ import { UpdateItemCommand } from "@aws-sdk/client-dynamodb";
 // Retrieved from lambda layers
 import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
+import {
+  addOptionalStringParam,
+  addOptionalNumericParam,
+} from "/opt/nodejs/dynamodb/utils.mjs";
 import { buildMeasurementFromDynamoDbRecord } from "/opt/nodejs/measurements/utils.mjs";
-
-const addOptionalStringParam = (params, key, value) => {
-  if (value) {
-    params.ExpressionAttributeValues[key] = { S: value };
-  } else {
-    params.ExpressionAttributeValues[key] = { NULL: true };
-  }
-};
-
-const addOptionalNumericParam = (params, key, value) => {
-  if (value) {
-    params.ExpressionAttributeValues[key] = { N: "" + value };
-  } else {
-    params.ExpressionAttributeValues[key] = { NULL: true };
-  }
-};
 
 export const handler = async (event) => {
   console.info("measurement: ", event.measurement);

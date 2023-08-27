@@ -12,7 +12,7 @@ resource "aws_api_gateway_method" "weight_measurements_id_method_put" {
 
 resource "aws_lambda_permission" "gateway_lambda_permission_put_weight_measurement" {
   action        = "lambda:InvokeFunction"
-  function_name = var.api_lambdas_names["weight_measurements_edit"]
+  function_name = var.api_lambdas["weight_measurements_edit"]["function_name"]
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/PUT/weight/measurements/{measurementId}"
@@ -32,7 +32,7 @@ resource "aws_api_gateway_integration" "weight_measurements_id_integration_put" 
   integration_http_method = "POST"
 
   type = "AWS"
-  uri  = var.api_lambdas_arns["weight_measurements_edit"]
+  uri  = var.api_lambdas["weight_measurements_edit"]["invoke_arn"]
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {

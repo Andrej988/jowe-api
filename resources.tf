@@ -25,7 +25,6 @@ module "lambda" {
   APP_NAME                = var.APP_NAME
   PROJECT_NAME            = var.PROJECT_NAME
   USER_DATA_DELETION_CRON = var.USER_DATA_DELETION_CRON
-  dynamodb_policies       = module.db.dynamodb_policies
   dynamodb_tables         = module.db.dynamodb_tables
   sns_and_sqs             = module.sns_and_sqs.sns_and_sqs
 }
@@ -39,8 +38,7 @@ module "api" {
   APP_NAME              = var.APP_NAME
   PROJECT_NAME          = var.PROJECT_NAME
   cognito_user_pool_arn = module.auth.cognito_user_pool_arn
-  api_lambdas_arns      = module.lambda.api_lambdas_arns
-  api_lambdas_names     = module.lambda.api_lambdas_names
+  api_lambdas           = module.lambda.api_lambdas
   sns_and_sqs           = module.sns_and_sqs.sns_and_sqs
   CORS_ALLOWED_ORIGIN   = var.CORS_ALLOWED_ORIGIN
 }

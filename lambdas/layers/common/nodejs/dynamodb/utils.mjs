@@ -56,3 +56,19 @@ export const deleteUserData = async (
     console.error(err);
   }
 };
+
+export const addOptionalStringParam = (params, key, value) => {
+  if (value) {
+    params.ExpressionAttributeValues[key] = { S: value };
+  } else {
+    params.ExpressionAttributeValues[key] = { NULL: true };
+  }
+};
+
+export const addOptionalNumericParam = (params, key, value) => {
+  if (value) {
+    params.ExpressionAttributeValues[key] = { N: "" + value };
+  } else {
+    params.ExpressionAttributeValues[key] = { NULL: true };
+  }
+};
