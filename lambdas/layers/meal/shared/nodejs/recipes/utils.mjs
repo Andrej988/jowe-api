@@ -22,28 +22,6 @@ export const buildRecipeFromDynamoDbRecord = (element) => {
   };
 };
 
-/*export const buildRecipeFromReturnValues = (attributes) => {
-  console.log("Attributes:", attributes);
-  return {
-    userId: attributes.UserId.S,
-    measurementId: attributes.MeasurementId.S,
-    timestamp: Number(attributes.Timestamp.N),
-    date: Number(attributes.MeasurementDate.N),
-    note: getOptionalValueString(attributes.Note),
-    lastModified: getOptionalValueNumeric(attributes.LastModified),
-    measurements: {
-      weight: Number(attributes.Weight.N),
-      bodyFatPercentage: getOptionalValueNumeric(attributes.BodyFatPercentage),
-      waterPercentage: getOptionalValueNumeric(attributes.WaterPercentage),
-      muscleMassPercentage: getOptionalValueNumeric(
-        attributes.MuscleMassPercentage
-      ),
-      bonePercentage: getOptionalValueNumeric(attributes.BonePercentage),
-      energyExpenditure: getOptionalValueNumeric(attributes.EnergyExpenditure),
-    },
-  };
-};*/
-
 export const buildDynamoDbParamsRetrieveAllRecipes = (tableName, userId) => {
   return {
     TableName: tableName,
@@ -57,7 +35,7 @@ export const buildDynamoDbParamsRetrieveAllRecipes = (tableName, userId) => {
 export const buildDynamoDbParamsRetrieveSingleRecipe = (
   tableName,
   userId,
-  measurementId
+  recipeId
 ) => {
   return {
     TableName: tableName,

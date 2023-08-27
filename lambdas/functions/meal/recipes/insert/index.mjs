@@ -30,7 +30,7 @@ export const buildRecipe = (tableName, recipe) => {
         S: recipe.preparation,
       },
       PreparationTime: {
-        S: recipe.preparationTime,
+        N: recipe.preparationTime,
       },
       Created: {
         N: "" + Date.now(),

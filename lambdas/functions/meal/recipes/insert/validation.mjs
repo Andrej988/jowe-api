@@ -10,19 +10,19 @@ export const validateRecipe = (recipe) => {
 };
 
 const validateName = (value) => {
-  if (value.length > 0) {
+  if (value.length === 0) {
     throw new Error("Name of recipe should be provided!");
   }
 };
 
 const validateIngredients = (value) => {
-  if (value.length > 0) {
+  if (value.length === 0) {
     throw new Error("Ingredients of recipe should be provided!");
   }
 };
 
 const validatePreparation = (value) => {
-  if (value.length > 0) {
+  if (value.length === 0) {
     throw new Error("Preparation of recipe should be provided!");
   }
 };

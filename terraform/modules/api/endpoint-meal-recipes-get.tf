@@ -19,7 +19,7 @@ resource "aws_lambda_permission" "gateway_lambda_permission_retrieve_all_meal_re
   function_name = var.api_lambdas["meal_recipes_retrieve"]["function_name"]
   principal     = "apigateway.amazonaws.com"
 
-  source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/GET/meal/measurements"
+  source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/GET/meal/recipes"
 
   depends_on = [
     aws_api_gateway_rest_api.jowe_api,
