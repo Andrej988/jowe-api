@@ -16,7 +16,7 @@ resource "aws_api_gateway_method" "weight_measurements_id_method_get" {
 
 resource "aws_lambda_permission" "gateway_lambda_permission_get_id_weight_measurement" {
   action        = "lambda:InvokeFunction"
-  function_name = var.api_lambdas_names["weight_measurements_retrieve"]
+  function_name = var.api_lambdas["weight_measurements_retrieve"]["function_name"]
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/GET/weight/measurements/{measurementId}"
@@ -29,7 +29,7 @@ resource "aws_lambda_permission" "gateway_lambda_permission_get_id_weight_measur
 
 resource "aws_lambda_permission" "gateway_lambda_permission_retrieve_single_weight_measurements" {
   action        = "lambda:InvokeFunction"
-  function_name = var.api_lambdas_names["weight_measurements_retrieve"]
+  function_name = var.api_lambdas["weight_measurements_retrieve"]["function_name"]
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/GET/weight/measurements/{measurementId}"
@@ -50,7 +50,7 @@ resource "aws_api_gateway_integration" "weight_measurements_id_integration_get" 
   integration_http_method = "POST"
 
   type = "AWS"
-  uri  = var.api_lambdas_arns["weight_measurements_retrieve"]
+  uri  = var.api_lambdas["weight_measurements_retrieve"]["invoke_arn"]
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {
@@ -70,7 +70,7 @@ resource "aws_api_gateway_method_response" "weight_measurements_id_method_res_ge
   status_code = 200
 
   response_models = {
-    "application/json" = aws_api_gateway_model.weight_measurment_response.name
+    "application/json" = aws_api_gateway_model.weight_measurement_response.name
   }
 
   response_parameters = {
@@ -79,7 +79,7 @@ resource "aws_api_gateway_method_response" "weight_measurements_id_method_res_ge
 
   depends_on = [
     aws_api_gateway_integration.weight_measurements_id_integration_get,
-    aws_api_gateway_model.weight_measurment_response
+    aws_api_gateway_model.weight_measurement_response
   ]
 }
 

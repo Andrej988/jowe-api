@@ -12,7 +12,7 @@ resource "aws_api_gateway_method" "weight_targets_id_method_delete" {
 
 resource "aws_lambda_permission" "gateway_lambda_permission_delete_weight_target" {
   action        = "lambda:InvokeFunction"
-  function_name = var.api_lambdas_names["weight_targets_delete"]
+  function_name = var.api_lambdas["weight_targets_delete"]["function_name"]
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/DELETE/weight/targets/{recordId}"
@@ -32,7 +32,7 @@ resource "aws_api_gateway_integration" "weight_targets_id_integration_delete" {
   integration_http_method = "POST"
 
   type = "AWS"
-  uri  = var.api_lambdas_arns["weight_targets_delete"]
+  uri  = var.api_lambdas["weight_targets_delete"]["invoke_arn"]
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {

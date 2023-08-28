@@ -9,7 +9,7 @@ import {
 
 const REGION = process.env.AWS_REGION;
 
-export const handler = async (event) => {
+export const handler = async (event, context) => {
   console.info("event", event);
 
   const type = event.type;

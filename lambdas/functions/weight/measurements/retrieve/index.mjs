@@ -7,7 +7,7 @@ import {
   retrieveAllMeasurements,
 } from "/opt/nodejs/measurements/utils.mjs";
 
-export const handler = async (event) => {
+export const handler = async (event, context) => {
   console.info("event", event);
   const type = event.type;
   const tableName = process.env.TABLE_NAME;

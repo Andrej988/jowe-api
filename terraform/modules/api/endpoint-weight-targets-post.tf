@@ -21,7 +21,7 @@ resource "aws_api_gateway_method" "weight_targets_method_post" {
 
 resource "aws_lambda_permission" "gateway_lambda_permission_post_weight_targets" {
   action        = "lambda:InvokeFunction"
-  function_name = var.api_lambdas_names["weight_targets_insert"]
+  function_name = var.api_lambdas["weight_targets_insert"]["function_name"]
   principal     = "apigateway.amazonaws.com"
 
   source_arn = "${aws_api_gateway_rest_api.jowe_api.execution_arn}/*/POST/weight/targets"
@@ -38,7 +38,7 @@ resource "aws_api_gateway_integration" "weight_targets_integration_post" {
   http_method             = aws_api_gateway_method.weight_targets_method_post.http_method
   integration_http_method = aws_api_gateway_method.weight_targets_method_post.http_method
   type                    = "AWS"
-  uri                     = var.api_lambdas_arns["weight_targets_insert"]
+  uri                     = var.api_lambdas["weight_targets_insert"]["invoke_arn"]
 
   passthrough_behavior = "WHEN_NO_TEMPLATES"
   request_templates = {

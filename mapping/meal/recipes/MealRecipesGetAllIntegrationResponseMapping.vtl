@@ -1,0 +1,4 @@
+#set($hasNoRecipes =  $input.json('$.body.recipes').isEmpty())
+{
+  "recipes": #if($hasNoRecipes) [] #else $input.json('$.body.recipes') #end
+}

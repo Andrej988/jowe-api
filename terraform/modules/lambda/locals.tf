@@ -8,6 +8,11 @@ locals {
 
   lambda_function_names = {
     common_delete_user_data              = var.ENV == "dev" ? "${var.APP_NAME}-api-common-delete-user-data-dev" : "${var.APP_NAME}-api-common-delete-user-data"
+    meal_recipes_delete                  = var.ENV == "dev" ? "${var.APP_NAME}-api-meal-recipes-delete-dev" : "${var.APP_NAME}-api-meal-recipes-delete"
+    meal_recipes_delete_user_data        = var.ENV == "dev" ? "${var.APP_NAME}-api-meal-recipes-delete-user-data-dev" : "${var.APP_NAME}-api-meal-recipes-delete-user-data"
+    meal_recipes_insert                  = var.ENV == "dev" ? "${var.APP_NAME}-api-meal-recipes-insert-dev" : "${var.APP_NAME}-api-meal-recipes-insert"
+    meal_recipes_edit                    = var.ENV == "dev" ? "${var.APP_NAME}-api-meal-recipes-edit-dev" : "${var.APP_NAME}-api-meal-recipes-edit"
+    meal_recipes_retrieve                = var.ENV == "dev" ? "${var.APP_NAME}-api-meal-recipes-retrieve-dev" : "${var.APP_NAME}-api-meal-recipes-retrieve"
     weight_measurements_delete           = var.ENV == "dev" ? "${var.APP_NAME}-api-weight-measurements-delete-dev" : "${var.APP_NAME}-api-weight-measurements-delete"
     weight_measurements_delete_user_data = var.ENV == "dev" ? "${var.APP_NAME}-api-weight-measurements-delete-user-data-dev" : "${var.APP_NAME}-api-weight-measurements-delete-user-data"
     weight_measurements_insert           = var.ENV == "dev" ? "${var.APP_NAME}-api-weight-measurements-insert-dev" : "${var.APP_NAME}-api-weight-measurements-insert"
@@ -21,13 +26,15 @@ locals {
 
   lambda_directories = {
     functions_common              = "./lambdas/functions/common/"
+    functions_meal_recipes        = "./lambdas/functions/meal/recipes"
     functions_weight_measurements = "./lambdas/functions/weight/measurements"
     functions_weight_targets      = "./lambdas/functions/weight/target"
     layers_base                   = "./lambdas/layers"
   }
 
   lambda_table_names = {
-    weight_measurements = var.dynamodb_tables["weight_measurements"]
-    weight_targets      = var.dynamodb_tables["weight_targets"]
+    meal_recipes        = var.dynamodb_tables["meal_recipes"]["name"]
+    weight_measurements = var.dynamodb_tables["weight_measurements"]["name"]
+    weight_targets      = var.dynamodb_tables["weight_targets"]["name"]
   }
 }

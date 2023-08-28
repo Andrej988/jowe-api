@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "MealRecipesResponseSchema",
+  "type": "object",
+  "properties": {
+    "recipes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "userId": { "type": "string" },
+          "recipeId": { "type": "string" },
+          "name": { "type": "string" },
+          "ingredients": { "type": "string" },
+          "preparation": { "type": "string" },
+          "preparationTime": { "type": "number" },
+          "favorite": { "type": "boolean" },
+          "created": { "type": "number" },
+          "lastModified": { "type": "number" }
+        },
+        "required": [
+          "userId",
+          "recipeId",
+          "name",
+          "ingredients",
+          "preparation",
+          "preparationTime",
+          "favorite",
+          "created",
+          "lastModified"
+        ]
+      }
+    }
+  },
+  "required": ["recipes"]
+}

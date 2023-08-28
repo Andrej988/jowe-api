@@ -1,0 +1,4 @@
+#set($hasRecipe =  $input.json('$.body.recipes')  != "")
+{
+  "recipe": #if($hasRecipe) $input.json('$.body.recipe') #else {} #end
+}
