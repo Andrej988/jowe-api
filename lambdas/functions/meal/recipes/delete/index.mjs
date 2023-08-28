@@ -6,7 +6,7 @@ import { DeleteItemCommand } from "@aws-sdk/client-dynamodb";
 import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
 
-export const handler = async (event) => {
+export const handler = async (event, context) => {
   const params = {
     TableName: process.env.TABLE_NAME,
     Key: {

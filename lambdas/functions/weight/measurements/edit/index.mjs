@@ -11,7 +11,7 @@ import {
 } from "/opt/nodejs/dynamodb/utils.mjs";
 import { buildMeasurementFromDynamoDbRecord } from "/opt/nodejs/measurements/utils.mjs";
 
-export const handler = async (event) => {
+export const handler = async (event, context) => {
   console.info("measurement: ", event.measurement);
   console.info("userId: ", event.measurement.userId);
 

@@ -7,7 +7,7 @@ import { buildResponse, buildErrorResponse } from "/opt/nodejs/reqResUtils.mjs";
 import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
 import { buildRecipeFromDynamoDbRecord } from "/opt/nodejs/recipes/utils.mjs";
 
-export const handler = async (event) => {
+export const handler = async (event, context) => {
   console.info("recipe: ", event.recipe);
   console.info("userId: ", event.recipe.userId);
 
@@ -25,23 +25,26 @@ export const handler = async (event) => {
   const params = {
     TableName: tableName,
     Key: {
-      UserId: { S: measurement.userId },
-      RecipeId: { S: measurement.recipeId },
+      UserId: { S: recipe.userId },
+      RecipeId: { S: recipe.recipeId },
     },
     UpdateExpression:
-      "set Name = :name, Ingredients = :ingredients, Preparation = :preparation, PreparationTime = :preparationTime, LastModified = :lastModified",
+      "set #name = :name, Ingredients = :ingredients, Preparation = :preparation, PreparationTime = :preparationTime, LastModified = :lastModified",
+    ExpressionAttributeNames: {
+      "#name": "Name",
+    },
     ExpressionAttributeValues: {
       ":name": {
-        S: "" + measurement.name,
+        S: "" + recipe.name,
       },
       ":ingredients": {
-        S: "" + measurement.ingredients,
+        S: "" + recipe.ingredients,
       },
       ":preparation": {
-        S: "" + measurement.preparation,
+        S: "" + recipe.preparation,
       },
       ":preparationTime": {
-        S: "" + measurement.preparationTime,
+        N: "" + recipe.preparationTime,
       },
       ":lastModified": {
         N: "" + Date.now(),

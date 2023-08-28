@@ -20,7 +20,7 @@ const buildDeleteRequest = (item) => {
   };
 };
 
-export const handler = async (event) => {
+export const handler = async (event, context) => {
   console.log("event", event);
 
   const SQS_QUEUE_URL = process.env.SQS_QUEUE_URL;
