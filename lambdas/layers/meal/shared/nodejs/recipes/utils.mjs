@@ -3,10 +3,6 @@
 import { GetItemCommand, QueryCommand } from "@aws-sdk/client-dynamodb";
 
 import { ddbClient } from "/opt/nodejs/dynamodb/client.mjs";
-/*import {
-  getOptionalValueString,
-  getOptionalValueNumeric,
-} from "/opt/nodejs/utils.mjs";*/
 
 export const buildRecipeFromDynamoDbRecord = (element) => {
   console.log("element:", element);
@@ -17,6 +13,7 @@ export const buildRecipeFromDynamoDbRecord = (element) => {
     ingredients: element.Ingredients.S,
     preparation: element.Preparation.S,
     preparationTime: Number(element.PreparationTime.N),
+    favorite: element.Favorite.BOOL,
     created: Number(element.Created.N),
     lastModified: Number(element.LastModified.N),
   };

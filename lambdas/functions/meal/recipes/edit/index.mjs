@@ -20,6 +20,7 @@ export const handler = async (event, context) => {
     ingredients: event.recipe.ingredients,
     preparation: event.recipe.preparation,
     preparationTime: event.recipe.preparationTime,
+    favorite: event.recipe.favorite,
   };
 
   const params = {
@@ -29,7 +30,7 @@ export const handler = async (event, context) => {
       RecipeId: { S: recipe.recipeId },
     },
     UpdateExpression:
-      "set #name = :name, Ingredients = :ingredients, Preparation = :preparation, PreparationTime = :preparationTime, LastModified = :lastModified",
+      "set #name = :name, Ingredients = :ingredients, Preparation = :preparation, PreparationTime = :preparationTime, Favorite = :favorite, LastModified = :lastModified",
     ExpressionAttributeNames: {
       "#name": "Name",
     },
@@ -45,6 +46,9 @@ export const handler = async (event, context) => {
       },
       ":preparationTime": {
         N: "" + recipe.preparationTime,
+      },
+      ":favorite": {
+        BOOL: recipe.favorite,
       },
       ":lastModified": {
         N: "" + Date.now(),

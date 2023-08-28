@@ -30,7 +30,10 @@ export const buildRecipe = (tableName, recipe) => {
         S: recipe.preparation,
       },
       PreparationTime: {
-        N: recipe.preparationTime,
+        N: "" + recipe.preparationTime,
+      },
+      Favorite: {
+        BOOL: recipe.favorite,
       },
       Created: {
         N: "" + Date.now(),
@@ -56,6 +59,7 @@ export const handler = async (event, context) => {
     ingredients: event.recipe.ingredients,
     preparation: event.recipe.preparation,
     preparationTime: event.recipe.preparationTime,
+    favorite: event.recipe.favorite,
   };
 
   let response;

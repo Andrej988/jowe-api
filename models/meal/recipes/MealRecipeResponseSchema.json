@@ -12,6 +12,7 @@
         "ingredients": { "type": "string" },
         "preparation": { "type": "string" },
         "preparationTime": { "type": "number" },
+        "favorite": { "type": "boolean" },
         "created": { "type": "number" },
         "lastModified": { "type": "number" }
       },
@@ -22,6 +23,7 @@
         "ingredients",
         "preparation",
         "preparationTime",
+        "favorite",
         "created",
         "lastModified"
       ]

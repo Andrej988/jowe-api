@@ -9,9 +9,16 @@
         "name": { "type": "string" },
         "ingredients": { "type": "string" },
         "preparation": { "type": "string" },
-        "preparationTime": { "type": "number" }
+        "preparationTime": { "type": "number" },
+        "favorite": { "type": "boolean" }
       },
-      "required": ["name", "ingredients", "preparation", "preparationTime"]
+      "required": [
+        "name",
+        "ingredients",
+        "preparation",
+        "preparationTime",
+        "favorite"
+      ]
     }
   },
   "required": ["recipe"]
