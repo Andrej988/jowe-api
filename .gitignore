@@ -152,4 +152,4 @@ terraform.rc
 **/terraform-init.cmd
 
 # Local main file
-main.local.tf
+main.tf.local
