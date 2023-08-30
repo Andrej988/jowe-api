@@ -1,5 +1,10 @@
 terraform {
-  cloud {}
+  cloud {
+    organization = "initialised-si"
+    workspaces {
+      name = "JoWe-API-Dev"
+    }
+  }
   required_providers {
     aws = {
       source  = "hashicorp/aws"

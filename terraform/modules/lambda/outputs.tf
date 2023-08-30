@@ -1,6 +1,11 @@
 output "api_lambdas" {
   description = "Lambdas used for API"
   value = {
+    masterdata_list_values_retrieve = {
+      function_name = aws_lambda_function.list_values_retrieve_lambda.function_name
+      invoke_arn    = aws_lambda_function.list_values_retrieve_lambda.invoke_arn
+    }
+
     meal_recipes_insert = {
       function_name = aws_lambda_function.meal_recipes_insert_lambda.function_name
       invoke_arn    = aws_lambda_function.meal_recipes_insert_lambda.invoke_arn

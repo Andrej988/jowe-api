@@ -29,6 +29,44 @@ resource "aws_api_gateway_deployment" "jowe_api_deployment" {
     aws_api_gateway_method.delete_user_data_method_post,
     aws_api_gateway_integration.delete_user_data_integration_post,
 
+    # Masterdata
+    aws_api_gateway_resource.masterdata_resource,
+
+    # Masterdata List Values
+    aws_api_gateway_resource.masterdata_list_values_resource,
+    aws_api_gateway_method.masterdata_list_values_method_options,
+    aws_api_gateway_integration.masterdata_list_values_integration_options,
+
+    # Masterdata List Values / Id
+    aws_api_gateway_resource.masterdata_list_values_id_resource,
+    aws_api_gateway_method.masterdata_list_values_id_method_options,
+    aws_api_gateway_integration.masterdata_list_values_id_integration_options,
+    aws_api_gateway_method.masterdata_list_values_id_method_get,
+    aws_api_gateway_integration.masterdata_list_values_id_integration_get,
+
+    # Meal Planner
+    aws_api_gateway_resource.meal_resource,
+
+    # Meal Recipes Endpoint
+    aws_api_gateway_resource.meal_recipes_resource,
+    aws_api_gateway_method.meal_recipes_method_options,
+    aws_api_gateway_integration.meal_recipes_integration_options,
+    aws_api_gateway_method.meal_recipes_method_get,
+    aws_api_gateway_integration.meal_recipes_integration_get,
+    aws_api_gateway_method.meal_recipes_method_post,
+    aws_api_gateway_integration.meal_recipes_integration_post,
+
+    # Meal Recipes/Id Endpoint
+    aws_api_gateway_resource.meal_recipes_id_resource,
+    aws_api_gateway_method.meal_recipes_id_method_options,
+    aws_api_gateway_integration.meal_recipes_id_integration_options,
+    aws_api_gateway_method.meal_recipes_id_method_get,
+    aws_api_gateway_integration.meal_recipes_id_integration_get,
+    aws_api_gateway_method.meal_recipes_id_method_delete,
+    aws_api_gateway_integration.meal_recipes_id_integration_delete,
+    aws_api_gateway_method.meal_recipes_id_method_put,
+    aws_api_gateway_integration.meal_recipes_id_integration_put,
+
     # Weight Resource
     aws_api_gateway_resource.weight_resource,
 

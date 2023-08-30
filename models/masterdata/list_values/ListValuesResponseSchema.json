@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ListValuesResponseSchema",
+  "type": "object",
+  "properties": {
+    "values": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": { "type": "string" },
+          "quantities": { "type": "array", "items": { "type": "string" } },
+          "variations": { "type": "array", "items": { "type": "string" } }
+        },
+        "required": ["value"]
+      }
+    }
+  },
+  "required": ["values"]
+}
