@@ -9,8 +9,8 @@ export const buildListValueFromDynamoDbRecord = (element) => {
   console.log("element:", element);
   return {
     value: element.Value.S,
-    quantities: getOptionalValueStringSet(element.Quantities),
-    variations: getOptionalValueStringSet(element.Variations),
+    stringSet1: getOptionalValueStringSet(element.StringSet1),
+    stringSet2: getOptionalValueStringSet(element.StringSet2),
   };
 };
 
