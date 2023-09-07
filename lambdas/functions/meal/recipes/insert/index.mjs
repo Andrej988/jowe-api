@@ -24,7 +24,7 @@ export const buildRecipe = (tableName, recipe) => {
         S: recipe.name,
       },
       Ingredients: {
-        S: recipe.ingredients,
+        S: JSON.stringify(recipe.ingredients),
       },
       Preparation: {
         S: recipe.preparation,

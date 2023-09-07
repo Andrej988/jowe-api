@@ -36,13 +36,13 @@ export const handler = async (event, context) => {
     },
     ExpressionAttributeValues: {
       ":name": {
-        S: "" + recipe.name,
+        S: recipe.name,
       },
       ":ingredients": {
-        S: "" + recipe.ingredients,
+        S: "" + JSON.stringify(recipe.ingredients),
       },
       ":preparation": {
-        S: "" + recipe.preparation,
+        S: recipe.preparation,
       },
       ":preparationTime": {
         N: "" + recipe.preparationTime,

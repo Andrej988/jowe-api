@@ -10,6 +10,10 @@ export const getOptionalValueString = (value) => {
   return value !== undefined && value.S !== "" ? value.S : undefined;
 };
 
+export const getOptionalValueStringSet = (value) => {
+  return value !== undefined && value.SS !== "" ? value.SS : undefined;
+};
+
 export const getOptionalValueNumeric = (value) => {
   return value !== undefined && value.N !== undefined
     ? Number(value.N)

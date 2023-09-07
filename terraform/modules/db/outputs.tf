@@ -2,6 +2,20 @@ output "dynamodb_tables" {
   description = "Output data related to dynamodb tables"
 
   value = {
+    list_values = {
+      name = aws_dynamodb_table.jowe_list_values.name
+      policies = {
+        read_write = aws_iam_policy.dynamodb_list_values_crud_policy.arn
+        read_only  = aws_iam_policy.dynamodb_list_values_read_only_policy.arn
+      }
+    }
+    meal_recipes = {
+      name = aws_dynamodb_table.jowe_meal_recipes.name
+      policies = {
+        read_write = aws_iam_policy.dynamodb_meal_recipes_crud_policy.arn
+        read_only  = aws_iam_policy.dynamodb_meal_recipes_read_only_policy.arn
+      }
+    }
     weight_measurements = {
       name = aws_dynamodb_table.jowe_measurements.name
       policies = {
@@ -16,13 +30,6 @@ output "dynamodb_tables" {
         read_only  = aws_iam_policy.dynamodb_weight_target_read_only_policy.arn
       }
 
-    }
-    meal_recipes = {
-      name = aws_dynamodb_table.jowe_meal_recipes.name
-      policies = {
-        read_write = aws_iam_policy.dynamodb_meal_recipes_crud_policy.arn
-        read_only  = aws_iam_policy.dynamodb_meal_recipes_read_only_policy.arn
-      }
     }
   }
 }

@@ -8,6 +8,7 @@ locals {
 
   lambda_function_names = {
     common_delete_user_data              = var.ENV == "dev" ? "${var.APP_NAME}-api-common-delete-user-data-dev" : "${var.APP_NAME}-api-common-delete-user-data"
+    list_values_retrieve                 = var.ENV == "dev" ? "${var.APP_NAME}-api-list-values-retrieve-dev" : "${var.APP_NAME}-api-list-values-retrieve"
     meal_recipes_delete                  = var.ENV == "dev" ? "${var.APP_NAME}-api-meal-recipes-delete-dev" : "${var.APP_NAME}-api-meal-recipes-delete"
     meal_recipes_delete_user_data        = var.ENV == "dev" ? "${var.APP_NAME}-api-meal-recipes-delete-user-data-dev" : "${var.APP_NAME}-api-meal-recipes-delete-user-data"
     meal_recipes_insert                  = var.ENV == "dev" ? "${var.APP_NAME}-api-meal-recipes-insert-dev" : "${var.APP_NAME}-api-meal-recipes-insert"
@@ -26,6 +27,7 @@ locals {
 
   lambda_directories = {
     functions_common              = "./lambdas/functions/common/"
+    functions_list_values         = "./lambdas/functions/masterdata/list_values"
     functions_meal_recipes        = "./lambdas/functions/meal/recipes"
     functions_weight_measurements = "./lambdas/functions/weight/measurements"
     functions_weight_targets      = "./lambdas/functions/weight/target"
@@ -33,6 +35,7 @@ locals {
   }
 
   lambda_table_names = {
+    list_values         = var.dynamodb_tables["list_values"]["name"]
     meal_recipes        = var.dynamodb_tables["meal_recipes"]["name"]
     weight_measurements = var.dynamodb_tables["weight_measurements"]["name"]
     weight_targets      = var.dynamodb_tables["weight_targets"]["name"]

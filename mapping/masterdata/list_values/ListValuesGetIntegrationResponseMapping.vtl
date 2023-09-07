@@ -1,0 +1,4 @@
+#set($hasValues =  $input.json('$.body.values').isEmpty())
+{
+  "values": #if($hasValues) [] #else $input.json('$.body.values') #end
+}
