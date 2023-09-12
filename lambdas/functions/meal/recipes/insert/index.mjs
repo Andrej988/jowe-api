@@ -26,11 +26,17 @@ export const buildRecipe = (tableName, recipe) => {
       Ingredients: {
         S: JSON.stringify(recipe.ingredients),
       },
+      ServingSize: {
+        S: recipe.servingSize,
+      },
       Preparation: {
         S: recipe.preparation,
       },
       PreparationTime: {
         N: "" + recipe.preparationTime,
+      },
+      Notes: {
+        S: recipe.notes,
       },
       Favorite: {
         BOOL: recipe.favorite,
@@ -57,8 +63,10 @@ export const handler = async (event, context) => {
     recipeId: randomUUID(),
     name: event.recipe.name,
     ingredients: event.recipe.ingredients,
+    servingSize: event.recipe.servingSize,
     preparation: event.recipe.preparation,
     preparationTime: event.recipe.preparationTime,
+    notes: event.recipe.notes,
     favorite: event.recipe.favorite,
   };
 

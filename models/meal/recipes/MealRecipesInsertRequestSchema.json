@@ -9,7 +9,9 @@
         "name": { "type": "string" },
         "ingredients": { "type": "string" },
         "preparation": { "type": "string" },
+        "servingSize": { "type": "string" },
         "preparationTime": { "type": "number" },
+        "notes": { "type": "string" },
         "favorite": { "type": "boolean" }
       },
       "required": [
