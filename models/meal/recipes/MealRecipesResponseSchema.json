@@ -12,8 +12,10 @@
           "recipeId": { "type": "string" },
           "name": { "type": "string" },
           "ingredients": { "type": "string" },
+          "servingSize": { "type": "string" },
           "preparation": { "type": "string" },
           "preparationTime": { "type": "number" },
+          "notes": { "type": "string" },
           "favorite": { "type": "boolean" },
           "created": { "type": "number" },
           "lastModified": { "type": "number" }

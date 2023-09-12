@@ -4,8 +4,10 @@
     "userId": "$context.authorizer.claims.sub",
     "name": "$inputRoot.recipe.name",
     "ingredients": $inputRoot.recipe.ingredients,
+    "servingSize": "$inputRoot.recipe.servingSize",
     "preparation": "$inputRoot.recipe.preparation",
     "preparationTime": $inputRoot.recipe.preparationTime,
+    "notes": "$inputRoot.recipe.notes",
     "favorite": $inputRoot.recipe.favorite
   }
 }
