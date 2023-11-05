@@ -47,8 +47,7 @@ jobs:
         id: retrieve_commit_msg
         uses: actions/github-script@v5
         with:
-          script: |
-            core.setOutput("commit_message", `${{ github.event.workflow_run.head_commit.message }}`);
+          script: core.setOutput("commit_message", `${{ github.event.workflow_run.head_commit.message }}`);
 
       # Create a Github Release
       - name: Create Github Release
