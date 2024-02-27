@@ -1,6 +1,16 @@
-name: Deploy on Development Environment
+name: Run Terraform Plan Against an Environment
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to run tests agains'
+        required: true
+        default: 'development'
+        type: choice
+        options:
+          - development
+          - production
 
 env:
   TF_CLOUD_ORGANIZATION: "${{ secrets.TF_CLOUD_ORGANIZATION }}"
@@ -14,8 +24,7 @@ jobs:
   terraform:
     name: "Terraform"
     runs-on: ubuntu-latest
-    environment: development
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    environment: ${{ inputs.environment }}
 
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -36,10 +45,19 @@ jobs:
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         id: init
-        run: terraform init
+        run: terraform init -upgrade
+        continue-on-error: false
 
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-      - name: Terraform Apply
+      # Validates terraform configuration
+      - name: Terraform Validate
+        id: validate
+        if: steps.init.outcome != 'failure'
+        run: terraform validate -no-color
+        continue-on-error: false
+
+      # Generates an execution plan for Terraform
+      - name: Terraform Plan
+        id: plan
         env:
           TF_VAR_AWS_CERTIFICATE_ARN: ${{ vars.AWS_CERTIFICATE_ARN }}
           TF_VAR_AWS_REGION: ${{ vars.AWS_REGION }}
@@ -47,4 +65,5 @@ jobs:
           TF_VAR_CORS_ALLOWED_ORIGIN: ${{ vars.CORS_ALLOWED_ORIGIN }}
           TF_VAR_ENV: ${{ vars.ENV }}
           TF_VAR_USER_DATA_DELETION_CRON: ${{ vars.USER_DATA_DELETION_CRON }}
-        run: terraform apply -auto-approve -input=false
+        run: terraform plan -no-color -input=false
+        continue-on-error: false
