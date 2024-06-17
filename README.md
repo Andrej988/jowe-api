@@ -20,3 +20,8 @@ API is built using AWS API Gateway and uses the following AWS services:
 
 ## Background
 JoWe application started as a small proof-of-concept project to learn more about AWS serverless and Terraform. As I poses a semi-smart bathroom scale which is able to obtain also other indicators besides weight, I decided to build a small application to track these measurements and progress over time.
+
+### Infrastructure model
+![Infrastructure main model](.infragenie/infrastructure_main_model.svg)
+
+---
