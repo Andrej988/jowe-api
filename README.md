@@ -20,3 +20,6 @@ API is built using AWS API Gateway and uses the following AWS services:
 
 ## Background
 JoWe application started as a small proof-of-concept project to learn more about AWS serverless and Terraform. As I poses a semi-smart bathroom scale which is able to obtain also other indicators besides weight, I decided to build a small application to track these measurements and progress over time.
+
+### Infrastructure model
+![Andrej988_jowe-api](https://github.com/Andrej988/jowe-api/assets/173192552/87a858d0-5d16-40fc-9f19-97a22eb1ea1e)
