@@ -38,7 +38,7 @@ jobs:
         run: terraform init
 
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-      - name: Terraform Apply
+      - name: Terraform Destroy
         env:
           TF_VAR_AWS_CERTIFICATE_ARN: ${{ vars.AWS_CERTIFICATE_ARN }}
           TF_VAR_AWS_REGION: ${{ vars.AWS_REGION }}
@@ -46,4 +46,4 @@ jobs:
           TF_VAR_CORS_ALLOWED_ORIGIN: ${{ vars.CORS_ALLOWED_ORIGIN }}
           TF_VAR_ENV: ${{ vars.ENV }}
           TF_VAR_USER_DATA_DELETION_CRON: ${{ vars.USER_DATA_DELETION_CRON }}
-        run: terraform apply -auto-approve -input=false
+        run: terraform destroy -auto-approve -input=false
