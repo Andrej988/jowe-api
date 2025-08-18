@@ -1,11 +1,12 @@
 version: 2
-updates:
-  - package-ecosystem: "terraform"
-    directory: "/"
-    schedule:
-      interval: "daily"
-      time: "08:00"
-      timezone: "Europe/Ljubljana"
-    open-pull-requests-limit: 20
-    commit-message:
-      prefix: "[dependabot-terraform]"
+updates: []
+#updates:
+#  - package-ecosystem: "terraform"
+#    directory: "/"
+#    schedule:
+#      interval: "daily"
+#      time: "08:00"
+#      timezone: "Europe/Ljubljana"
+#    open-pull-requests-limit: 20
+#    commit-message:
+#      prefix: "[dependabot-terraform]"
